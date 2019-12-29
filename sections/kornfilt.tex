@@ -1,0 +1,88 @@
+\subsection{\cite{kornfilt2012revisiting}} \label{kornfilt}
+In her 2012 paper, Kornfilt reiterates points in \cite{kornfilt1996some}. Mainly that SA is a syntactic operation much like gapping or ellipsis, that can only target syntactic categories, and she gives her account of RNR (Right Node Raising) to account for SA. She claims that a suffix can be suspended only if it has a syntactic projection. In this way she predicts to posit functional heads like Plural (PlurP), Case (KP), and Possession (PossP) since all three can have SA distinctly ((\ref{heads}), Figure \ref{fig:kornfilt}).
+\begin{exe}
+    \ex \label{heads}
+    \begin{xlist}
+        \ex \label{heads1}
+        \gll 
+        \textit{Kitap} \textit{ve} \textit{defter-ler} \\ book {\And} notebook-{\Pl} \\
+        \glt Reading1: `Books and notebooks' \\ Reading2: `A book and notebooks'
+        
+        \ex \label{heads2}
+        \gll 
+        \textit{Kitap} \textit{ve} \textit{defter-i} \textit{al-dı-m.} \\ book {\And} notebook-{\Acc} buy-{\Pst}-{\First}{\Sg} \\
+        \glt `I bought the book and the notebook.'
+        
+        \ex
+        \gll
+        \textit{Kitap} \textit{ve} \textit{defter-im} \textit{nerede?} \\ book {\And} notebook-{\Poss} where \\
+        \glt Reading1: `Where is the book and my notebook?' \\ Reading2: `Where is my book and notebook?'
+    \end{xlist}
+\end{exe}
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest}
+        [ConjP, s sep= 30mm 
+            [Conj' 
+                [XP_1 
+                    [YP]
+                    [X_1, name=x1]]
+                [Conj]
+                [XP_2 
+                    [YP]
+                    [X_2, name=x2]]]
+            [X, name=x3]]
+\draw[rounded corners=1em, ->] (x1.south) -- ++(south:2em) -| (x3.south);
+\draw[rounded corners=1em, ->] (x2.south) -- ++(south:1em) -| (x3.south);
+    \end{forest}
+    \caption{RNR proposal for SA}
+    \label{fig:kornfilt}
+\end{figure}
+
+This analysis is also the same analysis that Kornfilt provides for backwards ellipsis for a sentence like (\ref{backwardellipsis}) as in Figure \ref{fig:backwardellipsis}.
+
+\begin{exe}
+    \ex \label{backwardellipsis}
+    \gll
+    \textit{Ahmet} \textit{al-dı} \textit{ve} \textit{Mehmet} \textit{sat-tı} \textit{kitab-ı.} \\ Ahmet[{\Nom}] buy-{\Pst}[{\Third}.{\Sg}] {\And} Mehmet[{\Nom}] sell-{\Pst}[{\Third}.{\Sg}] book-{\Acc} \\
+    \glt `Ahmet bought and Mehmet sold the book.'
+\end{exe}
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest}
+        [ConjP, s sep=30mm 
+            [Conj' 
+                [TP 
+                    [DP\\\textit{Ahmet}_i]
+                    [T'
+                        [VoiceP 
+                            [\sout{DP}_i]
+                            [Voice' 
+                                [VP 
+                                    [\sout{DP}, name=tk]
+                                    [V\\\textit{al}]]
+                                [Voice]]]
+                        [T\\\textit{-dı}]]]
+                [Conj\\\textit{ve}]
+                [TP 
+                    [DP\\\textit{Mehmet}_j]
+                    [T' 
+                        [VoiceP 
+                            [\sout{DP}_j] 
+                            [Voice' 
+                                [VP 
+                                    [\sout{DP}, name=tl]
+                                    [V\\\textit{sat}]]
+                                [Voice]]]
+                        [T\\\textit{-tı}]]]]
+            [DP\\\textit{kitab-ı}, name=DP ]]
+        \draw[rounded corners=1em, ->] (tk.south) -- ++(south:2.5em) -| (DP.south);
+        \draw[rounded corners=1em, ->] (tl.south) -- ++(south:1.5em) -| (DP.south);
+    \end{forest}
+    \caption{RNR analysis for Backward Ellipsis}
+    \label{fig:backwardellipsis}
+\end{figure}
+
+This way Kornfilt regards SA as another ellipsis process operating on projection heads instead of phrases.

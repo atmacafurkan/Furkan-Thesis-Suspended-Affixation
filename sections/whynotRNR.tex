@@ -1,0 +1,116 @@
+\section{Why RNR is not a good analysis for SA}
+
+A minor issue with the proposal of suffixes with projections is that the SA versions of the conjunction has ambiguous readings. For example having a dedicated projection for the plural suffix in (\ref{heads1})'s second reading, repeated here for the reader's convenience, could not be represented by Kornfilt's analysis. Since the conjuncts would not be hierarchically equivalent. See Figure (\ref{fig:heads1}) for a representation of (\ref{heads1})'s second reading according to Kornfilt's proposal, e.g. SA capable plural suffix having a projection.
+
+\begin{exe}
+        \exp{heads1} 
+        \gll 
+        \textit{Kitap} \textit{ve} \textit{defter-ler} \\ book {\And} notebook-{\Pl} \\
+        \glt Reading1: `Books and notebooks' \\ Reading2: `A book and notebooks'
+\end{exe}
+
+\begin{figure}[hbt!]
+    \centering
+\begin{forest}
+    [*ConjP 
+        [NP\\\textit{Kitap}]
+        [Conj\\\textit{ve}]
+        [PlurP 
+            [NP\\\textit{defter}]
+            [Plur\\\textit{-ler}]]]
+\end{forest}
+    \caption{Violation of hierarchical equivalence in conjunction}
+    \label{fig:heads1}
+\end{figure}
+
+We can save this representation by giving the NPs a default syntactic head like `Number' instead of Plural, where we have different exponents for its features as in Figure (\ref{fig:heads1fixed}). 
+\begin{figure}[hbt!]
+    \centering
+\begin{forest}
+    for tree={s sep=11mm, inner sep=0}
+    [ConjP 
+        [NumP 
+            [NP\\\textit{Kitap}]
+            [Num\\$\emptyset$]{\draw (.east) node[right]{[+sing]};}] 
+        [Conj\\\textit{ve}]
+        [NumP 
+            [NP\\\textit{defter}]
+            [Num\\\textit{-ler}]{\draw (.east) node[right]{[+plur]};}]]
+\end{forest}
+    \caption{Achieving hierarchical equivalence in conjunction of singular and plural NPs}
+    \label{fig:heads1fixed}
+\end{figure}
+
+However this raises the question of why we do not have a non-referential reading for (\ref{heads2}). It is clear in (\ref{heads}) that SA of the Plural and Possessive suffixes allow for extra interpretations, but Case does not. I take this observation as a direct contradiction to Kornfilt's proposal for SA being only applicable to syntactic category heads, or SA capable suffixes having projections. If we can have separate syntactic heads and contrasting feature settings for those heads, the representation in Figure (\ref{fig:heads2}) should be possible. 
+
+\begin{figure}[hbt!]
+    \centering
+\begin{forest}
+    for tree={s sep=20mm, inner sep=0}
+    [*ConjP 
+        [KP 
+            [DP\\\textit{Kalem}]
+            [K\\$\emptyset$]{\draw (.east) node[right]{[{\Acc}, Non-Ref]};}]
+        [Conj\\\textit{ve}]
+        [KP 
+            [DP\\\textit{defter}]
+            [K\\\textit{-i}]{\draw (.east) node[right]{[{\Acc}, Ref]};}]]
+\end{forest}
+    \caption{Consequence of Case (K) as a syntactic projection for SA of Case in conjunction}
+    \label{fig:heads2}
+\end{figure}
+
+A structure like in Figure (\ref{fig:heads2}) does not exist, as expected, since there is no such reading as non-referential first conjunct and referential second conjunct. Another minor issue that Kornfilt's RNR proposal does not directly address that SA is a rightward bound process, meaning that once the suspension of a suffix is performed all the following suffixes (linearly rightward, thus rightward bound) also need to be suspended. However it might naturally follow from the intuition that a ConjP needs to reach the hierarchical equivalence of its conjunctions, thus a forced RNR of all the rightward bound suffixes. Contra Kornfilt, I do not assume separate syntactic heads for Case, and Number.
+
+Additionally SA deviates from a Backward Ellipsis process that RNR is used to explain. In a linear representation SA can be treated as Backwards Ellipsis (\ref{SAbackwards}, parts inside `\textless\textgreater' indicate elision).
+
+\begin{exe}
+    \ex \label{SAbackwards}
+    \begin{xlist}
+        \ex
+        \gll 
+        \textit{Ev-e} \textit{gel-ecek} \textit{ve} \textit{kardeş-im-i} \textit{gör-ecek} \textit{i-di-m.} \\ house-{\Dat} come-{\Fut}{\textless {\Cop}-{\Pst}-{\First}.{\Sg}\textgreater} {\And} brother-{\Poss}.{\First}.{\Sg}-{\Acc} see-{\Fut} {\Cop}-{\Pst}-{\First}.{\Sg} \\
+        \glt `I would come home and see my brother.'
+        
+        \ex
+        \gll
+        \textit{Kalem} \textit{ve} \textit{kitap-lar-ı} \textit{beğen-di-m.} \\ pencil{\textless {\Pl}-{\Acc}\textgreater} {\And} book-{\Pl}-{\Acc} like-{\Pst}-{\First}.{\Sg} \\
+        \glt `I liked the pencils and the books.'
+    \end{xlist}
+\end{exe}
+
+However some examples of SA distinguish it from both backwards and forward ellipsis. In both ellipsis types, it is possible to overrule mismatches in subject agreements, for which I present examples in (\ref{norespectforAGR}).
+
+\begin{exe}
+    \ex \label{norespectforAGR}
+    \begin{xlist}
+        \ex 
+        \gll 
+        \textit{Ben} \textit{defter-i} \textit{al-mış-ım} \textit{sen} \textit{kitab-ı} \\ {\First}.{\Sg}[{\Nom}] notebook buy-{\Prf}-{\First}.{\Sg} {\Second}.{\Sg}[{\Nom}] book-{\Acc} \\
+        \glt `I bought the notebook and you the book.'
+        
+        \ex 
+        \gll 
+        \textit{Ben} \textit{defter-i} \textit{sen} \textit{kitab-ı} \textit{al-mış-sın} \\ {\First}.{\Sg}[{\Nom}] notebook-{\Acc} {\Second}.{\Sg}[{\Nom}] book-{\Acc} buy-{\Prf}-{\Second}.{\Sg} \\
+        \glt `I bought the notebook, you bought the book.'
+    \end{xlist}
+\end{exe}
+
+Both of the examples in (\ref{norespectforAGR}) reflect a mismatch of agreement, first person singular for the first clause and second person singular for the second clause. Nevertheless, both ellipsis types are able to overrule or disregard this contrast in agreement and elide non-contrasting verb and tense. This is not plausible in SA as illustrated by (\ref{respectforAGR}). For a successful SA both clauses need to have the same agreement settings.
+
+\begin{exe}
+    \ex \label{respectforAGR}
+    \begin{xlist}
+        \ex 
+        \gll
+        \textit{*Ben} \textit{kitab-ı} \textit{al-acak} \textit{o} \textit{defter-i} \textit{sat-acak-mış} \\ {\First}.{\Sg}[{\Nom}] book-{\Acc} buy-{\Fut} 3.{\Sg}[{\Nom}] notebook sell-{\Fut}-{\Cop}.{\Prf}[3.{\Sg}] \\
+        \glt Intended `I was supposed to buy the book and s/he was supposed to sell the notebook.'
+        
+        \ex 
+        \gll 
+        \textit{Ahmet} \textit{kitab-ı} \textit{al-acak} \textit{o} \textit{defter-i} \textit{sat-acak-mış} \\ Ahmet[{\Nom}] book-{\Acc} buy-{\Fut} 3.{\Sg}[{\Nom}] notebook-{\Acc} sell-{\Fut}-{\Cop}.{\Prf}[3.{\Sg}] \\
+        \glt `Ahmet was supposed to buy the book and s/he was supposed to sell the notebook.'
+    \end{xlist}
+\end{exe}
+
+The observations made in (\ref{norespectforAGR}), and (\ref{respectforAGR}) might point to the difference of SA when compared to Backward Ellipsis. In Backward Ellipsis, the elided part needs to abide by the constraints that do not apply to the level of subject agreement whereas in SA contrasts in subject agreement matter. Thus an RNR analysis of SA with or without suffixes as projections is ruled out. 

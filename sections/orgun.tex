@@ -1,0 +1,180 @@
+\subsection{\cite{orgun1995flat}} \label{orgun}
+
+Orgun provides an analysis of SA as a structural sharing process. The so called `suspended' affixes actually take a complex base as shown in Figure \ref{fig:orgun}.
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{tikzpicture}
+    \Tree[.X
+            [.X
+                [.X ]
+                [.Conj ]
+                [.X ]]
+            [.suffix ]
+    ];
+    \end{tikzpicture}
+    \caption{Structural sharing analysis of \cite{orgun1995flat} for SA}
+    \label{fig:orgun}
+\end{figure}
+
+With this analysis in mind, consider (\ref{tebrikler}). 
+\begin{exe}
+    \ex \label{tebrikler}
+    \begin{xlist}
+    \ex 
+    \gll 
+    \textit{tebrik-ler-im} \textit{ve} \textit{teşekkür-ler-im} \\ congrats-{\Pl}-{\Poss}.{\First}.{\Sg} {\And} thanks-{\Pl}-{\Poss}.{\First}.{\Sg} \\
+    
+    \ex \label{tebriklerug}
+    \gll
+    \textit{*tebrik-ler} \textit{ve} \textit{teşekkür-ler-im} \\ congrats-{\Pl} {\And} thanks-{\Pl}-{\Poss}.{\First}.{\Sg} \\
+    
+    \ex \label{tebriklerg}
+    \gll 
+    \textit{tebrik} \textit{ve} \textit{teşekkür-ler-im} \\ congrats {\And} thanks-{\Pl}-{\Poss}.{\First}.{\Sg} \\
+    \glt `My congratulations and thanks'
+    \end{xlist}
+\end{exe}
+
+In a string of NP-{\Pl}-{\Poss}, the suspension of only {\Poss} does not seem to be valid. So far we have seen that SA is a rightward bound process, and suspension of only {\Poss} does not violate this constraint. We have also seen that in a string of NP-{\Poss}, suspension of only {\Poss} is valid (\ref{possSA}).
+
+\begin{exe}
+    \ex \label{possSA}
+    \begin{xlist}
+        \ex 
+        \gll 
+        \textit{Kitab-ım} \textit{ve} \textit{kalem-im} \\ book-{\Poss}.1{\Sg} {\And} pencil-{\Poss}.{\First}.{\Sg} \\
+        
+        \ex 
+        \gll 
+        \textit{Kitap} \textit{ve} \textit{kalem-im} \\ book {\And} pencil-{\Poss}.{\First}.{\Sg} \\
+        \glt `My book and my pencil'
+    \end{xlist}
+\end{exe}
+
+Stemming from the examples in (\ref{tebrikler}), Orgun proposes that the suffixes {\Pl} and {\Poss} need to be placed on the same hierarchical level as a ternary branching (Figure \ref{fig:orgun2}). Since both suffixes are separately able to have a conjoined base, but when both come together suspension of only {\Poss} becomes impossible.
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest}
+        [N
+            [N]
+            [{\Pl}]
+            [{\Poss}]]
+    \end{forest}
+    \caption{Ternary branching analysis of \cite{orgun1995flat}}
+    \label{fig:orgun2}
+\end{figure}
+
+
+Orgun provides a three-way ambiguity of an expression like \textit{it-ler-i} NP-{\Pl}-{\Poss} in Turkish for the support of ternary branching (\ref{itleri}). 
+\begin{exe}
+    \ex \label{itleri}
+    \gll \textit{it-ler-i} \\ dog-{\Pl}-{\Poss}[{\Third}.{\Sg}] \\
+    \glt `her/his dogs' \\ `their dog' \\ `their dogs' \\
+    ${}$ \hfill Adapted from \cite{orgun1995flat}
+\end{exe}
+
+Reading in between the lines, I assume that Orgun takes {\Pl} and {\Poss} suffixes to form a strange relation such that they have a different interaction than any other suffix holds. In such a way that they may form, whenever adjacent, a complex head. In a sense what he is actually proposing is not a ternary branching but a complex head formation. A representation of this formulation reflected on the ungrammatical SA in (\ref{tebriklerug}) is given in Figure \ref{fig:furkan1}.
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{tikzpicture}
+    \Tree[.*N
+            [.N 
+                [.N 
+                    [.\textit{tebrik} ]
+                    [.\textit{-ler} ] ]
+                [.\textit{ve} ]
+                [.\textit{teşekkür} ] ]    
+            [ 
+                [.\textit{-ler} ]
+                [.\textit{im} ] ]
+        ];
+    \end{tikzpicture}
+    \caption{{\Pl} and {\Poss} forming a complex head in ungrammatical SA}
+    \label{fig:furkan1}
+\end{figure}
+
+There are possible problems resulting from the formulation of a complex head in Figure \ref{fig:furkan1}, such as unequivalent conjuncts for the conjunction, and the uninterpretable relation of the complex head \textit{-ler-im} with the noun \textit{tebrik-ler}. The same complex head, however, does not cause a problem for the grammatical SA in (\ref{tebriklerg}) as shown in Figure \ref{fig:furkan2}.
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{tikzpicture}
+    \Tree[.N
+            [.N 
+                [.\textit{tebrik} ]
+                [.\textit{ve} ]
+                [.\textit{teşekkür} ] ]
+            [ 
+                [.\textit{-ler} ]
+                [.\textit{-im} ] ]
+    ];
+    \end{tikzpicture}
+    \caption{{\Pl} and {\Poss} forming a complex head in grammatical SA}
+    \label{fig:furkan2}
+\end{figure}
+
+Figure \ref{fig:furkan2} has equivalent conjuncts and an interpretable relation between the complex suffix \textit{-ler-im} and the nouns \textit{tebrik} `congrats', and \textit{teşekkür} `thanks'. In fact the same three way ambiguity is achievable with this way for an expression like \textit{kedi ve köpek-ler-i} (\ref{tebrikler2}).
+
+\begin{exe}
+    \ex \label{tebrikler2}
+    \gll 
+    \textit{kedi} \textit{ve} \textit{köpek-ler-i} \\ congrats {\And} thanks-{\Pl}-{\Poss} \\
+    \glt `his/ her cats and dogs' \\ `their cat and dog' \\ `their cats and dogs'
+\end{exe}
+
+
+
+Orgun goes on to show that ternary branching is needed for some morphological configurations to satisfy the minimal phonological size $\sigma\sigma$ constraint, citing \cite{ito1989notes}, together with \cite{orgun1992turkish}. While capturing this inseparable {\Pl} and {\Poss} suspension, the paper proposes a structural sharing analysis for SA and a ternary branching for {\Pl} and {\Poss} suffixes. Support for ternary branching in SA comes from somewhat unrelated phonological constraints in affixation of monosyllabic words, i.e. \textit{*do-m} [$\sigma$] `do-{\Poss}.{\First}.{\Sg}', \textit{sol-üm} [$\sigma$-$\sigma$] `sol-{\Poss}.{\First}.{\Sg}'. The ungrammatical SA in (\ref{tebrikler}) is not subject to such a constraint and the three way ambiguity of an expression like \textit{it-ler-i} `dog-{\Pl}-{\Poss}' is not convincing enough to propose ternary branching. In finalizing the observation that Orgun makes, I provided Figures \ref{fig:furkan1} and \ref{fig:furkan2} following the discussion and the examples provided in \cite{orgun1995flat} to paint a more comprehensible picture of his analysis.
+
+% Orgun provides an analysis for SA of the Plural marker \textit{-lAr} and the Possessive marker. The analysis is a flat branching of the markers. See (\ref{flatbranching}) for a representation.
+% \begin{exe}
+%     \ex \label{flatbranching}
+%     \begin{xlist}
+%         \ex 
+%         \gll 
+%         \textit{tebrik-ler-im} \\ congrats-{\Pl}-{\Poss}.{\First}.{\Sg} \\
+%         \glt `My congratulations'
+%         \begin{multicols}{2}
+%         \sn \begin{tikzpicture}
+%         \Tree[.*N
+%                 [.N 
+%                     [.tebrik\\congrats ]
+%                     [.ler\\{\Pl} ] ] 
+%                 [.im\\{\Poss}.{\First}.{\Sg} ] 
+%         ];
+%         \end{tikzpicture}
+        
+%         \sn \begin{tikzpicture}
+%         \Tree[.N 
+%                 [.tebrik\\congrats ]
+%                 [.ler\\{\Pl} ]
+%                 [.im\\{\Poss}.{\First}.{\Sg} ]
+%         ];
+%         \end{tikzpicture}
+%         \end{multicols}
+
+%     \end{xlist}
+% \hfill Adapted from \cite{orgun1995flat}
+% \end{exe}
+% The analysis to SA, according to Orgun is that the plural and possessive markers form ternary branching, and should be suspended together. This is how he explains the ungrammaticality of (\ref{tebrikler}).
+% \begin{exe}
+%     \ex \label{tebrikler}
+%     \gll
+%     \textit{*tebrik-ler} \textit{ve} \textit{teşekkür-ler-im} \\ congrats-{\Pl} and thanks-{\Pl}-{\Poss}.{\First}.{\Sg} \\
+%     \glt Intended: `My congratulations and thanks'
+% \end{exe}
+% Since both of the affixes are of the same level, they need to be suspended together and that results in grammaticality (\ref{tesekkur}).
+% \begin{exe}
+%     \ex 
+%     \gll 
+%     \textit{tebrik} \textit{ve} \textit{teşekkür-ler-im} \\ congrats and thanks-{\Pl}-{\First}.{\Sg} \\ 
+%     \glt `My congratulations and thanks'
+% \end{exe}
+% Orgun bases his argument on the three way ambiguity of an expression like \textit{it-ler-i} provided in (\ref{itleri}). By this analysis Orgun rejects the assumption of readings following from hierarchy. Since hierarchical structures should have allowed (\ref{tebrikler}) to be grammatical.
+
+
+% The problem with this approach is that the only standing observations for Orgun's proposal are a three way ambiguity of (\ref{itleri}), and the difficulty of interpretation in the suspension of only Possessive when combined with non-suspended Plural. A solution to the three way ambiguity might be resolved by other machineries in morphology, it is not novel for Turkish to seemingly not have an overt exponent where we expect one yet the function of the exponent seems to be carried out somehow, e.g. non-overt Accusative, and missing compound markers in multi-level compounds. It is however important in identifying the issue of increased difficulty or even ungrammaticality in the suspension of Possessive when combined with non-suspended Plural.  
+
+% This paper only deals with SA of plural and possessive markers in the nominal domain. The assumptions of dismissing a hierarchical representation for different readings are at best debatable. The analysis only puts forward the observation that suspension of only the possessive marker when used with a plural is not permitted. I see this as the only remark worth pursuing in the paper.

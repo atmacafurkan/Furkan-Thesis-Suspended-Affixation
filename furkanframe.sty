@@ -1,0 +1,136 @@
+% font
+\usepackage{times}
+
+% margins
+\usepackage{geometry}
+\geometry{paper=a4paper, left=4cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% remove hyphenation, fix margin violation.
+\usepackage{hyphenat}
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+% for spellcheck, disable for hyphenation.
+% \usepackage[english]{babel}
+
+% Turkish characters
+\usepackage[utf8x]{inputenc}
+
+% math symbols
+\usepackage{amsmath}
+
+% include graphics
+\usepackage{graphicx}
+
+% text positioning
+\usepackage[document]{ragged2e}
+
+% some float envrionments
+% \usepackage{nonfloat}
+
+% including code snippets
+\usepackage{listings}
+
+% multiple columns
+\usepackage{multicol}
+
+% drawing Trees
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\tikzset{every tree node/.style={align=center, anchor=north}}
+\usetikzlibrary{positioning}
+
+% a different tree drawer
+\usepackage[linguistics]{forest}
+\forestset{sn edges/.style={for tree={
+ parent anchor=south, child anchor=north, s sep=10mm, inner sep=0}}}
+
+% matrices
+\usepackage{avm}
+
+% optimality theory tableaus
+\usepackage{ot-tableau}
+
+% table environment
+\usepackage{tabularx}
+\usepackage{multirow}
+
+% Internetional Phonetic Alphabet, phonological rules.
+\usepackage{tipa}
+\usepackage{phonrule}
+
+% framing text
+\usepackage{framed}
+
+% line spacing
+\usepackage{setspace}
+\doublespacing
+
+% \sout function and some others, without the option it messes up end-text citation
+\usepackage[normalem]{ulem}
+
+% for footnotes in tables
+\usepackage{tablefootnote}
+
+% for figures and subfigures
+\usepackage{caption}
+\usepackage{subcaption}
+
+% for month and year info
+\usepackage{datetime}
+
+% title formatting
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont}{\thesubsubsection}{1em}{}
+
+\titleformat{\chapter}[display]
+{\normalfont\center}
+{\MakeUppercase{\chaptertitlename} \thechapter}{0pt}{}
+
+\titlespacing*{\chapter}{0pt}{-50pt}{2em}
+\titlespacing*{\section}{0pt}{2em}{0em}
+\titlespacing*{\subsection}{0pt}{2em}{0em}
+\titlespacing*{\subsubsection}{0pt}{2em}{0em}
+
+% makes subsubsection numbering visible in section heading.
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+% preamble pages
+\usepackage{titletoc}
+
+\titlecontents{chapter}[0pt]{}{\MakeUppercase{\chaptertitlename \space\space \thecontentslabel:\quad}\MakeUppercase}{}{\dotfill\contentspage}
+\titlecontents{section}[2.3em]{}{\thecontentslabel\quad}{}{\dotfill\contentspage}
+\titlecontents{figure}[0pt]{\hangindent1.5em}{\figurename \space\space \thecontentslabel.\quad}{}{\dotfill\contentspage}
+\titlecontents{table}[0pt]{\hangindent1.5em}{\tablename \space\space \thecontentslabel.\quad}{}{\dotfill\contentspage}
+\setcounter{tocdepth}{1}
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+
+% configure figure and table captions
+\usepackage[labelsep=period]{caption}
+\captionsetup{justification=raggedright,singlelinecheck=false}
+
+
+%%% KEEP THESE PACKAGES AT THE VERY END OF YOUR STY FILE IF YOU WANT TO HAVE ADDITIONAL PACKAGES %%%
+% citation
+\usepackage{natbib}
+
+
+% leipzig glossing
+\usepackage[block]{leipzig}
+% input glosses
+\input{frontmatter/glossaries.tex}
+
+% numbered linguistics examples with glossing
+\usepackage{gb4e}
+
+% makes language examples appear in italic
+\renewcommand{\eachwordone}{\textit}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

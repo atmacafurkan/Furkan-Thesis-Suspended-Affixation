@@ -1,0 +1,38 @@
+\subsection{\cite{broadwell2008turkish}}
+Broadwell provides a representation for the SA using the tools of Lexical Functional Grammar (LFG henceforth). In this approach the two identical phrases form a new phrase in conjunction that has the same structural properties of its parts. After this point, the suspended affixes are added. The phonological exponent of the right edge conjunct and the suspended affixes are \textit{coinstantiated} as one word. A structural representation for (\ref{tebrikler3}) is given in Figure (\ref{fig:lexicalshare}).
+
+\begin{exe}
+    \ex \label{tebrikler3}
+    \gll 
+    tebrik ve teşekkür-ler-im \\ congrats and thanks-{\Pl}-{\First}.{\Sg} \\ 
+    \glt `My congratulations and thanks'
+\end{exe}
+    
+\begin{figure}[hbt!]
+    \centering
+\begin{tikzpicture}
+    \Tree[.PossP
+            [.PlurP 
+                [.NP 
+                    [.NP\\tebrik ]
+                    [.Conj\\ve ]
+                    [.\node(NP2){NP}; ] ]
+                [.\node(plr){Plur}; ] ]
+            [.\node(PS){Poss}; ]
+]
+\node[below right= 1em of NP2, draw](co){teşekkür-ler-im};
+\draw[thick, ->] (NP2) -- (co);
+\draw[thick, ->] (plr) -- (co);
+\draw[thick, ->] (PS) -- (co);
+\end{tikzpicture}
+    \caption{Lexical sharing analysis of {\Pl} and {\Poss} in SA}
+    \label{fig:lexicalshare}
+\end{figure}
+
+Broadwell claims that this way of representation for SA saves us from three things:
+\begin{itemize}
+    \item  interpreting affixes that can suspend as clitics
+    \item positing conjunction in the lexicon
+    \item having special annotation for the rightmost conjunct
+\end{itemize}
+I will not go into the details of the alternatives for this analysis, but an important point which Broadwell makes is that Turkish is relatively productive in SA but it also makes distinctions that can not be addressed with a purely lexical approach. It might be posited that SA is only permitted with affixes that can attach to conjoined phrases. Then the question is why there are some morphemes that can happen to modify conjoined phrases but some others not, and how one makes a distinction between the two types.
