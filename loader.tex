@@ -1,47 +1,47 @@
 % frontmatter
 
-\pagenumbering{gobble}
-\input{frontmatter/title-page.tex}
+% \pagenumbering{gobble}
+% \input{frontmatter/title-page.tex}
 
-\input{frontmatter/0-approval-page.tex}
+% \input{frontmatter/0-approval-page.tex}
 
-\input{frontmatter/1-declarationoforiginality.tex}
+% \input{frontmatter/1-declarationoforiginality.tex}
 
-\pagenumbering{roman}
-\setcounter{page}{4}
+% \pagenumbering{roman}
+% \setcounter{page}{4}
 
-\input{frontmatter/2-abstract.tex}
+% \input{frontmatter/2-abstract.tex}
 
-% moved renew commands for some ToC settings out of sty to here
-\renewcommand\contentsname{TABLE OF CONTENTS}
-\renewcommand\listfigurename{LIST OF FIGURES}
-\renewcommand\listtablename{LIST OF TABLES}
+% % moved renew commands for some ToC settings out of sty to here
+% \renewcommand\contentsname{TABLE OF CONTENTS}
+% \renewcommand\listfigurename{LIST OF FIGURES}
+% \renewcommand\listtablename{LIST OF TABLES}
 
 
-\tableofcontents
-\begingroup
-\renewcommand{\addvspace}[1]{}
-\printglossary[title=\MakeUppercase{abbreviations}, style=block,nonumberlist]
-\listoftables
-\listoffigures
-\endgroup
-\clearpage
+% \tableofcontents
+% \begingroup
+% \renewcommand{\addvspace}[1]{}
+% \printglossary[title=\MakeUppercase{abbreviations}, style=block,nonumberlist]
+% \listoftables
+% \listoffigures
+% \endgroup
+% \clearpage
 
 
 % main body
 
 \pagenumbering{arabic} 
-\input{main-body/chapters/chapter1.tex}
+% \input{main-body/chapters/chapter1.tex}
 
-\input{main-body/chapters/chapter2.tex}
+% \input{main-body/chapters/chapter2.tex}
 
 \input{main-body/chapters/chapter3.tex}
 
 % \input{main-body/chapters/chapter4.tex}
 
-\input{main-body/chapters/chapter5.tex}
+% \input{main-body/chapters/chapter5.tex}
 
-\input{main-body/chapters/chapter6.tex}
+% \input{main-body/chapters/chapter6.tex}
 
 
 % endmatter
@@ -50,4 +50,4 @@
 \titlecontents{chapter}[0pt]{}{\MakeUppercase{appendix \thecontentslabel:\quad}\MakeUppercase}{}{\dotfill\contentspage}
 
 % PUT YOUR APPENDICIES HERE USING INPUT COMMAND TO CALL TEX FILES IN APPENDICIES FOLDER
-\input{endmatter/appendicies/acceptabilityitems.tex}
+\input{endmatter/appendicies/appendicies.tex}

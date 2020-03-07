@@ -1,7 +1,15 @@
 \documentclass[12pt, a4paper, oneside, liststotoc, consistentlayout]{report}
+
+% drawing Trees
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\tikzset{every tree node/.style={align=center, anchor=north}}
+\usetikzlibrary{positioning}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikz/]
+
+ 
 \usepackage{furkanframe}
-
-
 
 \newcommand{\authname}{Furkan Atmaca} 
 \newcommand{\ttitle}{Suspended Affixation in Turkish}
@@ -22,7 +30,6 @@
 \newcommand{\deptnamecaps}{LINGUISTICS}
 
 \begin{document}
-
 \input{loader.tex}
 
 

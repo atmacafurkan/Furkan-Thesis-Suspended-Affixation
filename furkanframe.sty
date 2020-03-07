@@ -1,3 +1,4 @@
+
 % font
 \usepackage{times}
 
@@ -26,6 +27,7 @@
 
 % text positioning
 \usepackage[document]{ragged2e}
+\setlength{\RaggedRightParindent}{2em}
 
 % some float envrionments
 % \usepackage{nonfloat}
@@ -36,11 +38,6 @@
 % multiple columns
 \usepackage{multicol}
 
-% drawing Trees
-\usepackage{tikz}
-\usepackage{tikz-qtree}
-\tikzset{every tree node/.style={align=center, anchor=north}}
-\usetikzlibrary{positioning}
 
 % a different tree drawer
 \usepackage[linguistics]{forest}
@@ -63,6 +60,9 @@
 
 % framing text
 \usepackage{framed}
+
+% color
+\usepackage{color}
 
 % line spacing
 \usepackage{setspace}
@@ -97,7 +97,6 @@
 \titlespacing*{\subsubsection}{0pt}{2em}{0em}
 
 % makes subsubsection numbering visible in section heading.
-\setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
 
 % preamble pages
@@ -105,9 +104,10 @@
 
 \titlecontents{chapter}[0pt]{}{\MakeUppercase{\chaptertitlename \space\space \thecontentslabel:\quad}\MakeUppercase}{}{\dotfill\contentspage}
 \titlecontents{section}[2.3em]{}{\thecontentslabel\quad}{}{\dotfill\contentspage}
+\titlecontents{subsection}[4.6em]{}{\thecontentslabel\quad}{}{\dotfill\contentspage}
 \titlecontents{figure}[0pt]{\hangindent1.5em}{\figurename \space\space \thecontentslabel.\quad}{}{\dotfill\contentspage}
 \titlecontents{table}[0pt]{\hangindent1.5em}{\tablename \space\space \thecontentslabel.\quad}{}{\dotfill\contentspage}
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{2}
 \usepackage{chngcntr}
 \counterwithout{figure}{chapter}
 \counterwithout{table}{chapter}
@@ -115,6 +115,47 @@
 % configure figure and table captions
 \usepackage[labelsep=period]{caption}
 \captionsetup{justification=raggedright,singlelinecheck=false}
+
+
+\usepackage{alltt}
+
+% knitr settings
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{}
+
 
 
 %%% KEEP THESE PACKAGES AT THE VERY END OF YOUR STY FILE IF YOU WANT TO HAVE ADDITIONAL PACKAGES %%%
@@ -132,5 +173,5 @@
 
 % makes language examples appear in italic
 \renewcommand{\eachwordone}{\textit}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
