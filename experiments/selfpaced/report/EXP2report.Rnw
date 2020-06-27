@@ -1,37 +1,62 @@
 
-
-<<load, echo=FALSE, include=FALSE>>=
+<<misc, echo=FALSE, include=FALSE>>=
 # Load R libraries
-library(dplyr)
-library(brms)
-library(magrittr)
-library(gdata)
-library(tidyr)
-library(ggplot2)
-library(extrafont)
-library(readxl)
-library(stringr)
-library(grDevices)
-library(bayesplot)
-library(tidybayes)
-`%notin%` <- Negate(`%in%`)
-se <- function(x) sd(x)/sqrt(length(x))
+# general libraries
+library(dplyr) # magic
+library(magrittr) # piped magic
+library(tidyr) # dark magic
+library(ggplot2) # plots things
+library(cowplot) # some plot magic
 theme_set(theme_bw()) # set ggplot theme
-bayesplot_theme_set(new = theme_bw()) # set plot view
+library(readxl) # reads excel files
+library(gdata) # some functions here and there
 
+# specific libraries
+library(extrafont) # Times font for plot use
+library(stringr) # good with regular expressions
+
+# statistics
+library(brms) # bayesian regression
+library(bayesplot) # some useful functions for brms objects
+library(tidybayes) # fairy dust for bayes
+bayesplot_theme_set(new = theme_bw()) # set plot view
+library(MASS) # contr.sdif
+`%notin%` <- Negate(`%in%`) # I hate using ! at the very beginning of logical expressions
+@
+
+<<data, echo=FALSE, include=FALSE>>=
+# virgin dfs
 init_reads <- readRDS("init_reads.rds")
-init_subject <- init_reads %>% summarise(x= length(unique(subject)))
+init_subject <- init_reads %>% summarise(x= length(unique(init_reads$subject)))
 init_point <- init_reads %>% subset(experiment !="filler") %>% summarise(x = length(RT)) 
 
+init_responses <- readRDS("init_responses.rds")
+init_filler <- init_responses %>% subset(experiment =="filler") %>%
+  group_by(subject) %>% 
+  summarise(accuracy = mean(correct)) %>% subset(accuracy < .7)
+filler_accurate <- init_responses %>% subset(subject %notin% init_filler$subject)
+
+# cleaned dfs
 df_reads <- readRDS("df_reads.rds") %>% ungroup()
+df_reads$word_name <- df_reads$word_number %>% as.factor()
+
 final_subject <- df_reads %>% summarise(x= length(unique(subject)))
 final_point <- df_reads %>% subset(experiment !="filler") %>% summarise(x = length(RT)) 
-
 
 df_responses <- readRDS("df_responses.rds")
 total_response <- df_responses %>% summarise(x = length(correct))
 correct_response <- df_responses %>% subset(correct=="1") %>% summarise(x =length(correct))
 
+# average RTs
+RTs_all_ci <- readRDS("./RTs_all_ci.rds")
+RTs_all_ci$word_name <- RTs_all_ci$word_number %>% as.factor()
+RTs_all_ci$category %<>% reorder.factor(new.order = c("No_SA","One_SA","Full_SA","Contrast"))
+
+# average accuracies
+accuracy_all_ci <- readRDS("./accuracy_all_ci.rds")
+accuracy_all_ci$category %<>% reorder.factor(new.order = c("Contrast","No_SA","One_SA","Full_SA"))
+
+# plot labels
 SA_label <- c("Üzerinde",
               "toz",
               "biriken",
@@ -42,104 +67,195 @@ SA_label <- c("Üzerinde",
               "diye",
               "mırıldandım",
               "kendi",
-              "kendime") %>% enc2utf8()
+              "kendime")
+SA_label2 <- c("7" = "critical", "8" = "spillover1", "9" = "spillover2")
+@
 
-SA_target <- brm(RT ~ 1 + cat*conjoiner+ (cat*conjoiner | item) + (cat*conjoiner | subject), 
-                 data = df_SA_model,
-                 family = lognormal('identity'), chains = 4, cores = 4, iter = 2000,
-                 file = "model_SA_target")
+<<models, echo=FALSE, include=FALSE>>=
 
-SA_target_results <- fixef(SA_target, summary = TRUE, robust = FALSE) %>% as.data.frame() %>%
-  tibble::rownames_to_column("variables")
+# SA models
+SA_target_models <- readRDS("./SA_target_model.rds") %>% 
+  mcmc_intervals_data(pars = vars(starts_with("b_")), prob_outer = 0.95) %>%
+  separate(col = "parameter", into = c("x","model","parameter"), sep = "\\_") %>%
+  subset(parameter !="Intercept") %>% dplyr::select(-x)
+
+SA_target_models$parameter %<>% dplyr::recode(`cat2M1` = "One-No",
+                                           `cat3M2` = "Full-One",
+                                           `conjoiner1` = "veya",
+                                           `cat2M1:conjoiner1` = "One-No*veya",
+                                           `cat3M2:conjoiner1` = "Full-One*veya") %>% 
+  reorder.factor(new.order = c("One-No","Full-One","veya","One-No*veya","Full-One*veya"))
+SA_target_models$model %<>% dplyr::recode(`so1` = "spillover-1", `so2` = "spillover-2")
+
+# Contrast models
+SA_contrast_models <- readRDS("./SA_contrast_model.rds") %>% 
+  mcmc_intervals_data(pars = vars(starts_with("b_")), prob_outer = 0.95) %>%
+  separate(col = "parameter", into = c("x","model","parameter"), sep = "\\_") %>%
+  subset(parameter !="Intercept") %>% dplyr::select(-x)
+
+SA_contrast_models$parameter %<>% dplyr::recode(`cat2M1` = "Contrast",
+                                                `conjoiner1` = "veya",
+                                                `cat2M1:conjoiner1` = "Contrast*veya") %>%
+  reorder.factor(new.order = c("Contrast","veya","Contrast*veya"))
+SA_contrast_models$model %<>% dplyr::recode(`so1` = "spillover-1", `so2` = "spillover-2")
+
+# SA vs contrast model
+saVcontrast_models <- readRDS("./saVcontrast_model.rds") %>% 
+  mcmc_intervals_data(pars = vars(starts_with("b_")), prob_outer = 0.95) %>%
+  separate(col = "parameter", into = c("x","model","parameter"), sep = "\\_") %>%
+  subset(parameter !="Intercept") %>% dplyr::select(-x)
+saVcontrast_models$parameter %<>% dplyr::recode(`cat1`= "Contrast",
+                                               `conjoiner1` = "veya", 
+                                               `cat1:conjoiner1` = "Contrast*veya") %>%
+  reorder.factor(new.order = c("Contrast","veya","Contrast*veya"))
+saVcontrast_models$model %<>% dplyr::recode(`so1` = "spillover-1", `so2` = "spillover-2")
+
 
 @
 
 \SweaveOpts{concordance=TRUE}
 
-\section{Self paced reading}
+\section{Experiment 2}
 
-In the literature of SA, not much exploratory studies are conducted. Although theoretical explorations are made for what it is \citep{kornfilt1996some,kornfilt2012revisiting,kabak2007turkish,broadwell2008turkish}, not much is done for how it operates except than \cite{kharytonava2012word,kharytonava2012taming} which only investigates a particular type of SA in Turkish compounds. My aim in this experiment is to open up an exploratory field for SA in Turkish with emphasis on language processing. For this purposes I alter the conjoiner and amount of SA in the verbal domain. The reason for choosing only verbal domain for this particular experiment is that there are no ambiguities in the verbal domain SA. Dealing with ambiguities in an experimental setting requires a complicated design for determining dependency resolutions. Although it is a venue that also needs to be explored I reserve the investigation of SA in the nominal domain and its processing for another experiment with an actual language modelling which would enable the testing of the hypotheses of the different approaches. That's why, for the sake of sticking with basic exploratory aspects of SA, I have designed an experiment looking at SA in the verbal domain. In the following subsections I lay out the method, results, and analysis of the experiment.
+The aim of this experiment is to see what the cost of SA in a local environment is and if it is additive by the number of suffixes using a self-paced reading study. A local environment means that the target conjunct and the source conjunct for the suspended affix(es) are in the adjacent periphery of the conjoiner. Target conjunct is where the affix is interpreted but phonologically covert and the source conjunct is where it is overt. In the case of Turkish, the source conjunct is the rightmost conjunct as illustrated in (\ref{templateforsuspension}).
 
-\subsection{Method}
-In this subsection I report the participants, materials, and the procedure for the experiment.
-
-\subsubsection{Participants}
-
-The participants were \Sexpr{init_subject$x} students at Boğaziçi University who were native speakers of Turkish. In exchange for their participation they have received 1 point to their overall course score on a chosen linguistics course.
-
-\subsubsection{Materials}
-
-The experiment is comprised of three variables. The first variable is the amount of SA with the levels of No SA, One SA, and Full SA. The second variable is the conjoiner with levels \textit{ve} `and' and \textit{veya} `or'. The third variable is contrast. In this variable one of the suspendable suffixes in the second conjunct is altered to have a mismatch between the first and second conjuncts in terms of clause aspect and agreement. This contrast is only performed on the No SA sentence. This way I end up with 3x2 conditions combining the amount of SA and conjoiner type, plus two conditions where I have a contrasting second conjunct for No SA condition with conjoiners. I have made 24 items for the experiment, by 8 conditions I end up with 192 experimental items, I also added 48 filler items. A latin square design by condition is applied, forming 8 lists of 24. This resulted in each participant seeing only 24 experimental items and 48 fillers. All the experimental items have a three word pre and three word post conjunction regions, see the template in (\ref{selfpacedtemplate}). An example set of experimental items with all conditions is given in (\ref{selfpacedexamples}, only relevant parts of the sentence is presented). Half of the items and fillers had yes/no comprehension questions with the correct option being "yes" and the other half had "no" as the correct answer.
 \begin{exe}
-\ex \label{selfpacedtemplate}
-4WORDS CONJ1 \textit{ve/ya} CONJ2 4WORDS
+\ex \label{templateforsuspension}
+CONJ1$_{target}$ (conjoiner) CONJ2$_{source}$ 
 \end{exe}
 
+SA in the nominal domain is ambiguous except than the SA of {\Case}. SA in the verbal domain, on the other hand, does not result in ambiguity, and the SA capable suffixes can be stacked. This enables me to test the effects, if any, of suspending different number of suffixes. In addition to changing the amount of suffixes, I investigate if the acceptability decreasing effect of the conjoiner \textit{veya} `or' in the first experiment will be reflected by increases in reading times.
+
+There is one concern with using verbal domain for SA. The target conjunct can only be reduced to a verb plus a participle morpheme. These participle morphemes can have {\Tsg} agreement interpretations on their own. Should an effect arise in SA amount changes, it might be related to the mismatches between the first and second conjuncts instead of SA. There are additional conditions to meet this concern. These conditions are formed by changing an aspect or agreement of the first conjunct. This provides a contrast in terms of distinguishing an effect of suspension from feature mismatches. I lay out the experiment and analysis of the results in the following subsections.
+
+
+\subsection{Participants}
+
+The participants were \Sexpr{init_subject$x} students from Boğaziçi University who are native speakers of Turkish. In exchange for their participation they received 1 point to their overall course score.
+
+
+\subsection{Materials}
+
+The experiment comprised of three variables. The first variable was the Amount of SA with the levels: No SA, One SA, and Full SA.
+In No SA, no suffix is suspended. In One SA, only one suffix is suspended. In Full SA, two suffixes are suspended. The second variable is the Conjoiner with the levels: \textit{ve} `and' and \textit{veya} `or'. The third variable is Contrast with the levels: Contrast and Parallel (No\_SA). In this last variable one of the suffixes in the first conjunct is altered to have a grammatical feature mismatch between the conjuncts. This contrast is only performed on the No SA conditions. This resulted in an experiment design with 4x2 conditions combining the amount of SA and conjoiner type, plus two conditions where there is a contrasting first conjunct for No SA condition. There were 24 distinct items together with 48 filler items. All experimental and filler items were grammatical. A latin square design by condition was applied, forming 8 lists of 24. This resulted in each participant seeing only 24 experimental items and 48 fillers. All the experimental items had a four-word pre and four-word post conjunction regions. (\ref{selfpacedtemplate}) shows a template for an experimental item. In (\ref{selfpacedexamples}), I give an example set of experimental items with all the conditions. All the experimental items and fillers had a comprehension question with half of them having "yes" and the other half having "no" as the correct answer. I carried out the experiment using ibexfarm \citep{drummond2013ibex}. For the full list of items and fillers (1-24 and 100-148) see Appendix \ref{selfpaceditems}.
 
 \begin{exe}
+\ex \label{selfpacedtemplate}
+4WORDS CONJ1-$\alpha$-$\beta$ \textit{ve/veya} CONJ2-$\alpha$-$\beta$ 4WORDS
+
 \ex \label{selfpacedexamples}
     \begin{xlist}
-     \ex No SA_{\And} \gll ... yap-sa-ymış-ım ve gönder-se-ymiş-im ... \\ ... do-{\Cond}-{\Prf}-{\First}.{\Sg} {\And} send-{\Cond}-{\Prf}-{\First}.{\Sg} ... \\
+  \ex No SA:{\And}/{\Or}\\* 
+  \gll \ldots yap-sa-ymış-ım ve/veya gönder-se-ymiş-im \ldots \\ 
+  \ldots do-{\Cond}-{\Prf}-{\Fsg} {\And}/{\Or} send-{\Cond}-{\Prf}-{\Fsg} \ldots \\
+  \glt ${}$
 
-     \ex No SA_{\Or} \gll ... yap-sa-ymış-ım veya gönder-se-ymiş-im ... \\ ... do-{\Cond}-{\Prf}-{\First}.{\Sg} {\And} send-{\Cond}-{\Prf}-{\First}.{\Sg} ... \\
-     
-     \ex One SA_{\And} \gll ... yap-sa-ymış ve gönder-se-ymiş-im ... \\ ... do-{\Cond}-{\Prf} {\And} send-{\Cond}-{\Prf}-{\First}.{\Sg} ... \\
-     
-     \ex One SA_{\Or} \gll ... yap-sa-ymış veya gönder-se-ymiş-im ... \\ ... do-{\Cond}-{\Prf} {\And} send-{\Cond}-{\Prf}-{\First}.{\Sg} ... \\
-
-     \ex Full SA_{\And} \gll ... yap-sa ve gönder-se-ymiş-im ... \\ ... do-{\Cond} {\And} send-{\Cond}-{\Prf}-{\First}.{\Sg} ... \\
-     
-     \ex Full SA_{\Or} \gll ... yap-sa veya gönder-se-ymiş-im ... \\ ... do-{\Cond} {\And} send-{\Cond}-{\Prf}-{\First}.{\Sg} ... \\
-
-     
-     \ex Contrast_{\And} \gll ... yap-sa-ymış-ız ve gönder-se-ymiş-im ... \\ ... do-{\Cond}-{\Prf}-{\First}.{\Pl} {\And} send-{\Cond}-{\Prf}-{\First}.{\Sg} ... \\
-     
-     \ex Contrast_{\Or} \gll ... yap-sa-ymış-ız veya gönder-se-ymiş-im ... \\ ... do-{\Cond}-{\Prf}-{\First}.{\Pl} {\And} send-{\Cond}-{\Prf}-{\First}.{\Sg} ... \\
-
+  \ex One SA:{\And}/{\Or}\\*
+  \gll \ldots yap-sa-ymış ve/veya gönder-se-ymiş-im \ldots \\ 
+  \ldots do-{\Cond}-{\Prf} {\And}/{\Or} send-{\Cond}-{\Prf}-{\Fsg} \ldots \\
+  \glt ${}$
+  
+  \ex Full SA:{\And}/{\Or}\\*
+  \gll \ldots yap-sa ve/veya gönder-se-ymiş-im \ldots \\ 
+  \ldots do-{\Cond} {\And}/{\Or} send-{\Cond}-{\Prf}-{\Fsg} \ldots \\
+  \glt ${}$
+  
+  \ex Contrast:{\And}/{\Or}\\*
+  \gll \ldots yap-sa-ymış-ız ve/veya gönder-se-ymiş-im \ldots \\ 
+  \ldots do-{\Cond}-{\Prf}-{\Fpl} {\And}/{\Or} send-{\Cond}-{\Prf}-{\Fsg} \ldots \\
     \end{xlist}
 \end{exe}
 
-The experiment is formed using http://spellout.net/ibexfarm/ \citep{drummond2013ibex}, and carried out online. For the full list of items and fillers (1-24 and 100-148), see Appendix \ref{selfpaceditems}.
 
-\subsubsection{Procedure}
-Participants are provided a link to the experiment prompting them with a consent page. Upon giving consent participants are run through 5 practice items and then they are prompted again for the beginning of the experiment. Each item is presented word by word, and after the end of every sentence a yes/no comprehension question was asked. Participants professed their choice by pushing "Q" key for "yes" and "P" key for "no". After the experiment is done participants are redirected to a separate page to fill their student information to be relayed to the course's professor for extra credit. This is kept separate of the experiment results, protecting participant anonymity.
+\subsection{Procedure}
 
-\subsubsection{Results}
-The resulting csv file of the experiment is brought into R \citep{team2013r} for data cleaning, aggregation, and analysis.
-The data consisted of \Sexpr{init_point$x} points before cleaning. Two items with a typo, \Sexpr{init_subject$x-final_subject$x} subjects whose accuracies are below 70\% are excluded from the data. After these exclusions, \Sexpr{round(x = 100*(1-(correct_response$x/total_response$x)), digits = 2)}\% of the trials with incorrect answers are also excluded. The whole cleaning resulted in the loss of \Sexpr{round(x = 100*(1-(final_point$x/init_point$x)), digits = 2)}\% of the data.
+Participants were provided a link to the experiment prompting them with a consent page. Upon giving consent participants went through 5 practice items and then they were prompted again for the beginning of the experiment. Each trial proceeded by the participants pushing the "space" key, for each key stroke a word at the center of the screen appeared and by each key stroke it was replaced with the following word in the sentence. After the sentence was read, participants were presented with a statement that was either true or false according to the sentence they read. The statement was made about a dependency that was formed within the sentence. This could have been a modification of a noun or the verb, or the argument relations within the sentence. Participants professed their decision by pushing "Q" key for "yes" and "P" key for "no" on the keyboard. The experiment only recorded word reading times, responses, and response times. After the experiment was done, participants were redirected to a separate page where they provided their student information to be relayed to the course's professor for the extra credit. This is kept separate of the experiment results, keeping participant information and experimental data anonymous.
 
-\begin{figure}[hbt!]
-\centering
-<<secondplot, echo=FALSE, dev='cairo_pdf', fig.width=8, fig.height=5, out.width='\linewidth'>>=
-df_reads$word_name <- df_reads$word_number %>% as.factor()
-df_reads %>% dplyr::select(cat, word_name, RT, conjoiner) %>% ungroup() %>%
-  subset(word_name %in% c(1:11) & cat !=  "Contrast") %>% 
-  group_by(cat, word_name, conjoiner) %>%
-  summarise(average_RT = mean(RT), se = se(RT)) %>%
+\subsection{Results}
+
+The results were recorded onto a csv file and imported to R \citep{team2013r} for data cleaning, aggregation, and analysis. Two items with a typo are excluded from the data (they do not count in initial data points). The data consisted of \Sexpr{init_point$x} points before cleaning. . \Sexpr{init_subject$x-final_subject$x} participants whose accuracies were below 70\% are excluded from the data. After these exclusions, \Sexpr{round(x = 100*(1-(correct_response$x/total_response$x)), digits = 2)}\% of the trials which had incorrect answers for the comprehension question are excluded from data analysis. The trials in which a word had a reading time that was outside 100-3000 milliseconds were considered outliers and those trials are also excluded. The whole cleaning resulted in the loss of \Sexpr{round(x = 100*(1-(final_point$x/init_point$x)), digits = 2)}\% of the data. In Figure \ref{fig:secondplot}, I give the average reading times per word with a representative sentence for the conditions of suspension amount.
+
+<<secondplot, echo=FALSE, dev='cairo_pdf', fig.width=5.7, fig.height=4, fig.align='center',out.width='\linewidth', fig.pos='hbt!',fig.cap='Average reading times of a sentence for all categories(No SA|One SA|Full SA|Contrast) and conjoiners(ve|veya)'>>=
+RTs_all_ci %>%
+  dplyr::select(cat=category, conjoiner, average_RT=M, ci=CI, word_name) %>%
   ggplot(aes(word_name, average_RT, group = cat, color = cat)) +
   theme(text=element_text(size=12),
         legend.position = "bottom", legend.title = element_blank(),
         axis.text.x = element_text(face = "bold.italic", angle = 30, hjust = 1)) +
-  geom_point(aes(shape = cat), size= 2.4, position = position_dodge(0.35)) + 
-  geom_line(aes(linetype = cat), position = position_dodge(0.35)) +
-  geom_errorbar(aes(ymin = average_RT -se, ymax = average_RT + se),
-                alpha = 0.4,
-                width = .3, position = position_dodge(0.35), color = "black") +
+  geom_point(aes(shape = cat), size= 2.4) + 
+  geom_line(linetype = "dashed") +
+  geom_errorbar(aes(ymin = average_RT -ci, ymax = average_RT + ci, color=cat),
+                width = .15) +
   scale_x_discrete(labels = SA_label, name ="") + ylab("average RT (ms)") +
-  facet_grid(conjoiner~.)
+  facet_grid(conjoiner~.) + scale_colour_brewer(palette = "Dark2")
 @
-\caption{Average reading times for a sentence}
-\label{fig:averageRT}
-\end{figure}
 
+The critical region in all the sentences is the 7$^{th}$ word. In the case of Figure \ref{fig:secondplot} it is \textit{silmeliymişim} `(I) should have cleaned (something)'. The spillover region is the two words after the critical region. In this case the words \textit{diye} `saying that' and \textit{mırıldandım} ` (I) mumbled'. In Figure \ref{fig:thirdplot}, I give the average reading times of the critical and spillover region words by experimental conditions.
 
-\begin{figure}[hbt!]
-\centering
-<<thirdplot, echo=FALSE, dev ='cairo_pdf', out.width='\linewidth', fig.width=4, fig.height=3>>=
-mcmc_intervals(SA_target, pars =  paste0("b_", SA_target_results$variables))
-
+<<thirdplot, echo=FALSE, dev='cairo_pdf', fig.width=5.5, fig.height=3, fig.align='center', out.width='\linewidth', fig.pos='hbt!', fig.cap='Average reading times of critical and spillover regions for all categories(No SA|One SA|Full SA|Contrast) and conjoiners(ve|veya)'>>=
+RTs_all_ci %>% subset(word_name %in% c(7:9)) %>%
+  dplyr::select(cat=category, conjoiner, average_RT=M, ci=CI, word_name) %>%
+  ggplot(aes(cat, average_RT, group=conjoiner, color=conjoiner)) +
+  geom_point(size=2) + geom_line() + 
+  theme(text=element_text(size=12), strip.text.x = element_text(size=12),
+        legend.position = "bottom", axis.text.x = element_text(angle = 30, hjust = 1)) +
+  geom_errorbar(aes(ymin = average_RT -ci, ymax = average_RT + ci, color=conjoiner),
+                width = .3) + xlab("SA amount") +
+  facet_grid(.~word_name, labeller = as_labeller(SA_label2))
 @
-\caption{Model results}
-\label{fig:modelresults}
-\end{figure}
+
+There is an increase in critical and spillover regions with the conjoiner \textit{veya} `or'. The amount of suspension does not display a similar trend in all the regions. In the critical region and the first spillover word, there is a slight increase by the number suspended suffixes. Contrasting sentences have higher reading times compared to suspension of one and two suffixes. This indicates that feature mismatches between the conjuncts lead to different processes other than SA.
+
+
+For more inference on the effects of SA, I fit 3 linear mixed models for the reading times of the critical and spillover region words. I used SA amount and Conjoiner as predictors with random effects for subject and item. I used sliding differences contrasts for the SA amount, and sum contrast for the Conjoiner. Sliding differences mean that the comparisons are made between the levels of the differences. This follows from the expectation of varying effects depending on the SA amount, which is an incremental but not a categorical change. I give the models' results for SA amount in Figure \ref{fig:targetmodels}. The model results indicate an increase in spillover region for the suspension of one suffix, with no additive effects by suspending one more suffix. The conjoiner \textit{veya} `or' increased reading times consistently in all regions.
+
+<<targetmodels, echo=FALSE, dev='cairo_pdf', fig.width=5.7, fig.height=2.5, fig.align='center', out.width='\linewidth', fig.pos='hbt!', fig.cap= 'Second experiment, model results for the SA amount conditions fit to reading times with the predictors SA amount(No SA|One SA|Full SA) and Conjoiner(ve|veya)'>>=
+SA_target_models %>% ggplot(aes(m, y=factor(parameter, 
+                               levels = rev(levels(factor(parameter)))))) +
+  theme(text=element_text(size=10), strip.text.x = element_text(size=10),
+        axis.title.x = element_text(size=10), axis.title.y = element_text(size=10)) +
+  geom_point(size = 2) +
+  geom_errorbarh(aes(xmin = l, xmax = h), alpha = 1, height = 0, size = 1) +
+  geom_errorbarh(aes(xmin = ll, xmax = hh, height = 0)) + vline_0() +
+  xlab("Estimate(log)") + ylab("coefficients") + facet_grid(.~model)
+@
+
+
+In addition to the effects of SA, I fit another 3 models for the reading times of the critical and spillover region words using feature match between conjuncts and conjoiner as predictors with random affects for subject and item. I used sliding difference for feature match, comparing Contrast to No\_SA, and sum contrast for the conjoiner. The results indicate an increase in reading times in Contrast conditions in all regions, with an increase in reading times by the conjoiner \textit{veya} `or' only in the critical region and the second spillover region word.
+
+<<contrastmodels, echo=FALSE, dev='cairo_pdf', fig.width=5.7, fig.height=2, fig.align='center', out.width='\linewidth', fig.pos='hbt!', fig.cap= 'Second experiment, model results for the feature mismatching conjuncts fit to reading times with the predictors Contrast(Contrast|No SA) and Conjoiner(ve|veya)' >>=
+SA_contrast_models %>% ggplot(aes(m, y=factor(parameter, 
+                               levels = rev(levels(factor(parameter)))))) +
+  theme(text=element_text(size=10), strip.text.x = element_text(size=10),
+        axis.title.x = element_text(size=10), axis.title.y = element_text(size=10)) +
+  geom_point(size = 2) +
+  geom_errorbarh(aes(xmin = l, xmax = h), alpha = 1, height = 0, size = 1) +
+  geom_errorbarh(aes(xmin = ll, xmax = hh, height = 0)) + vline_0() +
+  xlab("Estimate(log)") + ylab("coefficients") + facet_grid(.~model)
+@
+
+Figures \ref{fig:targetmodels} and \ref{fig:contrastmodels} indicate that suspending an affix and feature mismatches between conjuncts increase reading times. I fit 3 other models to compare only One SA and Contrast conditions in all the regions with random effects for subject and item. This time I used sum contrasts across the board. If the two levels behave the same, the comparison should result in indifference between One SA and Contrast. I give the models' results in Figure \ref{fig:saVcontrast}. The results indicate increased reading times in Contrast conditions compared to One SA. This differentiates the operation of SA and feature mismatches between the conjuncts. 
+
+<<saVcontrast, echo=FALSE, dev='cairo_pdf', fig.width=5.7, fig.height=2, fig.align='center', out.width='\linewidth', fig.pos='hbt!', fig.cap= 'Second experiment, model results for the comparison of suspending an affix and feature mismatching conjuncts fit to reading times with the predictors of Category(Contrast|One SA) and Conjoiner(ve|veya)' >>=
+saVcontrast_models %>% ggplot(aes(m, y=factor(parameter, 
+                               levels = rev(levels(factor(parameter)))))) +
+  theme(text=element_text(size=10), strip.text.x = element_text(size=10),
+        axis.title.x = element_text(size=10), axis.title.y = element_text(size=10)) +
+  geom_point(size = 2) +
+  geom_errorbarh(aes(xmin = l, xmax = h), alpha = 1, height = 0, size = 1) +
+  geom_errorbarh(aes(xmin = ll, xmax = hh, height = 0)) + vline_0() +
+  xlab("Estimate(log)") + ylab("coefficients") + facet_grid(.~model)
+@
+
+\subsection{Analysis}
+
+In this experiment the main aim was to identify the cost of SA. The results indicate that suspending a suffix is costly but it is not additive. The conjoiner \textit{veya} `or' increased reading times, this is a similar trend of decreasing acceptabilities in the first experiment. The feature mismatches between the conjuncts also lead to increased processing cost but they are greater than those of suspension. In the first experiment this effect is directly realted to SA, because the response was directly related to SA. In this experiment the main effect of the conjoiner in reading times can not be tied to SA. An increase in reading times can be caused by the semantic difference between the two conjoiners \textit{ve} `and' and \textit{veya} `or'. This means that the conjoiner effect in this experiment is not related to SA directly. If there was such a relation, the conjoiner \textit{veya} `or' and the suspension conditions should have had an interaction effect, presumably an increase in reading times for suspending suffixes in an environment formed by the conjoiner \textit{veya} `or'.
+
+
+
+
+
+
+
+
 

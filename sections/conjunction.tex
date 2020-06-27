@@ -1,0 +1,256 @@
+\section{Conjunction}
+
+The functional cue or signal for such conjunction usually have a conjoiner like \textit{veya} `or' and \textit{ve} `and'. These structures are not necessarily additive, and depending on the parts they are putting together, the relations that the parts hold to one another can change. A conjoiner like \textit{ve} `and' can have additive properties when it conjoins nouns, but an ordering one when it conjoins sentences. (\ref{conjoinerexample}) shows an example for each.
+
+\begin{exe}
+\ex \label{conjoinerexample}
+\begin{xlist}
+\ex \gll Ahmet kalem ve kitap al-dı. \\
+A[{\Nom}] pencil {\And} book buy-{\Pst}[{\Tsg}] \\
+\glt `Ahmet bought some pencils and books.'
+
+\ex \gll Ahmet ev-e git-ti ve bulaşığ-ı yıka-dı. \\
+A[{\Nom}] house-{\Dat} go-{\Pst}[{\Tsg}] {\And} dishes-{\Acc} wash-{\Pst}[{\Tsg}] \\
+\glt `Ahmet went home and washed the dishes.'
+\end{xlist}
+\end{exe}
+
+The structural representation of conjunctions can prove a bit difficult when other language processes are considered. One interesting behaviour of conjunctions is that the extraction of a conjunct from the conjunction is not felicitous. This is commonly known as Coordinate Structure Constraint \citep{ross1967constraints}. (\ref{cscturkish}) illustrates this constraint in Turkish.
+
+\begin{exe}
+\ex \label{cscturkish} 
+\gll *Ahmet ne ve kitap al-mış? \\ 
+A[{\Nom}] what {\And} book buy-{\Pst}[{\Tsg}] \\
+\glt `*Ahmet bought what and book?'
+\end{exe}
+
+In addition to this behaviour, conjunctions are not always carried out by overt conjoiners. Some instances of conjunctions can be signalled by small prosodic breaks. I give an example of this in (\ref{noovertconjoiner}) where commas indicate prosodic breaks.
+
+\begin{exe}
+\ex \label{noovertconjoiner} 
+\begin{xlist}
+\ex \gll Ahmet pazar-dan domates, biber, patlıcan al-dı. \\ 
+A[{\Nom}] market-{\Abl} tomato pepper aubergine buy-{\Pst}[{\Tsg}] \\
+\glt `Ahmet bought tomatoes, peppers, and aubergines from the market.'
+
+\ex \gll Ahmet pazar-a git-ti, domates al-dı. \\ 
+A[{\Nom}] market-{\Dat} go-{\Pst}[{\Tsg}] tomato buy-{\Pst}[{\Tsg}] \\
+\glt `Ahmet went to the market, and bought tomatoes'
+
+\end{xlist}
+\end{exe}
+
+Constraints like CSC and the possibility of conjoining more than two elements with or without conjoiners made conjunctions receive a ternary branching analysis. This analysis regards all the conjuncts as elements of the same hierarchical level. Figure \ref{fig:conjunction} shows a simple example for conjunction of three conjuncts.
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest}
+    [XP 
+        [XP]
+        [XP]
+        [XP]]
+    \end{forest}
+    \caption{Early conjunction analysis}
+    \label{fig:conjunction}
+\end{figure}
+
+This analysis however is problematic when binding principles \citep{chomsky1993lectures,haegeman1994introduction} are considered. More specifically Principle B which states that a pronoun must be free in its binding domain. For a simple consideration of what constitutes a binding domain I use the c-command relation. (\ref{violateB}) shows Principle B in Turkish. In this example, the proper noun \textit{Ahmet} c-commands the pronoun `o(n)' {\Tsg}. This means that the pronoun cannot be co-referential with the proper noun since it is in the binding domain of the pronoun.
+
+\begin{exe}
+\ex \label{violateB} 
+\gll Ahmet$_i$ on$_{*i/j}$-un arkadaş-ın-ı sev-iyor.\\ 
+A[{\Nom}] {\Tsg}-{\Gen} friend-{\Poss}.{\Tsg}-{\Acc} like-{\Prog} \\
+\glt Ahmet$_i$ likes his$_{*i/j}$ friend.
+\end{exe}
+
+An analysis like Figure \ref{fig:conjunction} predicts all conjuncts to c-command one another. This means that no conjunct should be able to bind a pronoun within the conjunction. (\ref{conjunctionB}) shows an example that goes against such a prediction. In this example the pronoun \textit{o} {\Tsg} can be co-referential with a proper noun \textit{Ahmet} even if they are in a conjunction.
+
+
+\begin{exe}
+\ex \label{conjunctionB} 
+\gll Ahmet$_i$ ve on$_{i/j}$-un arkadaş-lar-ı \\ 
+A {\And} {\Tsg}-{\Gen} friend-{\Pl}-{\Tsg} \\
+\glt `Ahmet$_i$ and his$_{i/j}$ friends'
+\end{exe}
+
+Co-referentiality in (\ref{conjunctionB}) would have been infelicitous if the pronoun \textit{Ahmet} were to c-command the other conjunct. This means that a ternary branching analysis that treats all conjuncts belonging to the same hierarchical level is problematic.
+
+There are at least three different ways that a binary representation of conjunctions can be achieved. These are \cite{munn1993topics}'s adjoined Boolean Phrase (BP) analysis, \cite{johannessen1998coordination}'s Co(njunction/ordination) Phrase (\&P) analysis, and lastly \cite{te2005deriving}'s pure merge analysis. I briefly explore these analyses in the next subsections. 
+
+
+\subsection{BP analysis} \label{bpanalysis}
+\cite{munn1993topics} revisits and revises the observations made in \cite{munn1987coordinate} for an asymmetric structural interpretation for conjunctions. He proposes that conjoiners form a boolean phrase, and work on the basis of semantics. The conjoiner takes an argument, makes a boolean phrase (BP), and takes another semantically equivalent argument to form a complete conjunction. The resulting structure bears the syntactic category of the last argument. Figure \ref{fig:booleanphrase} illustrates a basic representation of the analysis.
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest}
+    [XP$_{\textless \sigma, \tau\textgreater}$
+        [XP$_{\textless \sigma, \tau\textgreater}$]
+        [BP 
+            [B]
+            [XP$_{\textless \sigma, \tau\textgreater}$ /YP$_{\textless \sigma, \tau\textgreater}$ ]]]
+    \end{forest}
+    \caption{Boolean phrase analysis of conjunction}
+    \label{fig:booleanphrase}
+\end{figure}
+
+The analysis Munn provides is head initial, and it works on the semantic denotation of the conjuncts. The only requirement for a conjunction is the semantic equivalence. The example (\ref{unevenconjuncts}) shows conjunction of two different syntactic categories in Turkish. The first conjunct is an adverb phrase and the other is a post-positional phrase.
+
+\begin{exe}
+\ex \label{unevenconjuncts} 
+\begin{xlist}
+\ex \gll Ahmet dikkatlice ve azim-le çalış-ıyor. \\ A[{\Nom}] carefully {\And} tenacity-{\Ins} work-{\Prog}[{\Tsg}] \\
+\glt `Ahmet is working carefully and with tenacity.'
+\end{xlist}
+\end{exe}
+
+Changing the headedness of the analysis can fit it into Turkish and predict the correct c-command relations for (\ref{conjunctionB}). Figure \ref{fig:turkishbp} illustrates an abstract representation of BP and conjunction.
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest}
+    [XP$_{\textless \sigma, \tau\textgreater}$ 
+        [BP 
+            [XP$_{\textless \sigma, \tau\textgreater}$/ YP$_{\textless \sigma, \tau\textgreater}$]
+            [B\\conjoiner]]
+        [XP$_{\textless \sigma, \tau\textgreater}$]]
+    \end{forest}
+    \caption{Structural representation of BP for Turkish}
+    \label{fig:turkishbp}
+\end{figure}
+
+
+\subsection{\&P analysis}
+\cite{johannessen1998coordination} proposes asymmetric conjunction analysis following the irregularities that conjunctions display in several languages.\footnote{the title of her work is `Coordination', and the explanations are provided with that naming. For the sake of cohesiveness I replace the `Coordination' with `Conjunction'} She categorizes conjunctions into unbalanced and balanced conjunctions where a balanced conjunction has, order wise, reversible conjuncts with no cost of grammaticality or form but an unbalanced conjunction does not have reversible conjuncts without a cost of change in the conjuncts or grammaticality. The unbalanced conjunctions can have different types. One of those types that Johannessen dubs `assigning type unbalanced conjunction' is the base argument for the peculiarities of conjunctions. 
+
+In the assigning type conjunctions, one of the conjuncts determine the syntactic relations that the conjunction and other processes hold, such as agreement on the verb. An example for person agreement from Czech (\ref{johanczech}) and and example of gender agreement from Latin (\ref{johanlatin}) are provided in Johannessen where one of the conjuncts determine the agreement. In (\ref{johanczech}), the verb holds person agreement with the first conjunct. In (\ref{johanlatin}), the verb holds gender agreement with the second conjunct.
+
+\begin{exe}
+\ex \begin{xlist}
+    \ex Czech \label{johanczech}\\*
+    \gll Půjdu tam [j\`{a} a ty]. \\ 
+    will.go.{\Fsg} there {\Fsg} {\And} {\Ssg} \\
+    \glt `You and I will go there.'
+    
+    \ex Latin \label{johanlatin}\\*
+    \gll [Populi provinciaeque] liberatae sunt. \\ 
+    people.{\M}.{\Pl} province.{\F}.{\Pl}.{\And} liberated.{\F}.{\Pl} are \\
+    \glt `The people and the provinces are liberated.' \\*
+    \hfill as cited in \cite{johannessen1998coordination} 
+\end{xlist}
+\end{exe}
+
+Johannessen goes onto presenting more conjunctions of this type to show the conjunction should receive its own syntactic category so that the kind of constructions like assigning unbalanced conjunctions can be accounted for. Figure \ref{fig:johancop} illustrates the structural representation she proposes.
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest}
+    [\&P 
+        [XP]
+        [\&' 
+            [\&]
+            [XP]]]
+    \end{forest}
+    \caption{Conjunction phrase analysis}
+    \label{fig:johancop}
+\end{figure}
+
+In this analysis the conjoiner is a functional head that takes two arguments and projects a conjunction phrase. The headedness of the structure follows from the language and in the case of Turkish, the first conjunct is the first argument of the conjoiner and the second conjunct is the second argument. The final conjunction phrase carries the syntactic label of the second conjunct, if syntactic processes that require lexical categories are concerned.
+
+One shortcoming of Johannessen's analysis is that she uses examples of SA from languages like Eastern Mari, Old Uighur, and Turkish to argue for unbalanced conjunctions. I repeat some examples provided by \cite{johannessen1998coordination} for unbalanced conjunctions in (\ref{johansa}). These examples fall into examples of SA. This is not a concern for her analysis, but I mention it here for its relevance to my study.
+
+\begin{exe}
+\ex \label{johansa}
+\begin{xlist}
+    \ex Eastern Mari, SA of {\Pl}\\* 
+    \gll [Rveze den yd\textschwa rvlak] mod\textschwa t \\ 
+    boy {\And} girl.{\Pl} play.{\Tpl} \\
+    \glt `The boy(s) and the girls are playing.'  
+    
+    \ex Old Uighur, SA of {\Acc}\\*
+    \gll [Jala\textipa{\ng}uq-lar tynly\textgamma-lar-y\textgamma] \\ 
+    man-{\Pl} animal-{\Pl}-{\Acc} \\
+    \glt `the men and the creatures'
+    
+    \ex Turkish, SA of {\Pl} and {\Acc}\\*
+    \gll Elma veya armut-lar-ı ye-di-niz mi? \\ 
+    apple {\Or} pear-{\Pl}-{\Acc} eat-{\Pst}-{\Spl} ={\Q} \\
+    \glt `Did you eat the apples or the pears?'\\*
+    \hfill Adapted from \cite{johannessen1998coordination}
+\end{xlist}
+
+\end{exe}
+
+\subsection{Pure merge}
+
+\cite{te2005deriving} provides some theory internal objections to both the analysis of \cite{munn1993topics} and the analysis of \cite{johannessen1998coordination}. These include the assumptions that both the analyses hold with respect to the conjunct positions. The analysis of Munn suggests that the boolean phrase, which has the conjoiner and one conjunct, is adjoined to the other conjunct. The analysis of Johannessen suggests that the conjoiner projects to a conjunction phrase where one of the conjuncts is the complement and the other conjunct is placed on the specifier position of the conjunction phrase. Te Velde argues that the specifier adjunct positions should be subject to movement in theory. Movement out of a conjunct on the other hand is not permitted \citep{ross1967constraints}.  
+
+Te Velde argues for an analysis that regards a conjoiner as a defective syntactic category with no phrase projection akin to BP or \&P. He claims that conjunction is carried out at the base positions with `Pure Merge' as he cites \cite{chomsky1999derivation}. The conjoiner signals a process of conjunction that triggers certain constraints that are set for a conjunction. These include the copying and checking over the syntactic and semantic features, where the features differ in their influence over the well-formedness of the conjunction. This solves a theory internal problem in terms of the place status of conjuncts. Base generation removes the analyses of adjunction or specifier positions. 
+
+Te Velde provides an example from German where two prepositions are conjoined and used with a single noun. In (\ref{teveldeconj}), the preposition \textit{in} `in' assigns {\Dat} and \textit{um} `around' assigns {\Acc}. The noun \textit{Stadt} is used with an accusative article \textit{die} instead of a dative \textit{der}. Te Velde argues that there is no independent evidence to argue for an ellipsis analysis to account for (\ref{teveldeconj}) as in (\ref{teveldeconjalter}). 
+
+\begin{exe}
+\ex \begin{xlist}
+    \ex \label{teveldeconj} \gll 
+   Wir kaufen heute in$_{\Dat}$ und um$_{\Acc}$ die Stadt ein\\ 
+   we buy today in {\And} around the.{\Acc} city in \\
+   \glt `We're going shopping in and around the city.'\\
+   
+   \ex \label{teveldeconjalter}
+   \textit{Wir kaufen heute in \sout{der Stadt} und um die Stadt ein}\\*
+   \hfill \cite{te2005deriving}
+   \end{xlist}
+\end{exe}
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest}
+    [PP 
+        [P 
+            [P\\\textit{in}]
+            [P\rlap{ $\Uparrow$Merge}
+                [\&\\\textit{und}]
+                [P\\\textit{um}]]]
+        [DP\\\textit{die Stadt}]]
+    \end{forest}
+    \caption{Base generated conjunction}
+    \label{fig:tevelde}
+\end{figure}
+
+I have provided three analyses of conjunctions in this section. All of them have a hierarchical representation. \cite{munn1993topics} provides an adjunction analysis of BP where BP consists of one conjunct and a conjoiner. BP is later adjoined to the other conjunct. \cite{johannessen1998coordination} provides a full conjunction phrase analysis where one of the conjuncts is the complement and the other is the specifier of \&P which is headed by a conjoiner. \cite{te2005deriving} provides a pure merge analysis where one of the conjuncts is merged with the other at base position. In this study I follow the analysis of \cite{munn1993topics}. The analysis of Johannessen places one of the conjuncts on a specifier position which should be open to movements as Te Velde argues. Te Velde further argues against an adjunction analysis of Munn but he recognizes that adjunction and merge do not have clear distinctions to argue against. Te Velde's arguments mostly revolve around arguing against a conjoiner that could check or assign case, or a specifier position for conjunctions. I recognize that Te Velde's analysis can prove useful as a general interpretation of conjunction but none of the examples he provides are adjusted for a head final and an agglutinative language like Turkish. One of the examples Te Velde provides right after (\ref{teveldeconj}) is (\ref{teveldeconj2}). He provides the structural representation in Figure \ref{fig:tevelde2} for the analysis of (\ref{teveldeconj2}).
+
+\begin{exe}
+    \ex \label{teveldeconj2} 
+    \gll Fritz dankt und begrü{\ss}t den Herrn \\
+    F thanks {\And} greets the.{\Acc} gentleman \\
+    \glt `Fritz thanks and greets the gentleman' \\*
+    \hfill \cite{te2005deriving}
+\end{exe}
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest}
+    [TP 
+        [YP]
+        [T' 
+            [T]
+            [T'\rlap{ $\Uparrow$} 
+                [\&]
+                [T' 
+                    [T]
+                    [\ldots]]]]]
+    \end{forest}
+    \caption{Te Velde tense conjunction}
+    \label{fig:tevelde2}
+\end{figure}
+
+I give a sentence with argument structure of (\ref{teveldeconj2}) in (\ref{teveldeagainst}). The same structural analysis Te Velde provides cannot be carried out for Turkish. The functional head for tense is suffixed to the verb. A base merge of a partial construction to the head projection of tense as in Figure \ref{fig:tevelde2} is not possible.
+
+\begin{exe}
+    \ex \label{teveldeagainst} 
+    \gll Ahmet adam-ı gör-dü ve çağır-dı. \\ 
+    A[{\Nom}] man-{\Acc} see-{\Pst}[{\Tsg}] {\And} call-{\Pst}[{\Tsg}] \\
+    \glt `Ahmet saw and called the man.'
+\end{exe}
+
+Accounting for the sentences like (\ref{teveldeagainst}) requires a whole other exploration of the mechanisms of conjunction that Te Velde provides. Not all are related to this study. That is why I only use the semantic equivalence condition for a successful conjunction of phrases and adopt \cite{munn1993topics}'s analysis in treating conjunctions.

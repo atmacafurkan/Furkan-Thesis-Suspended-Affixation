@@ -1,3 +1,15 @@
-\input{endmatter/appendicies/acceptabilityitems.tex}
+\appendix
+% changing chapter heading for table of content
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+\titlecontents{chapter}[0pt]{}{\MakeUppercase{appendix \thecontentslabel:\quad}\MakeUppercase}{}{\dotfill\contentspage}
 
-\input{endmatter/appendicies/selfpaceditems.tex}
+
+\setlength\RaggedRightParindent{0cm}
+% PUT YOUR APPENDICIES HERE BY CALLING INPUT FUNCTION %
+\input{endmatter/appendicies/acceptabilityitems}
+
+\input{endmatter/appendicies/selfpaceditems}
+
+\input{endmatter/appendicies/equivalanceitems}
+
+\setlength\RaggedRightParindent{1.27cm}

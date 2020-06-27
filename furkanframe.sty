@@ -1,6 +1,10 @@
-
 % font
 \usepackage{times}
+\usepackage[T1]{fontenc}
+
+% Turkish characters
+\usepackage[utf8]{inputenc}
+
 
 % margins
 \usepackage{geometry}
@@ -16,18 +20,14 @@
 % for spellcheck, disable for hyphenation.
 % \usepackage[english]{babel}
 
-% Turkish characters
-\usepackage[utf8x]{inputenc}
+
+
 
 % math symbols
 \usepackage{amsmath}
 
 % include graphics
 \usepackage{graphicx}
-
-% text positioning
-\usepackage[document]{ragged2e}
-\setlength{\RaggedRightParindent}{2em}
 
 % some float envrionments
 % \usepackage{nonfloat}
@@ -37,12 +37,8 @@
 
 % multiple columns
 \usepackage{multicol}
-
-
-% a different tree drawer
-\usepackage[linguistics]{forest}
-\forestset{sn edges/.style={for tree={
- parent anchor=south, child anchor=north, s sep=10mm, inner sep=0}}}
+%prevent empty space before multicols, if they are on page edges weird stuff can happen please check your multicol environments in the pdf.
+\setlength\multicolsep{0pt}
 
 % matrices
 \usepackage{avm}
@@ -58,7 +54,7 @@
 \usepackage{tipa}
 \usepackage{phonrule}
 
-% framing text
+% framing
 \usepackage{framed}
 
 % color
@@ -71,12 +67,11 @@
 % \sout function and some others, without the option it messes up end-text citation
 \usepackage[normalem]{ulem}
 
+% sout in math mode
+\usepackage{cancel}
+
 % for footnotes in tables
 \usepackage{tablefootnote}
-
-% for figures and subfigures
-\usepackage{caption}
-\usepackage{subcaption}
 
 % for month and year info
 \usepackage{datetime}
@@ -99,15 +94,22 @@
 % makes subsubsection numbering visible in section heading.
 \setcounter{secnumdepth}{3}
 
+
 % preamble pages
 \usepackage{titletoc}
 
-\titlecontents{chapter}[0pt]{}{\MakeUppercase{\chaptertitlename \space\space \thecontentslabel:\quad}\MakeUppercase}{}{\dotfill\contentspage}
-\titlecontents{section}[2.3em]{}{\thecontentslabel\quad}{}{\dotfill\contentspage}
-\titlecontents{subsection}[4.6em]{}{\thecontentslabel\quad}{}{\dotfill\contentspage}
-\titlecontents{figure}[0pt]{\hangindent1.5em}{\figurename \space\space \thecontentslabel.\quad}{}{\dotfill\contentspage}
-\titlecontents{table}[0pt]{\hangindent1.5em}{\tablename \space\space \thecontentslabel.\quad}{}{\dotfill\contentspage}
-\setcounter{tocdepth}{2}
+\titlecontents{chapter}[0pt]{}{\MakeUppercase{\chaptertitlename\space\space\thecontentslabel:\space\space}\MakeUppercase}{}{\dotfill\contentspage}
+\titlecontents{section}[2.3em]{}{\thecontentslabel\space\space}{}{\dotfill\contentspage}
+
+\titlecontents{subsection}[4.6em]{}{\thecontentslabel\space\space}{}{\dotfill\contentspage}
+
+\titlecontents{figure}[0pt]{\hangindent 1.5em}{\figurename \space\space \thecontentslabel.\space\space}{}{\dotfill\contentspage}
+
+\titlecontents{table}[0pt]{\hangindent 1.5em}{\tablename \space\space \thecontentslabel.\space\space}{}{\dotfill\contentspage}
+
+
+% table of content depth 1 > CHAPTERs and Sections. 2 > + subsections
+\setcounter{tocdepth}{1}
 \usepackage{chngcntr}
 \counterwithout{figure}{chapter}
 \counterwithout{table}{chapter}
@@ -115,10 +117,10 @@
 % configure figure and table captions
 \usepackage[labelsep=period]{caption}
 \captionsetup{justification=raggedright,singlelinecheck=false}
+\usepackage{subcaption}
 
-
+%% R graphics and environment settings %%
 \usepackage{alltt}
-
 % knitr settings
 \definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
 \newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
@@ -155,12 +157,47 @@
 \definecolor{warningcolor}{rgb}{1, 0, 1}
 \definecolor{errorcolor}{rgb}{1, 0, 0}
 \newenvironment{knitrout}{}{}
+%% end R environment %%
+
+% for word count
+% \usepackage{verbatim}
+% \immediate\write18{texcount -inc -incbib 
+% -sum main.tex > /tmp/wordcount.tex}
+% \newcommand\wordcount{
+% \verbatiminput{/tmp/wordcount.tex}}
 
 
+% hinder widows and orphans
+\usepackage[all]{nowidow}
+
+% misc
+\usepackage{etoolbox}
+
+\newlength\mystoreparindent
+\newenvironment{myparindent}[1]{%
+\setlength{\mystoreparindent}{\the\parindent}
+\setlength{\parindent}{#1}
+}{%
+\setlength{\parindent}{\mystoreparindent}
+}
+
+% text positioning
+\usepackage[document]{ragged2e}
+\setlength\RaggedRightParindent{1.27cm}
 
 %%% KEEP THESE PACKAGES AT THE VERY END OF YOUR STY FILE IF YOU WANT TO HAVE ADDITIONAL PACKAGES %%%
 % citation
 \usepackage{natbib}
+
+%% this piece fixes semicolon comma choices for cite and citep %%
+\makeatletter
+\newcommand\bibstyle@comma{\bibpunct(),a,,}
+\newcommand\bibstyle@semicolon{\bibpunct();a,,}
+\makeatother
+\pretocmd\cite{\citestyle{comma}}\relax\relax
+\pretocmd\citep{\citestyle{semicolon}}\relax\relax
+%%end fix%%
+
 
 
 % leipzig glossing
@@ -169,9 +206,9 @@
 \input{frontmatter/glossaries.tex}
 
 % numbered linguistics examples with glossing
-\usepackage{gb4e}
+\usepackage{langsci-gb4e}
 
 % makes language examples appear in italic
-\renewcommand{\eachwordone}{\textit}
+\let\eachwordone=\itshape
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

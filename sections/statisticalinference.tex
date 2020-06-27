@@ -1,0 +1,23 @@
+\section{Statistical inference}
+
+I use Bayesian inference in evaluating the results of my empirical studies. I report results of the regression models with $posterior$ probability distributions. In the psycholinguistic research, using a statistical inference that has a significance filter like $p$ value is shown to be problematic \citep{vasishth2018statistical, wagenmakers2007practical,kruschke2011bayesian}. As a linguist, one might not be aware of the inner workings of a statistical inference method. \cite{mcelreath2020statistical} is a good introduction and includes several practices that are very helpful. Bayesian inference shows the effects of a predictor for data in a more accessible way that reflects the uncertainty or variance. 
+
+I define the regression model descriptions using brms \citep{burkner2017brms} in R \citep{team2013r}. I provide the dependent variable, the predictors (independent variables), and the data family appropriate for the dependent variable. 
+
+\subsection{How to interpret the results}
+
+I present plots of the regression models' results. They host the following information: on the x axis, transformed values for the coefficients are placed. A point for the median estimate, a thick horizontal line for the \%50 credible intervals, and a thin line for the \%95 credible intervals. The y axis has the individual and interaction effects of the predictors. They are called coefficients because they are all multiplicative effects in their original scale. On a transformed scale, multiplication is through addition. This means that the effect of any coefficient is additive to the grand mean. I do not provide the estimate for the grand mean (Intercept) as one is usually interested in the effects rather than the mean values. The numerical size of the estimate determines the size of the effect and the sign of the estimate (+/-) indicates the effect increasing or decreasing the grand mean. The credible intervals indicate the uncertainty for a given predictor.
+
+The reason for using transformed scales is to reduce the effects of the extremes in data. Because of the mathematical transformation, the outliers in the original scale get closer to the other values in a transformed scale. This way the effects of the extremes in data are mitigated to an extend.
+
+\subsection{Predictor contrasts}
+
+For any comparison to be drawn in data depending on a predictor, contrasts among the levels of a predictor needs to be defined. There are many types of contrasts and each are used depending on the predictor. In my analyses I needed sum contrasts and sliding differences.
+
+Sum contrasts are used if the predictor has levels that are expected to have opposite effects. If a predictor `A' has two levels `X, and Y', they are coded to sum up to 0 like `-1 and +1' for a comparison. This way the effects are centered around a hypothetical baseline `0'. I order the level of a predictor and use `contr.sum' function of R to set sum contrasts. The plots reflect the effect of the level(s) coded with `+1'.
+
+Sliding differences contrasts are used when a variable has ordered levels by their nature. Suppose that a variable `B' has three levels `J’, `K’, and `L’. If there is an order among the levels like J<K<L, one might want to use sliding differences. This way comparisons are drawn between K versus J and L versus K. I order the levels of the predictor and use `contr.sdif’ function provided by the R package MASS \citep{mass2002} to set contrasts of sliding differences. The plots display results for each comparison with a dash `-' between the levels that the comparison is made for. 
+
+
+
+

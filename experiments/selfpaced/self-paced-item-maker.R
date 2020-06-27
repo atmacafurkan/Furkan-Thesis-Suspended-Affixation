@@ -7,6 +7,9 @@ library(tidyr)
 df <- read_excel("SA-Experiment-Items.xlsx") %>% subset(SA_type !="filler") %>% subset(SA_type=="verbal") 
 df_fillers <- read_excel("SA-Experiment-Items.xlsx") %>% subset(SA_type =="filler") 
 
+df$qtype <- ifelse(df$question == df$ques_yes, "correct","incorrect")
+df_fillers$qtype <- ifelse(df_fillers$question == df_fillers$ques_yes, "correct","incorrect")
+
 
 # form sentences from the data frame
 df$noSA_ve <-  paste(df$PreSentence, y= paste0(df$Verb1, df$Suffix1_1, df$Suffix1_2),
@@ -33,7 +36,7 @@ df %<>% dplyr::select(item_id, noSA_ve, noSA_veya,
                       oneSA_ve, oneSA_veya, 
                       fullSA_ve, fullSA_veya, 
                       contrast_ve, contrast_veya, 
-                      question)
+                      question, qtype)
 
 df_fillers$filler <- paste(df_fillers$PreSentence,
                                     df_fillers$Verb1,
@@ -47,7 +50,7 @@ df_fillers$filler <- paste(df_fillers$PreSentence,
                                     df_fillers$SA1,
                                     df_fillers$SA2)
 
-df_fillers %<>% dplyr::select(item_id, filler, question) %>% na.omit()
+df_fillers %<>% dplyr::select(item_id, filler, question, qtype) %>% na.omit()
 
 
 # form the SAsentences according to ibexfarm item format
@@ -104,11 +107,22 @@ close(filing)
 
 
 # sentences as an independent txt file
-sentence_items <- sprintf("%s_%s", df$item_id, df$noSA_ve)
-sentence_fillers <- sprintf("%s_%s", df_fillers$item_id, df_fillers$filler)
+sentence_items <- sprintf("%s\\_%s \\\\", df$item_id, df$noSA_ve)
+sentence_fillers <- sprintf("%s\\_%s \\\\", df_fillers$item_id, df_fillers$filler)
+items_questions <- sprintf("%s\\_%s\\_%s \\\\", df$item_id, df$qtype, df$question)
+fillers_questions <- sprintf("%s\\_%s\\_%s \\\\", df_fillers$item_id, df_fillers$qtype, df_fillers$question)
 
 
 filing2 <- file("self_paced_items_as_sentences.txt")
 writeLines(c(sentence_items, sentence_fillers), filing2)
 close(filing2)
+
+filing3 <- file("self_paced_questions.txt")
+writeLines(c(items_questions, fillers_questions), filing3)
+close(filing3)
+
+
+
+
+
 

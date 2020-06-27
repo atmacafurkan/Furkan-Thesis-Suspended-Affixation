@@ -1,0 +1,218 @@
+\section{Processing suspended affixation}
+
+The overall interpretation from Chapter 2 indicates that SA is interpreted under two approaches. The first approach \citep{orgun1995flat,broadwell2008turkish, kornfilt2012revisiting} argues for structural sharing in different ways, the second approach \citep{erschler2018suspended,guseva2017postsyntactic} argues for an ellipsis analysis where exponents of morphemes are deleted\. In the following subsections I give what both approaches predict for the processing of SA.
+
+\subsection{Lexical sharing}
+
+In the lexical sharing approach, the suspended affix is affixed to the whole conjunction as illustrated in Figure \ref{fig:lexicalsharing}.
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest}
+    [\ldots 
+        [ConjP 
+            [N1]
+            [(conj)]
+            [N2]] 
+        [Affix]]
+    \end{forest}
+    \caption{Abstract representation of lexical sharing}
+    \label{fig:lexicalsharing}
+\end{figure}
+
+In this approach, the feature values for the suffix are encoded in the whole conjunction as opposed to being only encoded in the second conjunct. Figure \ref{fig:suspension} shows a representation of SA in the expression \textit{kitap ve kalem-ler-i} `the books and the pencils'.
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest}
+    [\ldots 
+        [ConjP 
+            [\begin{avm}
+            \[\rm \textit{kitap} \\
+            \[ {\Lex} & Book \\ 
+            {\Cat} & {\Noun} \\
+            {\Num} & {?} \\
+            {\Case} & {?}
+            \]
+            \]
+            \end{avm}]
+            [\begin{avm}
+            \[\rm \textit{kalem} \\
+            \[ {\Lex} & Pencil \\
+            {\Cat} & {\Noun} \\
+            {\Num} & {?} \\
+            {\Case} & {?}
+            \]
+            \]
+            \end{avm}]]
+        [\begin{avm}
+        \[\rm \textit{-ler-i} \\
+        \[{\Num} & {\Pl} \\
+        {\Case} & {\Acc}
+        \]
+        \]
+        \end{avm}]]
+    \end{forest}
+    \caption{SA of {\Pl} and {\Acc} in lexical sharing}
+    \label{fig:suspension}
+\end{figure}
+
+The number feature has two values in Turkish: {\Sg} and {\Pl}. {\Pl} has an overt exponent \textit{-lAr} but the exponent for {\Sg} is $\emptyset$/zero. The exponent for {\Nom} in case feature is also $\emptyset$/zero. A basic lexical sharing approach would never have SA if zero exponents are used for feature encodings. The nouns would already have feature encodings with zero exponents. A remedy for this can be an update of the features, where the feature encodings in the affix override the default values signalled by zero exponent ($\emptyset$). In ambiguous cases of SA, such as the suspension of the {\Pl} and {\Poss}, this update depends on a choice to perform SA or not. In unambiguous cases of SA, such as the suspension of {\Case}, this update is not a choice but obligatory for a successful interpretation.
+
+
+\subsection{Ellipsis}
+
+In the ellipsis approach, the suspended affix is encoded for the second conjunct and the value of that affix is recovered for the first conjunct as illustrated in Figure \ref{fig:ellipsis}.
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest}
+    [\ldots 
+        [N1, name=n1]
+        [N2-Affix, name=n2]]
+    \draw[thick,dashed, ->] (n2) to[out=south east, in=south] node[midway, fill=white]{recover}(n1);    
+    \end{forest}
+    \caption{Abstract representation of ellipsis analysis}
+    \label{fig:ellipsis}
+\end{figure}
+
+In this approach, the feature values of the suffix are first encoded to the conjunct it is attached to. Later, the values for that suffix are encoded for the first conjunct. Figure \ref{fig:suspension2} illustrates the ellipsis analysis for SA of {\Pl-\Acc} in \textit{kitap ve kalem-ler-i} `the books and the pencils'. 
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest}
+    [\ldots 
+        [\begin{avm}
+        \[ \rm \textit{kitap} \\
+        \[ {\Lex} & Book \\
+        {\Cat} & {\Noun} \\
+        {\Num} & \sout{{\Sg}} {\Pl}\\
+        {\Case} & \sout{{\Nom}} {\Acc}
+        \]
+        \]
+        \end{avm}, name=y]
+        [\begin{avm}
+        \[\rm \textit{kalem-ler-i} \\
+        \[ {\Lex} & Pencil \\
+        {\Cat} & {\Noun} \\
+        {\Num} & {\Pl} \\
+        {\Case} & {\Acc} 
+        \]
+        \]
+        \end{avm}, name=x
+        ]]
+        \draw[thick, dashed, ->] (x) to[out=south east, in=south east] node[midway,fill=white]{recover {\Pl}, {\Acc}} (y);
+    \end{forest}
+    \caption{SA of {\Pl} and {\Acc} in ellipsis}
+    \label{fig:suspension2}
+\end{figure}
+
+The two approaches do not predict differences in the processing of SA. For both approaches to work, a process of updating feature values takes place. In the cases where SA is ambiguous this update depends on the parser's choice. On the simplex sentences, the SA of {\Case} is unambiguous. The unambiguous {\Case} SA is an incentive for both approaches to predict that SA of {\Case} is always carried out in a local environment where the first conjunct is encoded by zero ($\emptyset$) exponent. In this study, I investigate if the unambiguous {\Case} SA in simplex sentences have effects on ambiguous {\Case} SA in complex sentences. In the next section I introduce the ambiguous environment that depends on whether {\Case} SA takes place.
+
+\subsection{Environment}
+
+In Turkish, there is an ambiguity environment where the ambiguity depends on whether SA of {\Case} takes place. See (\ref{ambiguity}) for an example. The ambiguity depends on the SA of {\Acc}. If SA takes place, the nouns \textit{çocuk} `child' and \textit{kadın} `woman' form a conjunction and become the object of the embedded verb \textit{kurtar-} `to save'. If SA does not take place, the noun \textit{çocuk} `child' and the noun \textit{adam} `man' form a conjunction and become the subject of the main clause.
+
+\begin{exe}
+    \ex \label{ambiguity} 
+    \gll çocuk ve kadın-ı kurtar-an adam ev-e gel-di. \\ 
+    child {\And} woman-{\Acc} save-{\Fp} man home-{\Dat} come-{\Pst} \\
+    \glt SA: `[the man who saved the child and the woman] came home.'\\*
+    No SA: `[the child] and [the man who saved the woman] came home.'
+\end{exe}
+
+This means that the unambiguous {\Case} SA in a simplex sentence can be made to be ambiguous in a complex one. This ambiguity can be regulated by a pronoun as a disambiguator like in (\ref{disambiguation}).
+
+\begin{exe}
+\ex \label{disambiguation}
+\gll kadın ve yolcu-yu kurtar-an adam {[onları/ birbirlerini]} uyar-dı. \\ 
+woman {\And} passenger-{\Acc} save-{\Fp} man {them/ each\_other} warn-{\Pst} \\
+\glt `the man who saved the passenger and the woman warned them.' \\*
+`the woman and the man who saved the passenger warned each other.'
+\end{exe}
+
+In this environment, a pronoun \textit{birbirlerin-{\Case}} `each\_other' requires two antecedents that are both subjects. A main clause subject in Turkish requires {\Nom} as {\Case}. This means that the {\Case} value for the first conjunct should remain {\Nom} as encoded by the zero ($\emptyset$) exponent. This requires that no SA to take place. The other pronoun \textit{onlar-{\Case}} `them' requires a resolution of two antecedents that are the objects of the relativized verb. In this case, SA needs to take place for the pronoun to be processed grammatically. 
+
+
+\section{Experiment 3}
+The main aim in this experiment is to answer the following questions:
+\begin{itemize}
+    \item Do people keep performing {\Case} SA even when it is ambiguous?
+    \item If so, does the parallelism between the conjuncts influence it?
+\end{itemize}
+
+
+\subsection{Hypotheses}
+
+Now that the SA of {\Case} is made to be ambiguous, I present how the deterministic and probabilistic parsers can operate in this ambiguity environment. I first outline the two outcomes that the deterministic serial parser predicts, then I outline how the probabilistic serial parser can operate and what is predicts.
+
+
+\subsection{Deterministic serial parser}
+
+The two main principles of this parser is minimal attachment and late closure. The ambiguity environment depends on how the conjunction is formed. Specifically how {\Case} is taken into consideration when forming a conjunction. In an example like (\ref{prosconj}), the first word receives a {\Nom} value for {\Case} and by the time the conjoiner is reached the first conjunct is formed.
+
+\begin{exe}
+\ex \label{prosconj}
+\begin{multicols}{2}
+\begin{xlist}
+\ex \gll adam ve \ldots \\ man[{\Nom}] {\And} \ldots\\ \glt `the man and \ldots'
+\columnbreak
+\ex \begin{forest}
+[\ldots 
+    [BP 
+        [DP$_{\Nom}$] 
+        [B]]
+    [\ldots]]
+\end{forest}
+\end{xlist}
+\end{multicols}
+\end{exe}
+
+
+If the conjunction continues with a noun that is not marked with the same {\Case}, there are two options to consider. The first one works as the following. The {\Case} value of the first conjunct determines the {\Case} value of the second because nouns marked with different cases can't be conjoined in Turkish. Once the second conjunct is designated to have {\Nom} as its {\Case} value, encountering a noun with a different {\Case} should result in positing an embedded clause and the different {\Case} marked noun to be interpreted within it. As illustrated in (\ref{conjparallel}). This amounts to maintaining late closure, because the second conjunct was designated to have {\Nom} as its case.
+
+\begin{exe}
+\ex \label{conjparallel}
+\begin{forest}
+[DP$_{\Nom}$ 
+    [BP 
+        [DP$_{\Nom}$]
+        [B]]
+    [DP$_{\Nom}$ 
+        [XP 
+            [DP$_{\neg\Nom}$]
+            [X]]
+        [\ldots]]]
+\end{forest}
+\end{exe}
+
+A deterministic serial parser does not force the structure in (\ref{conjparallel}). That is a result of assuming that the parser keeps conjuncts parallel in their {\Case} value immediately after the conjoiner. If such a parallelism is not taken into account and {\Case} mismatches are only handled after a possible conjunction is formed, a different structure is predicted.
+
+Let us assume that the parser is given a second conjunct that is not marked with {\Nom} as in (\ref{prosconj1}). The correct parsing of this structure requires a grammaticality filter. Once both conjuncts are encoded with their own {\Case} values, a filter of comparing the two and deciding whether or not the conjunction can be saved needs to take place. In (\ref{prosconj1}), the first conjunct is marked with {\Nom} which does not have an overt exponent. This enables the parser to perform SA. This amounts to keeping minimal attachment, even though it requires additional processes that are costly. The resulting conjunction is marked with the case of the second conjunct and the parsing continues with the embedded verb taking the conjunction as its argument.
+
+\begin{exe}
+\ex \label{prosconj1}
+\begin{forest}
+[DP$_{\neg\Nom}$ 
+    [BP 
+        [DP$_{\Nom}$] 
+        [B]]
+    [DP$_{\neg\Nom}$]]
+\end{forest}
+\end{exe}
+
+The specific environment I provided uses embedded sentences to establish an ambiguity of {\Case} SA. To achieve that, the noun after the conjoiner is followed by a relativized verb. If the structure in (\ref{conjparallel}) is adopted, the verb is interpreted only with the second noun. The head noun of the relative clause is marked with {\Nom}. This head noun becomes the second conjunct, satisfying {\Case} match with the first conjunct. If the structure in (\ref{prosconj1}) is adopted, the verb is interpreted with both nouns that come before it and the head noun of the relative clause becomes one noun that is not part of a conjunction.
+
+As a result, a deterministic serial parser can predict either performing SA or not depending on the assumption of how a conjunction is formed. If the conjuncts are taken to be parallel in {\Case} immediately after the conjoiner, SA is not performed. If the {\Case} parallelism is a grammaticality filter after a potential conjunction is formed, SA is performed.
+
+
+\subsection{Probabilistic serial parser}
+
+As per the deterministic serial parser, the probabilistic one can also predict both outcomes of performing or not performing SA in ambiguous environments. This time however the difference does not rely on how the conjunction is formed, but it relies on the processes that would include and follow performing or not performing SA. Instead of a filter of grammaticality or syntactic interpretation, a race between the options is taken. Following from the representation of (\ref{prosconj}), the parser encounters the second conjunct that is not marked with {\Nom}. Performing or not performing SA are the two structural options.
+
+Let us take the route of performing SA and consider the processes that it entails. For a parser to know that it is in an SA environment, it needs to compare the {\Case} values of both conjuncts to see if SA is even felicitous. This can be an operation initiated by the conjoiner even before the second conjunct is reached, as a constraint for building a grammatical structure. Once the comparison is made and the first conjunct is shown to have {\Nom} as its {\Case}, an operation of feature value update of the first conjoiner from {\Nom} to the {\Case} of the second conjunct takes place. Then a conjunction of the two nouns is formed and the verb after the second noun takes the conjunction as its argument. This amounts to performing SA. The processes are the comparison of the two conjuncts in their {\Case} values and updating the feature value of the first conjunct when permissible.
+
+
+Taking the route of not performing SA requires other processes. When the second conjunct is encountered and it is marked with {\Case} other than {\Nom} a comparison of {\Case} with the first conjunct is made, as presumably initiated by the conjoiner and not by the second conjunct. Not performing SA requires positing an embedded clause that the second noun belongs to. The nature of the ambiguity is accomplished through using {\Acc}, {\Dat}, {\Loc}, and {\Abl}. All arguments with those {\Case} values require a verb to be interpreted under. Positing an embedded structure includes the processes of building a VP and a nominalization because the first conjunct is a noun and semantic equivalence is a constraint for conjunction. This means that not performing SA involves one process of positing an embedded sentence which would entail building a complex structure of a verb and a nominalization.
+
+As a result, a probabilistic serial parser predicts a result compatible with performing SA over not performing SA under the assumption that it ranks the cost of positing an embedded structure higher than of performing SA. Performing SA is an update in feature values, but not performing SA is building up a complex structure.

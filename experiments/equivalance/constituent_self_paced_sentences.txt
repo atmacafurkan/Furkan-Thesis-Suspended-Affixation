@@ -1,0 +1,240 @@
+1\_par-subj\_Bence baron ve şövalyeyi ödüllendiren kral birbirlerini şatoda dinleyecek. \\
+2\_par-subj\_Sanırım hemşire ve hastayı gören doktor birbirlerine ameliyatı hatırlatacak. \\
+3\_par-subj\_Umarım muhabir ve görevliyi duyan bakan birbirlerini toplantıda uyaracak. \\
+4\_par-subj\_Mesela antrenör ve dansçıyı tanıyan sporcu birbirlerini yarışmaya kaydedecek. \\
+5\_par-subj\_Sözde adam ve garsonu farkeden kadın birbirlerini restoranda ağırlayacak. \\
+6\_par-subj\_Öte_yandan akademisyen ve sekreteri uyaran rektör birbirlerini törene çağıracak. \\
+7\_par-subj\_Anlaşılan kuyumcu ve dönerciyi dolandıran hırsız birbirlerini polise ihbar_ediyor. \\
+8\_par-subj\_Allahtan öğretmen ve öğrenciyi unutan müdür birbirlerini okulda görüyor. \\
+9\_par-subj\_Belli_ki yazar ve editörü arayan şair birbirlerine sokakta sesleniyor. \\
+10\_par-subj\_Neyse_ki adam ve çırağı çağıran çilingir birbirlerine kapıyı gösteriyor. \\
+11\_par-subj\_Anlaşılan hostes ve yolcuyu beğenen pilot birbirlerini uçakta gözetliyor. \\
+12\_par-subj\_Aslında hamal ve tezgahtarı bulan sütçü birbirlerini pazarda kandırıyor. \\
+13\_par-subj\_Bu_arada yarışmacı ve sunucuyu eleştiren seyirci birbirlerini salondan çıkardı. \\
+14\_par-subj\_Demek_ki şehzade ve veziri dinleyen padişah birbirlerini savaşa uğurladı. \\
+15\_par-subj\_Mesela subay ve çavuşu fırçalayan general birbirlerine dikkatlice baktı. \\
+16\_par-subj\_Ne_yazık_ki profesör ve asistanı araştıran dekan birbirlerini projeden vazgeçirdi. \\
+17\_par-subj\_İyi_ki veznedar ve cerrahı kandıran yatırımcı birbirlerini satıştan caydırdı. \\
+18\_par-subj\_Aslında büyükelçi ve çevirmeni bekleyen başbakan birbirlerini görüşmeye davet_etti. \\
+19\_par-subj\_Sözde müzisyen ve modele yaklaşan aktör birbirlerine duyuruyu okuyacak. \\
+20\_par-subj\_Kısacası oyuncu ve kameramana seslenen yönetmen birbirlerine sahneyi izletecek. \\
+21\_par-subj\_Umarım yatırımcı ve işçiye bakan mühendis birbirlerini planlarla bilgilendirecek. \\
+22\_par-subj\_Bence fotoğrafçı ve berbere bağıran gözlükçü birbirleriyle kahvede karşılaşacak. \\
+23\_par-subj\_Belli_ki asker ve bekçiye kızan komutan birbirlerine kışlayı gösteriyor. \\
+24\_par-subj\_Yani kasap ve elemana güvenen pazarcı birbirlerine dükkanı emanet_ediyor. \\
+25\_par-subj\_Öte_yandan marangoz ve ustabaşına takılan mimar birbirlerinden siparişi alıyor. \\
+26\_par-subj\_Neyse_ki çiçekçi ve rehbere danışan turist birbirlerine hediyeyi seçtiriyor. \\
+27\_par-subj\_Allahtan matbaacı ve teknisyene gücenen yayımcı birbirlerini atölyede gördü. \\
+28\_par-subj\_Maalesef muavin ve biletçiye karışan şoför birbirlerini güzergahtan vazgeçirdi. \\
+29\_par-subj\_Demek_ki madenci ve müfettişe ulaşan tüccar birbirlerini telefonla aradı. \\
+30\_par-subj\_Üstelik denizci ve balıkçıya inanan kaptan birbirlerinden rotayı öğrendi. \\
+31\_par-subj\_Nedense avukat ve hakime güvenen patron birbirlerinden güvence istedi. \\
+32\_par-subj\_Yani manav ve delikanlıdan bahseden terzi birbirleriyle dalga geçiyor. \\
+33\_par-subj\_Nedense piyanist ve seyirciden utanan şarkıcı birbirlerini sahneye çağırıyor. \\
+34\_par-subj\_Üstelik kadın ve muhtardan çekinen köylü birbirlerini yemeğe buyur_ediyor. \\
+35\_par-subj\_İyi_ki hizmetli ve yöneticiden korkan aşçı birbirlerine tarifi verdi. \\
+36\_par-subj\_Kısacası kiracı ve kapıcıdan bıkan emlakçı birbirlerine daireyi gezdirdi. \\
+37\_par-subj\_Hiç_değilse futbolcu ve hakemden usanan direktör birbirlerini yönetime şikayet_etti. \\
+38\_par-subj\_Sanırım çiftçi ve çobandan kaçan imam birbirleriyle meydanda karşılaştı. \\
+39\_par-subj\_Maalesef papaz ve rahibeden uzaklaşan filozof birbirlerini tartışmaya zorladı. \\
+40\_par-subj\_Hiç_değilse hizmetçi ve kiracıdan huylanan tesisatçı birbirlerine tadilatı tarif_etti. \\
+1\_nonpar-subj\_Bence baron ve cesur şövalyeyi ödüllendiren kral birbirlerini şatoda dinleyecek. \\
+2\_nonpar-subj\_Sanırım hemşire ve zavallı hastayı gören doktor birbirlerine ameliyatı hatırlatacak. \\
+3\_nonpar-subj\_Umarım muhabir ve endişeli görevliyi duyan bakan birbirlerini toplantıda uyaracak. \\
+4\_nonpar-subj\_Mesela antrenör ve utangaç dansçıyı tanıyan sporcu birbirlerini yarışmaya kaydedecek. \\
+5\_nonpar-subj\_Sözde adam ve acemi garsonu farkeden kadın birbirlerini restoranda ağırlayacak. \\
+6\_nonpar-subj\_Öte_yandan akademisyen ve unutkan sekreteri uyaran rektör birbirlerini törene çağıracak. \\
+7\_nonpar-subj\_Anlaşılan kuyumcu ve çaresiz dönerciyi dolandıran hırsız birbirlerini polise ihbar_ediyor. \\
+8\_nonpar-subj\_Allahtan öğretmen ve çalışkan öğrenciyi unutan müdür birbirlerini okulda görüyor. \\
+9\_nonpar-subj\_Belli_ki yazar ve eski editörü arayan şair birbirlerine sokakta sesleniyor. \\
+10\_nonpar-subj\_Neyse_ki adam ve sakar çırağı çağıran çilingir birbirlerine kapıyı gösteriyor. \\
+11\_nonpar-subj\_Anlaşılan hostes ve genç yolcuyu beğenen pilot birbirlerini uçakta gözetliyor. \\
+12\_nonpar-subj\_Aslında hamal ve kurnaz tezgahtarı bulan sütçü birbirlerini pazarda kandırıyor. \\
+13\_nonpar-subj\_Bu_arada yarışmacı ve şirin sunucuyu eleştiren seyirci birbirlerini salondan çıkardı. \\
+14\_nonpar-subj\_Demek_ki şehzade ve temkinli veziri dinleyen padişah birbirlerini savaşa uğurladı. \\
+15\_nonpar-subj\_Mesela subay ve dikkatsiz çavuşu fırçalayan general birbirlerine dikkatlice baktı. \\
+16\_nonpar-subj\_Ne_yazık_ki profesör ve azimli asistanı araştıran dekan birbirlerini projeden vazgeçirdi. \\
+17\_nonpar-subj\_İyi_ki veznedar ve iyimser cerrahı kandıran yatırımcı birbirlerini satıştan caydırdı. \\
+18\_nonpar-subj\_Aslında büyükelçi ve şaşkın çevirmeni bekleyen başbakan birbirlerini görüşmeye davet_etti. \\
+19\_nonpar-subj\_Sözde müzisyen ve alımlı modele yaklaşan aktör birbirlerine duyuruyu okuyacak. \\
+20\_nonpar-subj\_Kısacası oyuncu ve uzun kameramana seslenen yönetmen birbirlerine sahneyi izletecek. \\
+21\_nonpar-subj\_Umarım yatırımcı ve yorgun işçiye bakan mühendis birbirlerini planlarla bilgilendirecek. \\
+22\_nonpar-subj\_Bence fotoğrafçı ve geçimsiz berbere bağıran gözlükçü birbirleriyle kahvede karşılaşacak. \\
+23\_nonpar-subj\_Belli_ki asker ve kaygısız bekçiye kızan komutan birbirlerine kışlayı gösteriyor. \\
+24\_nonpar-subj\_Yani kasap ve çevik elemana güvenen pazarcı birbirlerine dükkanı emanet_ediyor. \\
+25\_nonpar-subj\_Öte_yandan marangoz ve konuşkan ustabaşına takılan mimar birbirlerinden siparişi alıyor. \\
+26\_nonpar-subj\_Neyse_ki çiçekçi ve güleç rehbere danışan turist birbirlerine hediyeyi seçtiriyor. \\
+27\_nonpar-subj\_Allahtan matbaacı ve özensiz teknisyene gücenen yayımcı birbirlerini atölyede gördü. \\
+28\_nonpar-subj\_Maalesef muavin ve özenli biletçiye karışan şoför birbirlerini güzergahtan vazgeçirdi. \\
+29\_nonpar-subj\_Demek_ki madenci ve ılımlı müfettişe ulaşan tüccar birbirlerini telefonla aradı. \\
+30\_nonpar-subj\_Üstelik denizci ve durgun balıkçıya inanan kaptan birbirlerinden rotayı öğrendi. \\
+31\_nonpar-subj\_Nedense avukat ve insaflı hakime güvenen patron birbirlerinden güvence istedi. \\
+32\_nonpar-subj\_Yani manav ve saygılı delikanlıdan bahseden terzi birbirleriyle dalga geçiyor. \\
+33\_nonpar-subj\_Nedense piyanist ve hevesli seyirciden utanan şarkıcı birbirlerini sahneye çağırıyor. \\
+34\_nonpar-subj\_Üstelik kadın ve sakin muhtardan çekinen köylü birbirlerini yemeğe buyur_ediyor. \\
+35\_nonpar-subj\_İyi_ki hizmetli ve hırslı yöneticiden korkan aşçı birbirlerine tarifi verdi. \\
+36\_nonpar-subj\_Kısacası kiracı ve dalgın kapıcıdan bıkan emlakçı birbirlerine daireyi gezdirdi. \\
+37\_nonpar-subj\_Hiç_değilse futbolcu ve taraflı hakemden usanan direktör birbirlerini yönetime şikayet_etti. \\
+38\_nonpar-subj\_Sanırım çiftçi ve sinirli çobandan kaçan imam birbirleriyle meydanda karşılaştı. \\
+39\_nonpar-subj\_Maalesef papaz ve bilgili rahibeden uzaklaşan filozof birbirlerini tartışmaya zorladı. \\
+40\_nonpar-subj\_Hiç_değilse hizmetçi ve ihmalkâr kiracıdan huylanan tesisatçı birbirlerine tadilatı tarif_etti. \\
+1\_par-obj\_Bence baron ve şövalyeyi ödüllendiren kral onları şatoda dinleyecek. \\
+2\_par-obj\_Sanırım hemşire ve hastayı gören doktor onlara ameliyatı hatırlatacak. \\
+3\_par-obj\_Umarım muhabir ve görevliyi duyan bakan onları toplantıda uyaracak. \\
+4\_par-obj\_Mesela antrenör ve dansçıyı tanıyan sporcu onları yarışmaya kaydedecek. \\
+5\_par-obj\_Sözde adam ve garsonu farkeden kadın onları restoranda ağırlayacak. \\
+6\_par-obj\_Öte_yandan akademisyen ve sekreteri uyaran rektör onları törene çağıracak. \\
+7\_par-obj\_Anlaşılan kuyumcu ve dönerciyi dolandıran hırsız onları polise ihbar_ediyor. \\
+8\_par-obj\_Allahtan öğretmen ve öğrenciyi unutan müdür onları okulda görüyor. \\
+9\_par-obj\_Belli_ki yazar ve editörü arayan şair onlara sokakta sesleniyor. \\
+10\_par-obj\_Neyse_ki adam ve çırağı çağıran çilingir onlara kapıyı gösteriyor. \\
+11\_par-obj\_Anlaşılan hostes ve yolcuyu beğenen pilot onları uçakta gözetliyor. \\
+12\_par-obj\_Aslında hamal ve tezgahtarı bulan sütçü onları pazarda kandırıyor. \\
+13\_par-obj\_Bu_arada yarışmacı ve sunucuyu eleştiren seyirci onları salondan çıkardı. \\
+14\_par-obj\_Demek_ki şehzade ve veziri dinleyen padişah onları savaşa uğurladı. \\
+15\_par-obj\_Mesela subay ve çavuşu fırçalayan general onlara dikkatlice baktı. \\
+16\_par-obj\_Ne_yazık_ki profesör ve asistanı araştıran dekan onları projeden vazgeçirdi. \\
+17\_par-obj\_İyi_ki veznedar ve cerrahı kandıran yatırımcı onları satıştan caydırdı. \\
+18\_par-obj\_Aslında büyükelçi ve çevirmeni bekleyen başbakan onları görüşmeye davet_etti. \\
+19\_par-obj\_Sözde müzisyen ve modele yaklaşan aktör onlara duyuruyu okuyacak. \\
+20\_par-obj\_Kısacası oyuncu ve kameramana seslenen yönetmen onlara sahneyi izletecek. \\
+21\_par-obj\_Umarım yatırımcı ve işçiye bakan mühendis onları planlarla bilgilendirecek. \\
+22\_par-obj\_Bence fotoğrafçı ve berbere bağıran gözlükçü onlarla kahvede karşılaşacak. \\
+23\_par-obj\_Belli_ki asker ve bekçiye kızan komutan onlara kışlayı gösteriyor. \\
+24\_par-obj\_Yani kasap ve elemana güvenen pazarcı onlara dükkanı emanet_ediyor. \\
+25\_par-obj\_Öte_yandan marangoz ve ustabaşına takılan mimar onlardan siparişi alıyor. \\
+26\_par-obj\_Neyse_ki çiçekçi ve rehbere danışan turist onlara hediyeyi seçtiriyor. \\
+27\_par-obj\_Allahtan matbaacı ve teknisyene gücenen yayımcı onları atölyede gördü. \\
+28\_par-obj\_Maalesef muavin ve biletçiye karışan şoför onları güzergahtan vazgeçirdi. \\
+29\_par-obj\_Demek_ki madenci ve müfettişe ulaşan tüccar onları telefonla aradı. \\
+30\_par-obj\_Üstelik denizci ve balıkçıya inanan kaptan onlardan rotayı öğrendi. \\
+31\_par-obj\_Nedense avukat ve hakime güvenen patron onlardan güvence istedi. \\
+32\_par-obj\_Yani manav ve delikanlıdan bahseden terzi onlarla dalga geçiyor. \\
+33\_par-obj\_Nedense piyanist ve seyirciden utanan şarkıcı onları sahneye çağırıyor. \\
+34\_par-obj\_Üstelik kadın ve muhtardan çekinen köylü onları yemeğe buyur_ediyor. \\
+35\_par-obj\_İyi_ki hizmetli ve yöneticiden korkan aşçı onlara tarifi verdi. \\
+36\_par-obj\_Kısacası kiracı ve kapıcıdan bıkan emlakçı onlara daireyi gezdirdi. \\
+37\_par-obj\_Hiç_değilse futbolcu ve hakemden usanan direktör onları yönetime şikayet_etti. \\
+38\_par-obj\_Sanırım çiftçi ve çobandan kaçan imam onlarla meydanda karşılaştı. \\
+39\_par-obj\_Maalesef papaz ve rahibeden uzaklaşan filozof onları tartışmaya zorladı. \\
+40\_par-obj\_Hiç_değilse hizmetçi ve kiracıdan huylanan tesisatçı onlara tadilatı tarif_etti. \\
+1\_nonpar-obj\_Bence baron ve cesur şövalyeyi ödüllendiren kral onları şatoda dinleyecek. \\
+2\_nonpar-obj\_Sanırım hemşire ve zavallı hastayı gören doktor onlara ameliyatı hatırlatacak. \\
+3\_nonpar-obj\_Umarım muhabir ve endişeli görevliyi duyan bakan onları toplantıda uyaracak. \\
+4\_nonpar-obj\_Mesela antrenör ve utangaç dansçıyı tanıyan sporcu onları yarışmaya kaydedecek. \\
+5\_nonpar-obj\_Sözde adam ve acemi garsonu farkeden kadın onları restoranda ağırlayacak. \\
+6\_nonpar-obj\_Öte_yandan akademisyen ve unutkan sekreteri uyaran rektör onları törene çağıracak. \\
+7\_nonpar-obj\_Anlaşılan kuyumcu ve çaresiz dönerciyi dolandıran hırsız onları polise ihbar_ediyor. \\
+8\_nonpar-obj\_Allahtan öğretmen ve çalışkan öğrenciyi unutan müdür onları okulda görüyor. \\
+9\_nonpar-obj\_Belli_ki yazar ve eski editörü arayan şair onlara sokakta sesleniyor. \\
+10\_nonpar-obj\_Neyse_ki adam ve sakar çırağı çağıran çilingir onlara kapıyı gösteriyor. \\
+11\_nonpar-obj\_Anlaşılan hostes ve genç yolcuyu beğenen pilot onları uçakta gözetliyor. \\
+12\_nonpar-obj\_Aslında hamal ve kurnaz tezgahtarı bulan sütçü onları pazarda kandırıyor. \\
+13\_nonpar-obj\_Bu_arada yarışmacı ve şirin sunucuyu eleştiren seyirci onları salondan çıkardı. \\
+14\_nonpar-obj\_Demek_ki şehzade ve temkinli veziri dinleyen padişah onları savaşa uğurladı. \\
+15\_nonpar-obj\_Mesela subay ve dikkatsiz çavuşu fırçalayan general onlara dikkatlice baktı. \\
+16\_nonpar-obj\_Ne_yazık_ki profesör ve azimli asistanı araştıran dekan onları projeden vazgeçirdi. \\
+17\_nonpar-obj\_İyi_ki veznedar ve iyimser cerrahı kandıran yatırımcı onları satıştan caydırdı. \\
+18\_nonpar-obj\_Aslında büyükelçi ve şaşkın çevirmeni bekleyen başbakan onları görüşmeye davet_etti. \\
+19\_nonpar-obj\_Sözde müzisyen ve alımlı modele yaklaşan aktör onlara duyuruyu okuyacak. \\
+20\_nonpar-obj\_Kısacası oyuncu ve uzun kameramana seslenen yönetmen onlara sahneyi izletecek. \\
+21\_nonpar-obj\_Umarım yatırımcı ve yorgun işçiye bakan mühendis onları planlarla bilgilendirecek. \\
+22\_nonpar-obj\_Bence fotoğrafçı ve geçimsiz berbere bağıran gözlükçü onlarla kahvede karşılaşacak. \\
+23\_nonpar-obj\_Belli_ki asker ve kaygısız bekçiye kızan komutan onlara kışlayı gösteriyor. \\
+24\_nonpar-obj\_Yani kasap ve çevik elemana güvenen pazarcı onlara dükkanı emanet_ediyor. \\
+25\_nonpar-obj\_Öte_yandan marangoz ve konuşkan ustabaşına takılan mimar onlardan siparişi alıyor. \\
+26\_nonpar-obj\_Neyse_ki çiçekçi ve güleç rehbere danışan turist onlara hediyeyi seçtiriyor. \\
+27\_nonpar-obj\_Allahtan matbaacı ve özensiz teknisyene gücenen yayımcı onları atölyede gördü. \\
+28\_nonpar-obj\_Maalesef muavin ve özenli biletçiye karışan şoför onları güzergahtan vazgeçirdi. \\
+29\_nonpar-obj\_Demek_ki madenci ve ılımlı müfettişe ulaşan tüccar onları telefonla aradı. \\
+30\_nonpar-obj\_Üstelik denizci ve durgun balıkçıya inanan kaptan onlardan rotayı öğrendi. \\
+31\_nonpar-obj\_Nedense avukat ve insaflı hakime güvenen patron onlardan güvence istedi. \\
+32\_nonpar-obj\_Yani manav ve saygılı delikanlıdan bahseden terzi onlarla dalga geçiyor. \\
+33\_nonpar-obj\_Nedense piyanist ve hevesli seyirciden utanan şarkıcı onları sahneye çağırıyor. \\
+34\_nonpar-obj\_Üstelik kadın ve sakin muhtardan çekinen köylü onları yemeğe buyur_ediyor. \\
+35\_nonpar-obj\_İyi_ki hizmetli ve hırslı yöneticiden korkan aşçı onlara tarifi verdi. \\
+36\_nonpar-obj\_Kısacası kiracı ve dalgın kapıcıdan bıkan emlakçı onlara daireyi gezdirdi. \\
+37\_nonpar-obj\_Hiç_değilse futbolcu ve taraflı hakemden usanan direktör onları yönetime şikayet_etti. \\
+38\_nonpar-obj\_Sanırım çiftçi ve sinirli çobandan kaçan imam onlarla meydanda karşılaştı. \\
+39\_nonpar-obj\_Maalesef papaz ve bilgili rahibeden uzaklaşan filozof onları tartışmaya zorladı. \\
+40\_nonpar-obj\_Hiç_değilse hizmetçi ve ihmalkâr kiracıdan huylanan tesisatçı onlara tadilatı tarif_etti. \\
+101\_filler\_Kilitli eve giden sevimli kadın gerisin geri döndü. \\
+102\_filler\_Karmaşık sokakta yalnız kalan çaresiz adam çok korktu. \\
+103\_filler\_Kitabını ve defterini unutan çocuk okula geç geldi. \\
+104\_filler\_Gereksiz konuları merak eden adam fazlasıyla vakit kaybediyor. \\
+105\_filler\_Sabırsız öğretmeni gören okul müdürü hemen çocuklara seslendi. \\
+106\_filler\_Sıcakkanlı aşçıya bakan görevli temizliğe biraz yardım etti. \\
+107\_filler\_Daireyi ve binayı temizleyen kapıcının maaşına zam yapıldı. \\
+108\_filler\_Yeni ameliyat olan hastayı hemşire çok fena azarladı. \\
+109\_filler\_Görüşmeye geç kalan öğrenci ödevini zamanında teslim edemedi. \\
+110\_filler\_Feci kazada ve sonrasında yaralanan olmaması insanları rahatlattı. \\
+111\_filler\_Emekli öğretmen karşı karşıya kaldığı garip durumu anlayamadı. \\
+112\_filler\_Arabasını alan ve işlerini bitiren adam gereğinden fazla yoruldu. \\
+113\_filler\_Defterleriyle kalemlerini evde unutan küçük çocuk durmadan ağladı. \\
+114\_filler\_Elektrik faturası ve benzin ücretlerinin arttığı bir dönemdeyiz. \\
+115\_filler\_Şişenin kapağında gördüğü acayip yazıyı dikkatlice okumaya çalıştı. \\
+116\_filler\_Masasında veya arabasında dağınık bir kağıt parçası bulunamadı. \\
+117\_filler\_Aşçı pişirdiği yemekleri müdüre ve hizmetliye gururla gösterdi. \\
+118\_filler\_Korkan hayvanları ahıra götüren çoban az daha ölüyordu. \\
+119\_filler\_Şarkının notalarını karıştıran tecrübeli piyanist ne yapacağını bilemedi. \\
+120\_filler\_Maçı kaybeden takımdaki futbolcular değerlendirme yapmak için bekliyorlar. \\
+121\_filler\_Pistte kalan lastikler uçağın kaza yapmasına sebep olmuş. \\
+122\_filler\_Kırmızı çizgileri olmayan sporcu çalışmalarını çok sert sürdürüyor. \\
+123\_filler\_Ahmetle dalga geçen çocuk sonunda hak ettiğini buldu. \\
+124\_filler\_Çaresiz kalan aşçı depoda kalan son sebzeleri pişirdi. \\
+125\_filler\_Dinlenmeksizin çalışan işçiler çoktandır mola vermek için sabırsızlanıyor. \\
+126\_filler\_Yırtılmış gömleklerini tamir ettirmek için terziye gitmiş olmalı. \\
+127\_filler\_Olay yerine gelen polisler öncelikle şüphelinin eşkalini belirledi. \\
+128\_filler\_Yaya geçidinde kırmızı ışığın yanmasını beklemeyen şoförler vardı. \\
+129\_filler\_Sayfalarını karıştırdığı kitabı bir kenara koyup uyumaya başladı. \\
+130\_filler\_Görevliler elektrik hattını tehlikeye sokan ağaç dallarını kestiler. \\
+131\_filler\_Çığ tehlikesinin yüksek olduğu yollarda karayolları önlem almalı. \\
+132\_filler\_Fotokopi makinasının mürekkebini değiştirmek için yeni kartuş gerekli. \\
+133\_filler\_Muavinin tarif ettiği yol üzerinde dinlenme tesisi yok. \\
+134\_filler\_Hostes uçuş başlamadan önce güvenlik yönergelerinin hepsini anlattı. \\
+135\_filler\_Çiçekçinin sattığı laleler çok çeşitli renk ve türlerden. \\
+136\_filler\_Balıkçılar derneğinin yaptığı duyuruda kotalar protesto ediliyor. \\
+137\_filler\_Gerekli izinleri alan maden şirketi kazı çalışmalarına başladı. \\
+138\_filler\_Sporcuları çalıştıran antrenör takımının performansından pek memnun değil. \\
+139\_filler\_Çevirmenlere iş veren şirket maaşları doğru zamanda yatırmamış. \\
+140\_filler\_Boyadığı tabloları sergiye çıkaran ressam fazlasıyla gururlanıyor. \\
+141\_filler\_Yaz tatilini geçirmek için gittiği tatil yerinden esmerleşerek geldi. \\
+142\_filler\_Karpuzu tamamen püre haline getirdikten sonra yavaşça karışıma eklemelisin. \\
+143\_filler\_Ateşi yükselen bebeği hastaneye yetiştirmek için hemen arabaya koştuk. \\
+144\_filler\_Konuyla ilgili açıklama yapması beklenen bakan toplantıyı terk etti. \\
+145\_filler\_Okulda ve kursta işlenen konuları dikkatlice takip etmek zorundasın. \\
+146\_filler\_Projeye dahil edilen konuları not almak en öncelikli işimiz. \\
+147\_filler\_Mühendisler odasının hazırladığı rapora göre inşaatın zemini düzgün yapılmamış. \\
+148\_filler\_Haberlerde adı geçen dönercinin ürünlerinde birçok katkı maddesi bulunmuş. \\
+149\_filler\_Son yıllardaki seller giderek daha fazla zarara sebep oluyor. \\
+150\_filler\_Kaptan gemideki insanları ve kargoyu korumak için demir attı. \\
+151\_filler\_Yeşil ışığın yanmasıyla hızlanan araba ve motosiklet feci çarpıştı. \\
+152\_filler\_Kırık sandalyeleri tamir eden marangoz çok çalıştığını söylemekten çekinmiyor. \\
+153\_filler\_Kelebeğin türünü üstündeki şekiller veya kanadının şeklinden anlamaya çalışabiliriz. \\
+154\_filler\_Atık sularla kirlenen ve hırpalanan dereyi temizleme işlemleri yetersiz. \\
+155\_filler\_Yatırımcılar kentsel dönüşüm kapsamında yıkılan yerleri fırsat olarak görüyor. \\
+156\_filler\_Film sahnesinde yeterli rolü olmayan oyuncu senariste içten yakındı. \\
+157\_filler\_Kuyumcunun getirdiği bileziklerin işlemeleri gelinin ailesi tarafından çok beğenildi. \\
+158\_filler\_Fotoğrafçı tek başına çektiği tüm fotoğrafları arkadaşlarıyla internetten paylaştı. \\
+159\_filler\_Hep beraber gittiğimiz piknikte oynadığımız oyunları çok net hatırlıyorum. \\
+160\_filler\_Sekreterin kaybettiği dosyaları tek başına arayan profesör çok sinirlendi. \\
+161\_filler\_Kitapları yerine dizmekten yorulan kütüphaneci insanlardan sessiz olmalarını istiyor. \\
+162\_filler\_Köşeleri eskimiş çantasını koluna geçiren doktor acilen yola çıkıyor. \\
+163\_filler\_Tezgahtarın önündeki kumaşlara bakmak isteyen müşteri sesini duyurmaya çalışıyor. \\
+164\_filler\_Çırağın yanlış bağladığı kabloları düzelten teknisyen çok vakit kaybetti. \\
+165\_filler\_Vezirin tavsiyelerine kulak asmayan padişah orduyla birlikte sefere çıktı. \\
+166\_filler\_Hastanın ameliyatı sırasında gelişen durumdan ötürü cerrah operasyonu bitirdi. \\
+167\_filler\_Dersi biten öğrenciler tatillerini geçirmek üzere ailelerinin yanına gidecek. \\
+168\_filler\_Hizmetli camların temizliğini bitirdikten sonra oturma odasının temizliğine başlayacak. \\
+169\_filler\_Işıkları düzgün yanmayan binanın elektrik hattında problem olduğu anlaşıldı. \\
+170\_filler\_Burada yaşayan köylüler kahveyi kavurduktan sonra elleriyle saatlerce dövüyorlar. \\
+171\_filler\_Turistleri dolandıran rehberleri yakalayan polis basına açıklama yapmaktan kaçındı. \\
+172\_filler\_Haftasonu partiye gidecek öğrenciler yanlarında yiyecek ve içecek getirmeli. \\
+173\_filler\_Sokaklarda dolaşan çocukların sağlıklı büyümesi için oyun parkları yapılmalı. \\
+174\_filler\_Programın yazılı olduğu ajandayı unutan sekreter kendine çok kızdı. \\
+175\_filler\_Veznedar bankaya gelen müşteriye imzanlaması gereken belgeleri usulca uzattı. \\
+176\_filler\_Sokak üzerindeki olağan devriyeye takılan hırsız birden kaçmaya başladı. \\
+177\_filler\_Tasarımlarını arkadaşlarına gösteren çizer giysileri hemen dikmek istiyor. \\
+178\_filler\_Yola çıkmadan önce hazırlıklarını tamamlayan kaptan geminin yükünü azalttı. \\
+179\_filler\_Şehirdeki toplum düzenine katkıda bulunması amacıyla halk kursları açılıyor. \\
+180\_filler\_Deprem sonrası oluşan hasarların tespiti için mahalleye uzmanlar gönderildi. \\

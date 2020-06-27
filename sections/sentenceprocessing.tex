@@ -1,0 +1,65 @@
+\section{Approaches to sentence processing}
+
+In this section, I introduce some approaches to sentence processing that relate to the experiment hypotheses and analyses. In general, there are two main lanes of approaches to sentence processing, or how a parser operates. These two lanes are serial and parallel parsing. There are further divisions within each lane that operate on different bases. In this section I reduce many of the serial approaches to parsing into two.
+
+The notion `parser' refers to the cognitive agency of someone while processing language material and assigning structural interpretation for it. It can be represented as a skilled memory retrieval process \citep{lewis2005activation} where values of language features for semantic properties (i.e. gender, number), syntactic categories (i.e. noun, adjective, verb), thematic roles (i.e. subject, object), and pragmatic information (i.e. speaker, referent) are stored as chunks of information in memory \citep{Miller1956}. A serial parser is regarded to have or retain one line of interpretation in memory, instead of including many interpretations in parallel. It operates incrementally, meaning that pieces of information is integrated cyclically as they are encountered.
+ 
+The first kind of approach is the deterministic serial parser, which mainly consists of the garden path model \citep{frazier1978sausage, frazier1987sentence}. The second is the probabilistic serial parser, which can use information outside syntax in sentence processing. Approaches such as the unrestricted race model \citep{traxler1998adjunct,van2001reanalysis, van2005evidence}, the constraint based approach \citep{MacDonald1994}, and surprisal \citep{levy2008expectation} allow for varying types of information to be included in sentence processing. These approaches can vary or even contradict one another in some cases but what they all share is the possibility to use extra-syntactic information in sentence processing. I will mostly rely on the unrestricted race model in the explanation of the probabilistic serial parser.
+
+Additionally, I introduce the good enough approach \citep{ferreira2001misinterpretations, ferreira2007good} which proposes that the parser does not always parse complete forms that are fully accounted for. These approaches are not an exhaustive list of the literature. I present only the ones I intend to utilize in my experiment predictions and analyses when necessary.
+
+
+
+\subsection{Deterministic serial parser}
+
+In a garden path model of sentence processing, the parser operates in a deterministic manner that is strongly biased in using structural information regardless of other possible information. The parser always operates in a manner that integrates the input according to the syntactic norms it has. In structurally unambiguous points in the input, this operation faces no problems in deriving structurally sound interpretations. In ambiguous points in the input, the parser is left to make a choice, the key feature of a garden path model is that the parser always chooses one way to continue the integration no matter how. If the parser is later proven wrong and forced to change its commitment, this causes reanalysis which has an extra processing cost \citep{frazier1978sausage}. The garden path model is also referred to as the two stage model. It operates based on two principles. The principle of minimal attachment and the principle of late closure \citep{frazier1987sentence}. Minimal attachment dictates that the parser does not form unnecessary structural nodes. This means that when possible, the parser selects the route of integration that is structurally more minimal. \ref{minimalfrazier}) is an example for minimal attachment where a main clause analysis `hit with a book' of the PP `with a book' is preferred as opposed to the modified noun analysis `the girl with a book'. Interpreting the PP under the VP does not require positing a complex structure of a modified noun. It is theoretically simpler to integrate a PP to a VP.
+
+\begin{exe}
+\ex \label{minimalfrazier}
+John hit the girl with the book. \\*
+\hfill Adapted from \cite{frazier1987sentence}
+\end{exe}
+
+
+Late closure dictates that the integration of the new input should be made to the existing phrase as long as grammatically permissible. (\ref{lateclofrazier}) is an example for late closure where the attachment of the adverb `yesterday' to the subordinate clause attachment `left yesterday' is preferred to the main clause attachment `said yesterday'. 
+
+\begin{exe}
+\ex \label{lateclofrazier}
+Joyce said Tom left yesterday. \\*
+\hfill as cited in \cite{frazier1987sentence}
+\end{exe}
+
+When the parser is proven wrong in choosing one attachment over the other, reanalysis takes place. That in turn increases the processing cost. (\ref{reanalysisfrazier}) is a famous example for Reanalysis where the minimal attachment requires the verb `raced' to be interpreted as the main verb for the noun `the horse', this choice is proven wrong by the actual main verb `fell'. In this case the verb `raced' turns out to be a reduced relative clause for `which was raced'.
+
+\begin{exe}
+\ex \label{reanalysisfrazier}
+The horse raced past the barn fell. \\*
+\hfill as cited in \cite{frazier1987sentence}
+\end{exe}
+
+In the literature, these kinds of attachments are referred to as `local ambiguity'. The sentence itself is unambiguous, but more than one attachment is possible at specific points of the input.
+
+\subsection{Probabilistic serial parser}
+
+A parser that operates solely by syntactic information and structural complexity can't predict reading preferences based on probabilistic information that a language user might employ. An example of minimal attachment in (\ref{minimalfrazier}) can be changed only by using a different noun in the PP that is more related to the noun than the verb as in (\ref{minimalcounter1}). The noun `skirt' might be more plausible to be associated with a `girl' instead of being a tool for `hitting'.
+
+\begin{exe}
+    \ex \label{minimalcounter1}
+    John hit the girl with the skirt.
+\end{exe}
+
+Approaches that argue for using all sorts of information in processing exist and constraint based approach \citep{MacDonald1994} is one of them. It argues that accessing a word or structure includes accessing its syntactic properties together with the probabilistic information. This way the operation of minimal attachment can result in different readings than it is assumed only by the structural complexity.
+
+Another approach that utilizes probabilistic information is the unrestricted race model \citep{van2005evidence,van2001reanalysis,traxler1998adjunct}. In this approach the parser has access to extra-syntactic or even extra-linguistic \citep{willits2015language} information which makes it unrestricted. The race aspect comes about in how it operates. Instead of accessing the probabilistic information immediately, it is used in the competition of possible structures being built. At any point of a structural ambiguity, the parser initiates the building of all the structures. The one that is built first gets to be chosen as the preferred interpretation. The probabilistic information that favors one or the other comes into play in the building process. This way, pieces of information outside syntax can have additive or relational effects, without being accessed immediately when a language input is encountered. 
+
+
+
+
+\subsection{Good enough approach}
+
+In both deterministic and probabilistic parsers, dependencies and relations are completed to the full. The parser is oriented towards making all the input as integrated as possible. Some research on memory interference shows that the parser aims for a full match. This happens when the parser is looking for a specific set of values in the memory and comes across a partial match. In order to bypass this partial match, the parser must allocate more resources, increasing processing difficulty \citep{van2012memory,VanDyke2006}. On the other hand, another line of research suggests that these partial matches can cause illusory effects in sentence comprehension \citep{Parker2016,mendia2018spurious,wagers2009agreement}. This points to the realization that the parser might accept a partial match for resolving a dependency even though it is not grammatical. In good enough approach to sentence processing, the parser may choose to partially fulfill the requirements of a dependency \citep{ferreira2001misinterpretations,ferreira2007good}. The type of the task for a parser can affect how it behaves in terms of partially fulfilling dependency requirements \citep{Swets2008,logavcev2016multiple}. This means that the parser is task-oriented and if the task does not require it, some dependencies can be partially resolved. This usually leads to the effects of a variable reflecting itself in places other than a point of disambiguation or online measurements.
+
+
+\subsection{What these approaches have in common}
+
+All these approaches make sentence processing operate on structures above words. The morphemes and their values are reduced to pieces of information stored in chunks. Any reanalysis, or integration is based on the structure of the sentence instead of the inner parts of the words. These pieces of information, however, can be crucial for the well-formedness of a structure in establishing agreement relations like gender and number.

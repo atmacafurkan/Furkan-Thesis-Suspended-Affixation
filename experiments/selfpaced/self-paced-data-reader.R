@@ -6,7 +6,7 @@ library(ggplot2) # plots things
 theme_set(theme_bw()) # set ggplot theme
 library(readxl) # reads excel files
 library(gdata) # some functions here and there
-library(modelr)
+library(modelr) # forgot what this does
 
 # specific libraries
 library(extrafont) # Times font for plot use
@@ -19,22 +19,14 @@ library(tidybayes) # fairy dust for bayes
 bayesplot_theme_set(new = theme_bw()) # set plot view
 library(MASS) # contr.sdif
 
-plot_ready <- function(df, namer){ # function to make pretty df for plotting
-  if(length(df$parameter) != length(namer)){
-    stop("Parameter and namer length mismatch")
-  }
-  df %<>% tibble::rowid_to_column("num")
-  levels(df$parameter) <- namer
-  df %<>% arrange(desc(num)) %>% mutate(parameter = factor(parameter,parameter))
-  df
-}
 
 coef_interval_plot <- function(brms_object, namer){ # function to make pretty brms interval plotting with custom labels
   df <- mcmc_intervals_data(brms_object, pars = vars(starts_with("b_")))
+  df %<>% tibble::rowid_to_column("num")
+  df %<>% subset(num %notin% c("1")) %>% drop.levels()
   if(length(df$parameter) != length(namer)){
     stop("Parameter and namer length mismatch")
   }
-  df %<>% tibble::rowid_to_column("num")
   levels(df$parameter) <- namer
   df %<>% arrange(desc(num)) %>% mutate(parameter = factor(parameter,parameter))
   df %>% ggplot(aes(m,parameter)) + geom_point(size = 4, color =  with(df, ifelse(m > 0 & l > 0, 'blue',
@@ -74,7 +66,6 @@ df %<>% separate(experiment, c("experiment","condition"), sep="_") %>%
   subset(experiment %in% c("expSA","filler"))
 df$condition <- ifelse(df$experiment =="filler", "x", df$condition)
 
-str(df)
 
 # encode vector types
 df$word %<>% as.character()
@@ -111,6 +102,13 @@ df_reads$word <- gsub('\\.','',df_reads$word)
 df_reads$word_length <- nchar(df_reads$word)
 df_reads$word_name <- df_reads$word_number %>% as.factor()
 
+
+df_responses_join <- df_responses %>% dplyr::select(subject, item, condition, correct)
+df_reads %<>% left_join(df_responses_join)
+
+# two items with a typo excluded
+df_reads %<>% subset(item %notin% c("17","20"))
+
 ### END IMPORT AND ORGANIZE ###
 saveRDS(df_responses, file = "./report/init_responses.rds")
 saveRDS(df_reads, file ="./report/init_reads.rds")
@@ -136,17 +134,17 @@ df %<>% subset(subject %notin% accuracy_avg_bad$subject) %>% ungroup()
 df_responses %<>% subset(subject %notin% accuracy_avg_bad$subject) %>% ungroup()
 df_reads %<>% subset(subject %notin% accuracy_avg_bad$subject) %>% ungroup()
 
-df_responses_join <- df_responses %>% dplyr::select(subject, item, condition, correct)
-df_reads %<>% left_join(df_responses_join)
-
-
-# two items with a typo excluded
-df_reads %<>% subset(item %notin% c("17","20"))
 
 # determine outliers
 df_reads %<>% subset(experiment =="expSA") %>%
   group_by(subject, item, condition) %>%
-  mutate(has_outlier = any(RT < 150 | RT > 3000))
+  mutate(has_outlier = any(RT < 100 | RT > 3000)) %>% ungroup()
+
+df_reads %>% dplyr::select(subject, RT, has_outlier, cat, correct) %>% 
+  group_by(subject, has_outlier, correct) %>% 
+  summarise(averageRT = mean(RT)) %>%
+  ggplot(aes(averageRT, colour = has_outlier)) + stat_ecdf(geom="point") + scale_x_log10() + facet_wrap(correct~.)
+
 
 # exclude trials with outliers
 df_reads %<>% subset(!has_outlier & correct == "1") %>% dplyr::select(-has_outlier, -correct) %>% ungroup()
@@ -157,138 +155,78 @@ saveRDS(df_reads, file ="./report/df_reads.rds")
 
 
 
-### BEGIN PLOTTING ###
-# word length histogram
-wordlength_histogram <- df_reads %>% dplyr::select(word_length, word) %>% group_by(word_length) %>% summarise(nword = length(word)) %>%
-  ggplot(aes(word_length, nword)) + geom_bar(stat = "identity")
 
+### BEGIN MODELS ###
+# data frame for SA models
+df_SA_model <- df_reads %>% 
+  subset(word_number %in% c(7:9) & cat !="Contrast") %>% drop.levels() %>%
+  dplyr::select(subject, item, cat, conjoiner, RT, word_number)
 
-# reading time by word length
-RT_by_wordlength <- df_reads %>% dplyr::select(word_length, RT) %>%
-  group_by(word_length) %>% summarise(averageReaT = mean(RT), se= se(RT)) %>%
-  ggplot(aes(word_length, averageReaT)) + geom_bar(stat = "identity") +
-  geom_errorbar(aes(ymin = averageReaT -se, ymax = averageReaT + se),
-                width = .1, position = position_dodge(0.85), color = "black")
+df_SA_model$word_number %<>% dplyr::recode(`7`="critical", `8`="so1", `9`="so2")
+df_SA_model %<>% tidyr::pivot_wider(names_from = "word_number", values_from="RT")
 
-
-# reading time by word length excluding the first conjunct
-RT_by_wordlength_no_conj <- df_reads %>% subset(word_name %notin% c("5")) %>% dplyr::select(word_length, RT) %>%
-  group_by(word_length) %>% summarise(averageReaT = mean(RT), se= se(RT)) %>%
-  ggplot(aes(word_length, averageReaT)) + geom_bar(stat = "identity") +
-  geom_errorbar(aes(ymin = averageReaT -se, ymax = averageReaT + se),
-                width = .1, position = position_dodge(0.85), color = "black")
-
-
-# average word_length of the first conjunct
-length_freq_conj1 <- df_reads %>% subset(word_name %in% c("5") & cat %notin% c("Contrast")) %>% group_by(cat) %>%
-    summarise(x = mean(word_length), y = median(word_length), se = se(word_length))
-
-
-SA_label <- c("Üzerinde",
-              "toz",
-              "biriken",
-              "masayı",
-              "yıkamalı-ymış-ım",
-              "ve/ya",
-              "silmeliymişim", 
-              "diye",
-              "mırıldandım",
-              "kendi",
-              "kendime") %>% enc2utf8()
-
-averageRT_sentence <- df_reads %>% dplyr::select(cat, word_name, RT, conjoiner) %>% ungroup() %>%
-  subset(word_name %in% c(1:11) & cat !=  "Contrast") %>% 
-  group_by(cat, word_name, conjoiner) %>%
-  summarise(average_RT = mean(RT), se = se(RT)) %>%
-  ggplot(aes(word_name, average_RT, group = cat, color = cat)) +
-  theme(text=element_text(size=12),
-        legend.position = "bottom", legend.title = element_blank(),
-        axis.text.x = element_text(face = "bold.italic", angle = 30, hjust = 1)) +
-  geom_point(aes(shape = cat), size= 2.4, position = position_dodge(0.35)) + 
-  geom_line(aes(linetype = cat), position = position_dodge(0.35)) +
-  geom_errorbar(aes(ymin = average_RT -se, ymax = average_RT + se),
-                alpha = 0.4,
-                width = .3, position = position_dodge(0.35), color = "black") +
-  scale_x_discrete(labels = SA_label, name ="") + ylab("average RT (ms)") +
-  facet_grid(conjoiner~.)
-### END PLOTTING ###
-
-
-### BEGIN MODELLING ###
-# data frame for target word in SA conditions
-df_SA_model <- df_reads %>% subset(word_number %in% c("7") & cat !="Contrast") %>% drop.levels()
-df_SA_model$word_number %<>% as.factor()
 df_SA_model$cat %<>% reorder.factor(new.order = c("No_SA", "One_SA", "Full_SA"))
 df_SA_model$conjoiner %<>% reorder.factor(new.order = c("veya","ve"))
 contrasts(df_SA_model$cat) <- MASS::contr.sdif(3)
 contrasts(df_SA_model$conjoiner) <- contr.sum(2)
 
 
-# model for target word in SA conditions
-SA_target <- brm(RT ~ 1 + cat*conjoiner+ (cat*conjoiner | item) + (cat*conjoiner | subject), 
+# models for SA conditions in critical and spillover regions
+SA_target_model <- brm(mvbind(critical,so1,so2) ~ cat*conjoiner+ (cat*conjoiner | item) + (cat*conjoiner | subject), 
                  data = df_SA_model,
-                 family = lognormal('identity'), chains = 4, cores = 4, iter = 2000,
-                 file = "./report/model_SA_target")
-
-SA_target_results <- fixef(SA_target, summary = TRUE, robust = FALSE) %>% as.data.frame() %>%
-  tibble::rownames_to_column("variables")
-
-plot_labels <- c("Intercept(NoVeya)","One(to)No","Full(to)One","ve","One(to)No:ve","Full(to)One:ve")
-
-coef_interval_plot(SA_target, plot_labels)
-
-# check model fit
-model_fit <- df_SA_model %>% 
-  add_residual_draws(SA_target) %>%
-  mean_qi() %>%
-  ggplot(aes(sample = .residual)) +
-  geom_qq(distribution = stats::qlnorm) + geom_qq_line(distribution = stats::qlnorm) + facet_grid(cat~conjoiner)
+                 family = lognormal('identity'), chains = 4, cores = 4, iter = 3000, warmup = 2000,
+                 file = "./report/SA_target_model")
 
 
-# data frame for spillover word in SA conditions
-df_SA_model_so <- df_reads %>% subset(word_number %in% c("8") & cat !="Contrast") %>% drop.levels()
-df_SA_model_so$word_number %<>% as.factor()
-df_SA_model_so$cat %<>% reorder.factor(new.order = c("No_SA", "One_SA", "Full_SA"))
-df_SA_model_so$conjoiner %<>% reorder.factor(new.order = c("veya","ve"))
-contrasts(df_SA_model_so$cat) <- MASS::contr.sdif(3)
-contrasts(df_SA_model_so$conjoiner) <- contr.sum(2)
+# data frame for Contrast models
+df_SA_model2 <- df_reads %>% 
+  subset(word_number %in% c(7:9) & cat %in% c("Contrast","No_SA")) %>% drop.levels() %>%
+  dplyr::select(subject, item, cat, conjoiner, RT, word_number)
 
-SA_spillover <- brm(RT ~ 1 + cat*conjoiner+ (cat*conjoiner | item) + (cat*conjoiner | subject), 
-                 data = df_SA_model_so,
-                 family = lognormal('identity'), chains = 4, cores = 4, iter = 2000,
-                 file = "./report/model_SA_spillover")
+df_SA_model2$word_number %<>% dplyr::recode(`7`="critical", `8`="so1", `9`="so2")
+df_SA_model2 %<>% tidyr::pivot_wider(names_from = "word_number", values_from="RT")
 
-SA_spillover_results <- fixef(SA_spillover, summary = TRUE, robust = FALSE) %>% as.data.frame() %>%
-  tibble::rownames_to_column("variables")
-
-coef_interval_plot(SA_spillover, plot_labels)
-
-# data frame for target word in Contrasting conditions
-df_SA_model2 <- df_reads %>% subset(word_number %in% c("7") & cat %in% c("Contrast","No_SA")) %>% drop.levels()
-df_SA_model2$word_number %<>% as.factor()
 df_SA_model2$cat %<>% reorder.factor(new.order = c("No_SA","Contrast"))
 df_SA_model2$conjoiner %<>% reorder.factor(new.order = c("veya","ve"))
-contrasts(df_SA_model2$cat) <- contr.sum(2)
+contrasts(df_SA_model2$cat) <- contr.sdif(2)
 contrasts(df_SA_model2$conjoiner) <- contr.sum(2)
 
-# model for target word in Contrast conditions
-SA_target2 <- brm(RT ~ 1 + cat*conjoiner + (cat*conjoiner | item) + (cat*conjoiner | subject), 
-                 data = df_SA_model2,
-                 family = lognormal('identity'), chains = 4, cores = 4, iter = 2000,
-                 file = "./report/model_SA_target2")
 
-SA_target2_results <- fixef(SA_target2, summary = TRUE, robust = FALSE) %>% as.data.frame() %>%
-  tibble::rownames_to_column("variables")
+# model for Contrast conditions in critical and spillover regions
+SA_contrast_model <- brm(mvbind(critical,so1,so2) ~ cat*conjoiner + (cat*conjoiner | item) + (cat*conjoiner | subject),
+                        data = df_SA_model2,
+                        family = lognormal('identity'), chains = 4, cores = 4, iter = 3000, warmup = 2000,
+                        file = "./report/SA_contrast_model")
 
-plot2_labels <- c("Intercept(NoVeya)", "Contrast", "ve", "Contrast:ve")
 
-coef_interval_plot(SA_target2, plot2_labels)
+ # df for comparing SA and contrast
+saVcontrast_df <- df_reads %>% 
+  subset(word_number %in% c(7:9) & cat %in% c("Contrast","One_SA")) %>%
+  dplyr::select(subject, item, cat, conjoiner, RT, word_number) %>% drop.levels()
+saVcontrast_df$word_number %<>% dplyr::recode(`7` = "critical", `8` = "so1", `9`="so2")
+saVcontrast_df %<>% tidyr::pivot_wider(names_from = "word_number", values_from = "RT")
 
-# check model fit
-model2_fit <- df_SA_model2 %>% 
-  add_residual_draws(SA_target2) %>%
-  mean_qi() %>%
-  ggplot(aes(sample = .residual)) +
-  geom_qq(distribution = stats::qlnorm) + geom_qq_line(distribution = stats::qlnorm) + facet_grid(cat~conjoiner)
+saVcontrast_df$cat %<>% reorder.factor(new.order = c("Contrast","One_SA"))
+saVcontrast_df$conjoiner %<>% reorder.factor(new.order = c("veya","ve"))
+contrasts(saVcontrast_df$cat) <- contr.sum(2)
+contrasts(saVcontrast_df$conjoiner) <- contr.sum(2)
+
+
+# model for comparing SA to Contrast
+saVcontrast_model <- brm(mvbind(critical,so1,so2) ~ cat*conjoiner + (cat*conjoiner|subject) + (cat*conjoiner|item),
+                        data = saVcontrast_df, 
+                        family = lognormal(link = "identity"), chains = 4, cores = 4, iter = 3000, warmup = 2000,
+                        file = "./report/saVcontrast_model")
+
+
+
+
+
+
+
+
+
+
+
 
 

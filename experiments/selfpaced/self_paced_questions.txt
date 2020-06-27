@@ -1,0 +1,72 @@
+1\_correct\_Bahsin eski mektuplarda geçiyor. \\
+2\_correct\_Partiler eğlencenin odağıydı. \\
+3\_correct\_Şarkılar Sezen Aksu'nundu. \\
+4\_correct\_Ünlü dizi Süper Baba idi. \\
+5\_correct\_Ağacı kırarım diye kızıyorlar. \\
+6\_correct\_Dersin ödevi zamanında yapılacak. \\
+7\_correct\_Belge yazıcıdan çıkmış. \\
+8\_correct\_Fırın küçükmüş. \\
+9\_correct\_Genç yaşta düzenli yaşanmalıymış. \\
+10\_correct\_Maden arsadan elde edilmiş. \\
+11\_correct\_Hocayı dikkatlice dinleyecekmişim. \\
+12\_correct\_Arabayı yağmurdan koruyacakmışım. \\
+13\_incorrect\_Bisikleti monteleyecekmişsin. \\
+14\_incorrect\_Güvece biber atacakmışım. \\
+15\_incorrect\_Tavsiyeyi komşum vermiş. \\
+16\_incorrect\_Hurdacıya bozuk aletler gelmiş. \\
+17\_incorrect\_Fındıkları yememeliymişim. \\
+18\_incorrect\_Pencerenin üzerinde toz birikmiş. \\
+19\_incorrect\_Kabloları sökmeliymişim. \\
+20\_incorrect\_Ocağı kullanmamalıymışım. \\
+21\_incorrect\_Dışarda kar yağıyor. \\
+22\_incorrect\_Kuşların senelik beslenmesini izliyormuşuz. \\
+23\_incorrect\_Öğrencilere bakıyormuşuz. \\
+24\_incorrect\_Günlüğe not düşüyormuşum. \\
+101\_correct\_Garip bir şekilde adama baktım. \\
+102\_correct\_Çok gençsin desem inanırdın. \\
+103\_correct\_Mutlu olmanın bir sırrı var. \\
+104\_correct\_Rus salatası için turşu aldım. \\
+105\_correct\_Dolapta bekleyen zeytinler var. \\
+106\_correct\_Araç kırmızı ışıkta geçmiş. \\
+107\_correct\_Değişken çokluğu önemlidir. \\
+108\_correct\_Dağ tırmanmak cesaret gerektirir. \\
+109\_correct\_Solunum yollarında iltihap var. \\
+110\_correct\_Karışık ızgara en pahalı ürün. \\
+111\_correct\_Yeni basım kitaplar kaliteli olmamış. \\
+112\_correct\_Bilgisayar çağında yaşıyoruz. \\
+113\_correct\_Coğrafya öğretmeni mola verdi. \\
+114\_correct\_Yurtta tadilat çalışması var. \\
+115\_correct\_Çatı yalıtımı ekonomik. \\
+116\_correct\_Askerler şiddete tanık oluyor. \\
+117\_correct\_Ressam gökyüzünü maviye boyamıyor. \\
+118\_correct\_Hatırlatmalar mantar panoya asılacak. \\
+119\_correct\_İnsanlar risk almak nedir bilmiyor. \\
+120\_correct\_Satır araları dikkatli okunmalı. \\
+121\_correct\_Geri dönüşüm plastiği iyi saklanmıyor. \\
+122\_correct\_Enerji verimini arttırmak önemlidir. \\
+123\_correct\_Kedi çöp tenekelerini deviriyor. \\
+124\_correct\_Güvenlik önlemleri yürürlüğe girdi. \\
+125\_incorrect\_Altın üretiminde düşüş oldu. \\
+126\_incorrect\_Suç oranı artıyor. \\
+127\_incorrect\_Evsiz sayısı azalıyor. \\
+128\_incorrect\_Otobüse binerken dikkat edin. \\
+129\_incorrect\_Kişi teknolojiye düşkün. \\
+130\_incorrect\_Yolda kaza var. \\
+131\_incorrect\_Köylüler tadilat yaptı. \\
+132\_incorrect\_Anotasyon kotası yok. \\
+133\_incorrect\_Kazazede hayatta. \\
+134\_incorrect\_Yüksek puan almak zordur. \\
+135\_incorrect\_Doğu yakasında kuraklık olmuş. \\
+136\_incorrect\_Zeytinyağı dolmaya eklenecek. \\
+137\_incorrect\_Zeki Müren favori şarkıcım. \\
+138\_incorrect\_Evin bahçesi var. \\
+139\_incorrect\_Kavanozlar domatesle dolu. \\
+140\_incorrect\_Ut çalmak gitara benzer. \\
+141\_incorrect\_Su vanası bozuk. \\
+142\_incorrect\_Dolabın kapağı düşmüş. \\
+143\_incorrect\_Karşıdaki ev çok güzel. \\
+144\_incorrect\_Çocuğun babası bağırdı. \\
+145\_incorrect\_Ellerine duvar boyası bulaşmış. \\
+146\_incorrect\_Berberin yanında bekliyorum. \\
+147\_incorrect\_Karşılaşmanın tarafları buluştu. \\
+148\_incorrect\_Leğenin dibi delikmiş. \\

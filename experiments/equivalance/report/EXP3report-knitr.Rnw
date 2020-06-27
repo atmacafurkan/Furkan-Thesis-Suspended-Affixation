@@ -1,0 +1,293 @@
+
+<<include=FALSE>>=
+library(knitr)
+opts_chunk$set(
+concordance=TRUE
+)
+@
+
+
+<<load, echo=FALSE, include=FALSE>>=
+# general libraries
+library(dplyr) # magic
+library(magrittr) # piped magic
+library(tidyr) # dark magic
+library(ggplot2) # plots things
+theme_set(theme_bw()) # set ggplot theme
+library(readxl) # reads excel files
+library(gdata) # some functions here and there
+
+# specific libraries
+library(extrafont) # Times font for plot use
+library(stringr) # good with regular expressions
+library(brms) # bayesian regression
+library(bayesplot) # plot options for bayesian models
+bayesplot_theme_set(new = theme_bw()) # set plot view
+library(tidybayes) # fairy dust for bayes
+
+@
+
+<<data, echo=FALSE, include=FALSE>>=
+`%notin%` <- Negate(`%in%`)
+
+# initial data
+initial_df <- readRDS("organised_data.rds")
+initial_subject <- length(unique(initial_df$subject))
+
+# cleaned data
+cleaned_df <- readRDS("cleaned_data.rds")
+cleaned_subject <- length(unique(cleaned_df$subject))
+
+# Within subject onfidence Intervals
+RTs_ci <- readRDS("sentence_RT_ci.rds")
+accuracy_ci <- readRDS("accuracy_ci.rds")
+
+@
+
+<<models, echo=FALSE, include=FALSE>>=
+model_RT <- readRDS("model_RT.rds") %>%
+  mcmc_intervals_data(pars=vars(starts_with("b_")), prob_outer = 0.95) %>% 
+  tidyr::separate(col = "parameter", into= c("x","model","parameter"), sep="\\_") %>% 
+  subset(parameter != "Intercept") %>% dplyr::select(-x)
+
+model_RT$parameter %<>% dplyr::recode(`parallelism1` = "parallel", 
+                                            `disambiguation1` = "subject",
+                                            `parallelism1:disambiguation1` = "subj*par") %>%
+  reorder.factor(new.order = c("subject","parallel","subj*par"))
+
+
+model_accuracy <- readRDS("model_response_accuracy.rds") %>%
+  mcmc_intervals_data(pars = vars(starts_with("b_")), prob_outer = 0.95) %>%
+  tidyr::separate(col = "parameter", into = c("x","parameter"), sep ="\\_") %>%
+  subset(parameter != "Intercept") %>% dplyr::select(-x)
+
+model_accuracy$parameter %<>% dplyr::recode(`parallelism1` = "parallel",
+                                                  `disambiguation1` = "subject",
+                                                  `qtype1` = "no",
+                                                  `parallelism1:disambiguation1` = "subj*par",
+                                                  `disambiguation1:qtype1` = "subj*no",
+                                                  `parallelism1:qtype1` = "par*no",
+                                                  `parallelism1:disambiguation1:qtype1` = "subj*par*no") %>%
+  reorder.factor(new.order= c("subject","parallel","no","subj*par","subj*no","par*no","subj*par*no"))
+
+model_noun_RT <- readRDS("model_noun_RT.rds") %>%
+  mcmc_intervals_data(pars = vars(starts_with("b_")), prob_outer = 0.95) %>%
+  tidyr::separate(col = "parameter", into = c("x","parameter"), sep ="\\_") %>%
+  subset(parameter != "Intercept") %>% dplyr::select(-x)
+
+
+@
+\subsection{Participants}
+The participants were \Sexpr{cleaned_subject} students from Boğaziçi University who are native speakers of Turkish. In exchange for their participation they received 1 point to their overall course score.
+
+\subsection{Materials}
+
+I used the environment I introduced in the previous section and altered the disambiguation and parallelism between the conjuncts. I provide the template for an experimental item in (\ref{constemplate}).
+
+\begin{exe}
+\ex \label{constemplate}
+[1W] CONJ1 and CONJ2-{\Case} [2W] PRONOUN [1W] MainVerb
+\end{exe}
+
+The pronoun is the factor of Disambiguation with levels: Subject and Object. In Subject, \textit{birbirlerin-{\Case}} `each\_other' disambiguates towards a no SA reading. In Object, \textit{onlar-{\Case}} `{\Tpl}' disambiguates towards an SA reading. The factor Parallelism has two levels: Parallel and Non-parallel. In Parallel, the conjoiner is immediately followed by a noun. In Non-parallel, the conjoiner is followed by an adjective first and then a noun. In (\ref{exp3conditions}), I give partial sentences for all the experimental conditions.
+\begin{exe}
+\ex \label{exp3conditions}
+\begin{xlist}
+    \ex Subject, Parallel\\* 
+    \gll {\ldots} [baron] ve [şövalye-yi {\ldots} kral] birbirlerini {\ldots} dinle-yecek. \\ 
+    {\ldots} baron {\And} knight-{\Acc} {\ldots} king each\_other {\ldots} listen-{\Fut} \\
+    \glt `{\ldots} [the baron] and [the king who {\ldots} the knight] will listen to each other {\ldots}'
+    
+    \ex Subject, Non-parallel\\* 
+    \gll {\ldots} [baron] ve [cesur şövalye-yi {\ldots} kral] birbirlerini {\ldots} dinle-yecek. \\ 
+    {\ldots} baron {\And} bold knight-{\Acc} {\ldots} king each\_other {\ldots} listen-{\Fut} \\
+    \glt `{\ldots} [the baron] and [the king who {\ldots} the bold knight] will listen to each other {\ldots}'
+    
+    \ex Object, Parallel\\* 
+    \gll {\ldots} [baron ve şövalye-yi] {\ldots} kral onları {\ldots} dinle-yecek. \\ 
+    {\ldots} baron {\And} knight-{\Acc} {\ldots} king {\Tpl} {\ldots} listen-{\Fut} \\
+    \glt `{\ldots} the king who {\ldots} [the baron and the knight] will listen to them {\ldots}'
+    
+    \ex Object, Non-parallel\\*
+    \gll {\ldots} [baron ve cesur şövalye-yi] {\ldots} kral onları {\ldots} dinle-yecek. \\ 
+    {\ldots} baron {\And} bold knight-{\Acc} {\ldots} king {\Tpl} {\ldots} listen-{\Fut} \\
+    \glt `{\ldots} the king who {\ldots} [the baron and the bold knight] will listen to them {\ldots}'
+\end{xlist}
+\end{exe}
+
+After every sentence, a statement was presented and the participants judge if the statement was true or false depending on the sentence they read. The statement targetted the theta role assignments. It had two types. One that was only true with SA (Object conditions), meaning that the first conjunct held theta role relation with the embedded verb. The other was only true with no SA (Subject conditions), meaning that the first conjunct held theta role relation with the matrix verb.
+
+\begin{exe}
+\ex \label{exp3qtype}
+\begin{xlist}
+    \ex Subject true (no SA)\\* 
+    \gll Baron kral-ı {\ldots} dinle-yecek. \\ 
+    Baron[{\Nom}] king-{\Acc} {\ldots} listen-{\Fut}[{\Tsg}] \\
+    \glt `The baron will listen to the king {\ldots}'
+
+    \ex Object true (SA)\\* 
+    \gll Kral baron-u ödüllendir-miş \\ 
+    King[{\Nom}] baron-{\Acc} reward-{\Prf}[{\Tsg}] \\
+    \glt `The king {\ldots} the baron.'
+\end{xlist}
+\end{exe}
+
+\subsection{Procedure}
+
+Participants were provided a link to the experiment prompting them with a consent page. Upon giving consent, the participants went through 5 practice items and then they were prompted again for the beginning of the experiment. Each trial proceeded by the participants pushing the `space' key, for each key stroke a word at the center of the screen appeared and by each key stroke it was replaced with the following word in the sentence. After the sentence was read, participants were presented with a statement that was either true or false according to the sentence they read. They professed their decision by pushing `Q' key for `yes' and `P' key for `no' on the keyboard. The experiment only recorded word reading times, responses, and response times. After the experiment was done, participants were redirected to a separate page where they provided their student information to be relayed to the course's professor for the extra credit. This is kept separate of the experiment results, keeping participant information and experimental data anonymous.
+
+\subsection{Results}
+
+The results were recorded onto a csv file and imported into R \citep{team2013r} for data cleaning, aggregation, and analysis. The data consisted of \Sexpr{length(initial_df$experiment)} data points. \Sexpr{initial_subject-cleaned_subject} subjects with accuracies lower than 70\% in filler items are excluded from the data. The trials which had a word with reading times outside 100-3000 milliseconds are considered as outliers and also excluded. These exclusions resulted in the loss of \Sexpr{round(x = 100*(1-(length(cleaned_df$experiment)/length(initial_df$experiment))), digits = 2)}\% of the data. In Figure \ref{fig:exp3sentenceread}, I give the average reading times per word with a representative sentence.
+
+
+<<exp3sentenceread, echo=FALSE, dev='cairo_pdf', fig.width=5.7, fig.height=3, fig.align='center',out.width='\\linewidth', fig.pos='hbt!',fig.cap='Average reading times of words for all experiment conditions by Disambiguation(Subject|Object) and Parallelism(Parallel|Non-parallel)'>>=
+SA_label <- c("Bence",
+              "baron",
+              "ve",
+              "cesur",
+              "şövalyeyi",
+              "ödüllendiren",
+              "kral",
+              "onları/ birbirlerini", 
+              "şatoda",
+              "dinleyecek")
+
+RTs_ci %>% dplyr::select(condition, word_name, average_RT = M, ci = CI) %>%
+  ggplot(aes(word_name, average_RT, color = condition, group = condition)) +
+  theme(text=element_text(size=12),
+        legend.position = "bottom", legend.title = element_blank(),
+        axis.text.x = element_text(face = "bold.italic", angle = 30, hjust = 1)) +
+  geom_point(aes(shape=condition),size= 2.5) + 
+  geom_line(linetype="dashed") +
+  geom_errorbar(aes(ymin = average_RT -ci, ymax = average_RT + ci, color= condition), 
+                width = .1) + ylab("average RT (ms)") + 
+  scale_x_discrete(labels = SA_label, name="") + 
+  scale_colour_brewer(palette = "Dark2")
+
+@
+
+The critical region in all the sentences is the disambiguation word \textit{onlar-{\Case}} or \textit{birbirlerin-{\Case}}. The spillover region in all the sentences is the two words after the disambiguation word. In the case of Figure \ref{fig:exp3sentenceread} it is the two words \textit{şatoda} `at the chateau' and \textit{dinleyecek} `will listen'. I give the average RTs of critical and spillover regions in Figure \ref{fig:exp3critandso}. On average Subject and Parallel conditions result in higher RTs.
+
+<<exp3critandso, echo=FALSE, dev='cairo_pdf', fig.width=5.5, fig.height=2.5, fig.align='center',out.width='\\linewidth', fig.pos='hbt!',fig.cap='Third experiment, average reading times of critical and spillover regions by Disambiguation(Subject|Object) and Parallelism(Parallel|Non-parallel)'>>=
+SA_label_2 <- c("critical", 
+              "spillover1",
+              "spillover2")
+names(SA_label_2) <- c("8","9","10")
+
+RTs_ci %>% dplyr::select(parallelism, disambiguation, word_name, average_RT = M, ci = CI) %>%
+  subset(word_name %in% 8:10) %>%
+  ggplot(aes(parallelism, average_RT, group= disambiguation)) +
+  theme(text=element_text(size=10), 
+        strip.text.x = element_text(size=10),
+        axis.title.x = element_text(size=10), 
+        axis.title.y = element_text(size=10),
+        legend.position = "bottom") +
+  geom_point(aes(color=disambiguation), size= 2) + 
+  geom_line(aes(color=disambiguation)) +
+  geom_errorbar(aes(ymin = average_RT -ci, ymax = average_RT + ci, color=disambiguation), width = .1) + 
+  ylab("average RT (ms)") + facet_grid(.~word_name, labeller = labeller(word_name = SA_label_2))
+@
+
+For more inference in RTs in critical and spillover regions, I have fit a regression model using brms package in R \citep{burkner2017brms}. I have used sum contrasts for the predictors and controlled for the random effects for participant and experimental item. I give the results of the models in Figure \ref{fig:exp3critandsomodel}. The model results indicate that Subject and Parallel conditions have a main effect of increasing RTs. They are more pronounced in the spillover region.
+
+<<exp3critandsomodel, echo=FALSE, dev='cairo_pdf', fig.width=5.5, fig.height=2, fig.align='center',out.width='\\linewidth', fig.pos='hbt!',fig.cap='Third experiment, model results of RTs for critical and spillover regions with predictors Disambiguation(Subject|Object) and Parallelism(Parallel|Non-parallel)'>>=
+model_RT %>% ggplot(aes(m, y=factor(parameter, 
+                               levels = rev(levels(factor(parameter)))))) +
+  theme(text=element_text(size=10), strip.text.x = element_text(size=10),
+        axis.title.x = element_text(size=10), axis.title.y = element_text(size=10)) +
+  geom_point(size = 2) +
+  geom_errorbarh(aes(xmin = l, xmax = h), alpha = 1, height = 0, size = 1) +
+  geom_errorbarh(aes(xmin = ll, xmax = hh, height = 0)) + vline_0() +
+  xlab("Estimate(log)") + ylab("coefficients") + facet_grid(.~model)
+@
+
+In Figure \ref{fig:exp3accuracy}, I give participant accuracies grouped by experiment conditions and correct answer type. On average, participant accuracies are high in Object conditions and when the correct answer is `yes'. There is an interaction between correct answer `no' and Subject conditions where the accuracies are considerably lower.
+
+<<exp3accuracy, echo=FALSE, dev='cairo_pdf', fig.width=4, fig.height=2.5, fig.align='center',out.width='\\linewidth', fig.pos='hbt!',fig.cap='Third experiment, average participant accuracy by Disambiguation(Subject|Object) and Parallelism(Parallel|Non-parallel)'>>=
+accuracy_ci_label <- c("correct answer:yes",
+                       "correct answer:no")
+names(accuracy_ci_label) <- c("yes","no")
+
+accuracy_ci %>% 
+  ggplot(aes(parallelism, accuracy, group = disambiguation, color=disambiguation)) + 
+  theme(text=element_text(size=10), 
+        strip.text.x = element_text(size=10),
+        axis.title.x = element_text(size=10), 
+        axis.title.y = element_text(size=10), 
+        legend.position = "bottom") +
+  geom_point(size =2) + geom_line() + 
+  geom_errorbar(aes(ymin = accuracy-CI, ymax = accuracy+CI), width = .1) + 
+  facet_grid(.~correct_answer, labeller = labeller(correct_answer = accuracy_ci_label))
+@
+
+For more inference in response accuracy, I fit a regression model using brms in R. This time, the correct answer type is added to the predictors. All predictors have sum contrasts and I controlled for random effects of subject and item. I give the model results in Figure \ref{fig:exp3accuracymodel}.
+
+<<exp3accuracymodel, echo=FALSE, dev='cairo_pdf', fig.width=4, fig.height=2.5, fig.align='center',out.width='\\linewidth', fig.pos='hbt!',fig.cap='Third experiment, model results for subject accuracies fit to responses with the predictors Disambiguation(Subject|Object), Parallelism(Parallel|Non-parallel), and Correct Answer(yes|no)'>>=
+model_accuracy %>% ggplot(aes(m, y=factor(parameter, 
+                               levels = rev(levels(factor(parameter)))))) +
+  theme(text=element_text(size=10), strip.text.x = element_text(size=10),
+        axis.title.x = element_text(size=10), axis.title.y = element_text(size=10)) +
+  geom_point(size = 2) +
+  geom_errorbarh(aes(xmin = l, xmax = h), alpha = 1, height = 0, size = 1) +
+  geom_errorbarh(aes(xmin = ll, xmax = hh, height = 0)) + vline_0() +
+  xlab("Estimate(log)") + ylab("coefficients")
+@
+
+\subsection{Analysis}
+
+I evaluate the results of the experiment in two parts. In the first part, I analyze the changes in RTs. In the second part I analyze the changes in response accuracies. 
+
+
+\subsubsection{Analysis of reading times}
+
+Subject conditions result in higher RTs than Object conditions. This means that the parser have gone through a process that costs extra effort in Subject conditions. These conditions require having no suspension of {\Case}. Increase in Subject conditions means that the initial reading was compatible with an SA interpretation but it was changed. This indicates suspension taking place in local environments, no matter the structural ambiguity in the sentence as a whole. This is a Reanalysis effect directly related to SA and how the parser operates when it is possible to perform SA.
+
+
+Parallel conditions display higher RTs than non-parallel conditions. There is no structural ambiguity that the effect can be attributed to. In both disambiguations, accessing a conjunction is required for establishing antecedents for the pronoun. There is an interaction between the levels Subject and Parallel in the first spillover word, suggesting an increase in difficulty. In Subject conditions, the conjunction needs to be accessed and then broken apart. After this operation, a new conjunction is formed. This first noun and the head noun of the relative clause are conjoined as subjects.
+
+
+Parallel conditions dont have any contrast between the conjuncts whereas non-parallel conditions have the second conjunct modified by an adjective. This creats a contrast between the conjuncts. Marked conjuncts being more accessible for retrieval has been shown previously \citep{Hofmeister2014} and similarity effects for establishing dependencies are also attested (see \cite{Jager2017} for a review). In Subject conditions the conjunction to be broken apart needs to be retrieved, and the first noun needs to be taken out the conjunction. Addressing the correct noun in memory becomes harder in parallel conjuncts. This breaking process may be an effect of $dechunking$ \cite{martin2011direct}.
+
+
+There is a main effect of Parallelism, relatively stable in all regions. It is more pronounced, as the interaction effect, in the first spillover word. I do not see an inherent reason for why parallel conjuncts increase difficulty. It is actually shown to facilitate processing in conjunctions \citep{frazier2000processing}, yet here it displays an opposite effect. The parallelism tested in \citep{frazier2000processing} is not a target to be broken apart or establishing antecedent relations with. 
+
+
+The only thing common in the pronouns that are used for disambiguation is their number marking. They are both marked {\Pl} but there is no plural noun among the possible antecedents. The pronoun number agrees with a complex number feature that takes the number of conjuncts instead of the number markings on nouns. Plural agreement is not obligatory in Turkish for conjoined nouns so there is no insentive to form a {\Pl} value for a conjunction when it is formed. I speculate that the easier it is to form a conjunction the harder it gets to address its parts for establishing a complex feature for number. This is the main effect that is observed in my experiment. Parallel conjuncts are easier to form, average reading differences on the second conjunct \textit{şövalyeyi} in Figure \ref{fig:exp3sentenceread} and a regression model with only parallelism as predictor (median log estimate \Sexpr{round(model_noun_RT$m, digits=3)}, \%50 CI \Sexpr{round(model_noun_RT$l, digits=3)}-\Sexpr{round(model_noun_RT$h, digits=3)}, \%95 CI \Sexpr{round(model_noun_RT$ll, digits=3)}-\Sexpr{round(model_noun_RT$hh, digits=3)}) confirms the processing ease of parallel conjuncts. This makes it harder to access their parts in forming a complex feature for the conjunction since each of the conjuncts needs to be checked for the number feature. It even makes it harder to break the conjunction apart and form a new one.
+
+
+
+\subsubsection{Analysis of response accuracies}
+
+The participants were given a statement to judge depending on the sentence they read. This makes the statement a memory probe for which the participants search compatible readings in their memories. A match results in answering with `Yes' and a lack of finding a match results in answering with `No'. 
+
+
+Subject conditions decrease participant accuracies overall. In Subject conditions, there was a point of Reanalysis. Overall decrease in Subject conditions mean that either the Reanalysis was not carried out even if it was, the statement was still judged erroneously. There is an interaction between the level Subject and `No' as the correct answer. This means that when the participants were supposed to answer with `No' in Subject conditions, they performed worse compared to Object conditions or `Yes' as the correct asnwer. This interaction can be attributed to matching the statement to a reanalyzed reading in the memory. When the statement is taken to be a memory probe, the participant had two readings formed, one that is actually true and one that was reanalyzed. The existence of both readings in the memory makes both statement types to have a match thereby decreasing accuracy further when the statement is indeed false. This is in line with the studies that show readings being addressable in memory \citep{christianson2001thematic,van2006activation,Slattery2013} even after Reanalysis.
+
+
+When the statement was indeed false and the participants were supposed to answer with `No', they performed lower in general compared to the statements that were indeed true. When the statement is taken to be a memory probe for finding a match in memory, answering with `No' becomes the result of an exhaustive search that requires checking all available readings. This exhaustive operation might result in parser abandoning the search and give a random answer, possibly biased towards yes. Remember that not all statements are made about the theta role assignments and false statements only make up 1/4 of the questions. This reduces the chances of conditioning the parser for the task \citep{Swets2008,logavcev2016multiple}. 
+
+
+Parallel conjuncts do not have a main effect and only have interaction effects with Subject and `No' as correct answer. It reduced accuracy in both. The main effect of increased difficulty in reading times seem to have effected Subject conditions more than they did Object conditions. It was shown that Subject and Parallel conditions had an interaction in the first word of the spillover. Subject conditions included a process of Reanalysis. The difficulty of breaking the conjunction combined with the Reanalysis might have proven too much for the parser, and lead to misparsing hence the interaction effect. In object conditions though, this increased difficulty did not lead to misparsing and that is why a main effect of Parallel seems to be lacking (although the median estimate and \%50 credible intervals are below zero indicating a relatively decrease in accuracy). All the effects of Subject and `No' as correct answer, and interaction with parallel decreasing accuracies are compatible with $good\,enough\,approach$ \citep{ferreira2001misinterpretations,ferreira2007good} that suggests language input is not strictly implemented during processing. Partially satisfied relations are taken to be enough if the required effort exceeds the resources that the parser is needed to allocate. 
+
+
+
+\subsection{Discussion}
+
+The second experiment showed that suspension of a suffix is costly, yet this experiment has shown that it is a prefered operation. A deterministic serial parser can predict this, as long as it filters possible conjunctions for {\Case} match and carry out any process necessary to satisfy it to keep the structure minimal. A probabilistic serial parser can predict this result as well, considering that suspension takes less processing resources (thereby time) than positing an embedded clause. The results further indicate that the participants did not fully interpret the sentences when the processing cost proved higher than expected.
+
+In the experiment, the ambiguity environments did not use only {\Acc} to be reconstructed, there were examples of {\Dat}, {\Loc}, and {\Abl} in similar numbers. These can fall into different categories of {\Case} \citep{woolford2006lexical} and their category is only apperant when a verb is reached. Thereby {\Case} can play both a syntactic and a semantic role. If thematic roles are preemptively assigned by {\Case}, then the participants should have favored no SA reading. Some studies in German \citep{gorrell2000subject,schlesewsky2000subject,bader2000reanalyis} show that ambiguous {\Case} markings on arguments receive preferred readings of subject over object. The preferred reading is compatible with an SOV ordering just like the canonical word order in Turkish. None of those studies employ an example of {\Case} ambiguity in a conjunction where both the subject ({\Nom}) and the internal argument ({$\neg$\Nom}) {\Case} markings are available by means of SA. Another difference is that {\Case} is decomposable in Turkish, and no {\Case} marking is ambiguous. Even when the first conjunct was marked with {\Nom} and canonical word order being SOV in Turkish, the participants favored a reading that is incompatible with the {\Nom} or Subject interpretation. There is one crucial point in this experiment. To prevent information structure driven effects, I placed the nominative marked noun not in a sentence initial position, but following a speech act adverbial. This might have prevented the informations like SOV word order to be used.
+
+
+\subsection{Conclusion}
+
+The results and the analysis indicate that people still perform SA of {\Case} even when it is made ambiguous. Conjunct parallelism do not regulate performing SA or not, but it effects the cost of Reanalysis. This experiment has shown that {\Case} information is overwritten for the sake of positing minimal structures, or structures that take less time to build. This means that the parser favors syntactically simple structures to morphologically complex operations.
+
+
+The effects of {\Case} for processing ambiguities of conjunctions received very little attention in the literature. The only relevant study I could find was \cite{Traxler1996} where the {\Case} ambiguous `you' in English is contrasted to the unambiguous pronouns for predicting the attachment for c-selection ambiguous verbs like `recognize' that can have both a sentence and a noun as their internal argument. That study concludes in participants using {\Case} information rapidly and effectively. A similar but different story holds for this experiment, the {\Case} is updated in local environments of conjunction. Breaking this update is costly or even not done properly after a contradicting information is encountered.
+
+
+
+
+
+

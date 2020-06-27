@@ -1,14 +1,19 @@
-\documentclass[12pt, a4paper, oneside, liststotoc, consistentlayout]{report}
+\documentclass[12pt, a4paper, oneside]{report}
 
-% drawing Trees
+% for drawing trees 
+\usepackage[linguistics, external]{forest}
+\forestset{sn edges/.style={for tree={parent anchor=south, child anchor=north, s sep=10mm, inner sep=0mm}}}
+ 
 \usepackage{tikz}
 \usepackage{tikz-qtree}
 \tikzset{every tree node/.style={align=center, anchor=north}}
 \usetikzlibrary{positioning}
-\usetikzlibrary{external}
-\tikzexternalize[prefix=tikz/]
 
- 
+% externalizing figures, helps with compiling
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikzz/]
+
+
 \usepackage{furkanframe}
 
 \newcommand{\authname}{Furkan Atmaca} 
@@ -17,9 +22,9 @@
 \newcommand{\univname}{Boğaziçi University}
 \newcommand{\degname}{Master of Arts}
 \newcommand{\deptname}{Linguistics}
-\newcommand{\supname}{Prof. Dr. Aslı Göksel}
-\newcommand{\juryfname}{Prof. Dr. }
-\newcommand{\jurysname}{Prof. Dr. }
+\newcommand{\supname}{Prof. Aslı Göksel}
+\newcommand{\juryfname}{Assist. Prof. Pavel Logačev}
+\newcommand{\jurysname}{Assist. Prof. Aslı Gürer}
 
 %repeat the same in capitals
 \newcommand{\authnamecaps}{FURKAN ATMACA} 
@@ -30,14 +35,9 @@
 \newcommand{\deptnamecaps}{LINGUISTICS}
 
 \begin{document}
+
 \input{loader.tex}
 
 
-\newpage
-% for printing references
-\singlespacing
-\renewcommand\bibname{REFERENCES}
-\bibliographystyle{apa}
-\bibliography{references}
-\addcontentsline{toc}{chapter}{REFERENCES}
+
 \end{document}

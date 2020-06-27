@@ -1,0 +1,311 @@
+\section{Analysis of suspended affixation} \label{sec:SAanalysis}
+
+In this section, I provide an analysis for SA and the considerations that should go into it. The empirical results and the theoretical considerations so far give the points in (\ref{sapoints}) about SA. In the following subsections I provide the explanation for each of these observations and come up with a singular analysis of SA.
+
+\begin{exe}
+\ex \label{sapoints}
+    \begin{xlisti}
+    \ex SA is highly productive with inflectional suffixes
+    \ex \textit{veya} hinders SA of {\Case} 
+    \ex SA, pragmatics, and the information structure
+    \end{xlisti}
+\end{exe}
+
+\subsection{Structural interpretation for suspended affixation}
+
+SA operates mostly in the inflectional paradigm. Other than an outright lexical sharing analysis \citep{broadwell2008turkish}, other analyses of RNR \citep{kornfilt2012revisiting} and ellipsis \citep{guseva2017postsyntactic, erschler2018suspended} suggest that the suspended suffixes are either moved out or deleted from the word they were affixed to. Considering each inflectional suffix as a terminal node as in \cite{kornfilt2012revisiting} needs further explanation. For example, if both {\Pl} and {\Poss} suffixes have their own terminal nodes, performing SA for only one of them should be possible when they are concatenated. If {\Case} had a terminal node of its own, SA of {\Acc} should have been ambiguous just like the SA of {\Pl} or {\Poss}. The sentences in (\ref{againstkornfilt}) illustrate this point.
+
+\begin{exe}
+    \ex \label{againstkornfilt}
+    \begin{xlist}
+        \ex Non separable SA of {\Pl} and {\Poss}\\*
+        \gll kitap-lar ve kalem-ler-im \\ 
+        book-{\Pl} {\And} pencil-{\Pl}-{\Poss}.{\Fsg} \\
+        \glt `The books and my pencils' \\*
+        `*My books and my pencils'
+        
+        \ex Unambiguous SA of {\Acc}\\*
+        \gll Ahmet kitap ve kalem-i al-dı. \\ 
+        A[{\Nom}] book {\And} pencil-{\Acc} take-{\Pst}[{\Tsg}] \\
+        \glt `Ahmet took the book and the pencil' \\*
+        `*Ahmet took a book\footnote{The article `a' is used to denote a non-referential noun, not an indefinite one. That is why `Ahmet took a book and the pencil' is a perfectly grammatical sentence on its own but it is not a possible interpretation of this sentence} and the pencil'
+    \end{xlist}
+\end{exe}
+
+The sentences in (\ref{againstkornfilt}) and their possible interpretations should be all grammatical according to the RNR analysis of \cite{kornfilt2012revisiting} but this is not the case. Consideration into the environment of SA and the nature of the {\Pl} and {\Poss} suffixes can clarify some points.
+
+
+\subsubsection{Explaining unambiguous suspension of {\Case}}
+
+First point to explain is why SA of {\Case} results in unambiguous readings. This can be captured by a well-formedness condition on the conjunction instead of the interpretation of SA. A bare argument with no {\Case} marking is of type $D_{et}$\footnote{This is a semantic domain that takes individuals and returns truth values. It can have several individuals that can fulfill the function, that's why I refer to this domain as `set of individuals'}, a set of individuals. The argument with overt case marking is of type $D_e$\footnote{This is a semantic domain that has an individual, there is only one presupposed individual(singular or plural) in the context}, an individual. Conjoining a set of individuals and an individual is not semantically equivalent, thereby {\Case} SA is carried out by default to satisfy semantic equivalence \citep{munn1993topics}. This results in an unambiguous reading. Another point that could strengthen the semantic equivalence as a well-formedness condition is the no SA reading in (\ref{noSAposs}). In this example, SA of {\Poss} is ambiguous. However, the first conjunct can't stay in a reading of set of individuals $D_{et}$. Even if the SA of {\Poss} is not performed, the second conjunct is shifted to an individual $D_e$ by the {\Poss} suffix. The first conjunct needs to be interpreted as an individual $D_{e}$ instead of a set of individuals $D_{et}$.
+
+\begin{exe}
+    \ex \label{noSAposs}
+    \gll kitap ve kalem-im \\ book {\And} pencil-{\Poss.\Fsg} \\
+    \glt SA: `my book and my pencil'\\*
+    No SA: `the book and my pencil'\\*
+    No SA: `*a book and my pencil'
+\end{exe}
+
+
+\subsubsection{Why are {\Pl} and {\Poss} inseparable?}
+
+Second point is to explain the inseparable nature of {\Pl-\Poss} in SA. Instead of positing distinct terminal nodes for each suffix, I propose to place these two suffixes under a single node. For example, the inseparable SA of {\Pl-\Poss} can be captured by the small `n' analysis of \cite{ozturk2016possessive}. The analysis itself treats agreement markers belonging to DP layer, since they establish referential and deictic nouns. This however does not hinder an analysis of placing {\Pl-\Poss} on the same node. Compound markers ({\Tsg}) and agreement markers don't co-exist, and in all cases the {\Pl} precedes both (\ref{plural}).
+
+\begin{exe}
+    \ex \label{plural}
+    \begin{xlist}
+        \ex \gll ders kitap-lar-ı \\ course book-{\Pl}-{\Poss.\Tsg} \\
+        \glt `course book'
+        \ex \gll ders kitap-lar-ım \\ course book-{\Pl}-{\Poss.\Fsg} \\
+        \glt `my course book'
+    \end{xlist}
+\end{exe}
+
+Although the semantic interpretation of possessive agreement markers merits placing them on the `D' head, I propose that the inability of compound marker and agreement markers to coexist is enough to posit them entering the structure in the same level.
+
+This kind of behaviour is reminiscent of position class morphology \citep{inkelas1993nimboran,stump1993position}. In such a representation, suffixes are assigned slots for insertion, and they follow that slots even though their functional ordering is different than their surface form. If a position class morphology is adopted for Turkish, with slots for suffixes, SA can just work on deleting exponents on these slots. This would do away with the representation of {\Pl} and {\Poss} on the same terminal node since SA would be an operation of morphology independent of their syntactic organization.
+
+
+\subsubsection{Other places where {\Pl-\Poss} receives special treatment}
+
+SA is not the only place that {\Pl-\Poss} or {\Pl-\Agr} receive special treatment. In Turkish, the head noun of an object relative clause can be omitted (\ref{headless}). When the head noun is marked with plural and the headless relative clause is formed, instead of a suffix order of {\Poss-\Pl} on the relativized verb, an order of {\Pl-\Poss} appears as illustrated in (\ref{headless2}).
+
+\begin{exe}
+    \ex \label{headless}
+    \gll sev-diğ-im (kişi) gel-di. \\ 
+    like-{\Pp}-{\Poss.\Fsg} person[{\Nom}] come-{\Pst}[{\Tsg}] \\
+    \glt `The person I like came.'
+    
+    \ex \label{headless2}
+    \begin{xlist}
+    \ex \gll sev-diğ-im kişi-ler gel-di. \\ 
+    like-{\Pp}-{\Fsg} person-{\Pl}[{\Nom}] come-{\Pst}[{\Tsg}] \\
+    
+    \ex \gll sev-dik-ler-im gel-di. \\ 
+    like-{\Pp}-{\Pl}-{\Fsg}[{\Nom}] come-{\Pst}[{\Tpl}] \\
+    \glt `The people I like came.'
+    \end{xlist}
+\end{exe}
+
+\cite{goksel2005morphology} provides an interesting example for SA of {\Pl} in headless relative clauses (\ref{gokselSA}). This seems like a separable and non-rightward-bound SA of {\Pl} in the string of {\Pl-\Poss} or {\Pl-\Agr}. In (\ref{gokselSA}), however, the {\Pl} and {\Poss} are not originally affixed to the same noun. In their underlying form {\Poss} or {\Agr} is affixed to the relativized verb, and the {\Pl} is affixed to the head noun.
+
+
+\begin{exe}
+    \ex \label{gokselSA}
+    \begin{xlist}
+    \ex Full relative clause\\*
+    \gll dil-in-i bil-diğ-im ve anla-dığ-ım kişi-ler. \\
+    language-{\Poss.\Spl} know-{\Pp}-{\Fsg} {\And} understand-{\Pp}-{\Fsg} person-{\Pl} \\
+    \glt ${}$
+    
+    \ex Reduced relative clause, No SA \\*
+    \gll dil-in-i bil-dik-ler-im ve anla-dık-lar-ım. \\
+    language-{\Poss.\Spl} know-{\Pp}-{\Pl}-{\Fsg} {\And} understand-{\Pp}-{\Pl}-{\Fsg} \\
+    \glt ${}$
+    
+    \ex Reduced relative clause, SA of {\Pl}\\*
+    \gll dil-in-i bil-diğ-im ve anla-dık-lar-ım. \\
+    language-{\Poss.\Spl} know-{\Pp}-{\Fsg} {\And} understand-{\Pp}-{\Pl}-{\Fsg} \\
+    \glt `The people whose language I know and understand'
+    \end{xlist}
+\end{exe}
+
+The observations in (\ref{headless}), (\ref{headless2}), and (\ref{gokselSA}) indicate two things. The first is that the ordering of the suffixes {\Pl-\Poss} or {\Pl-\Agr} require special treatment with or without SA. The second is that SA is performed before the surface ordering of the suffixes is formed.
+
+\subsubsection{How to fit suspended affixation to an RNR analysis}
+
+Now that the unambiguous {\Case} is handled by semantic equivalence of conjuncts and the inseparable suffixes are represented under one terminal node, RNR analysis can be entertained with a better picture. At this point, the analysis of a pure lexical sharing \citep{broadwell2008turkish} (examined in \S\ref{litsurvey}) is out since it requires distinct terminal nodes for each suffix. The RNR analysis argues for performing an Across the Board (ATB) movement of the terminal nodes. One possible issue for this analysis is the order of movement for a suspension of {\Pl-\Poss-\Case}. Figure \ref{fig:kornfiltextreme} illustrates the structural representation for the SA in in (\ref{againstkornfilt2}).
+
+\begin{exe}
+    \ex \label{againstkornfilt2} 
+    \gll Kitap ve kalem-ler-im-i bul-du-m. \\
+    book {\And} pencil-{\Pl}-{\Poss}.{\Fsg}-{\Acc} find-{\Pst}-{\Fsg} \\
+    \glt SA: `I have found my books and my pencils'
+\end{exe}
+
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest} 
+    [\&P, s sep=50mm 
+        [\&' 
+            [DP 
+                [nP 
+                    [NP]
+                    [n\\{\Pl-\Poss}, name= nUp]]
+                [D\\{\Acc}, name=dUp]]
+            [\&' 
+                [\&]
+                [DP 
+                    [nP 
+                        [NP]
+                        [n\\{\Pl-\Poss}, name=nDown]]
+                    [D\\{\Acc}, name= dDown]]]]
+    [*, name=suff]]
+    \node[fit= (nUp)(dUp), draw, circle, dashed, scale=.77](upper){};
+    \node[fit= (nDown)(dDown), draw, circle, dashed, scale=.77](lower){};
+    \draw[rounded corners=1em, ->] (upper.south) -- ++(south:5.5em) -| (suff.south);
+    \draw[rounded corners=1em, ->] (lower.south) -- ++(south:1.5em) -| (suff.south);
+    \end{forest}
+    \caption{RNR analysis for multiple terminal nodes}
+    \label{fig:kornfiltextreme}
+\end{figure}
+
+SA of only one suffix with an RNR analysis is straightforward in moving the head to a pseudo-specifier\footnote{I am calling this a pseudo-specifier position and mark it with `*' because it is a non-phrase element of syntax acting as if a specifier phrase would do} position in the conjunction. It is not clear how RNR would handle moving more than one terminal node. If the target pseudo-specifier position attracts heads for suspension, the first candidate for movement would be the `D' head. The second would be the `n' head. This would derive an order of D-n at the pseudo-specifier position after movement, which is not the order that is observed in the example. For such a movement to take place in a correct order, an assumption of forming a complex head needs to take place. This complex head then serves as the target for movement. 
+
+There is another problem with a movement analysis. Most examples of SA are given in a conjunction with only two conjuncts. A movement analysis in theory should allow for SA of a suffix in only one conjunct when there are 3 conjuncts in the conjunction. The sentence in (\ref{againstmovement}) illustrates this point. Performing SA only in one of the three conjuncts is ungrammatical (\ref{brokensa}) and performing SA for all the conjuncts but the last one is grammatical (\ref{workingsa}).
+
+\begin{exe}
+    \ex \label{againstmovement} 
+        \begin{xlist}
+    \ex \label{brokensa} 
+    \gll *kitap, kalem-i, ve defter-i getir. \\ 
+    book pencil-{\Acc} {\And} notebook-{\Acc} bring.{\Imp} \\
+    
+    \ex \label{workingsa}
+    \gll kitap, kalem, ve defter-i getir. \\ 
+    book pencil {\And} notebook-{\Acc} bring.{\Imp} \\
+    \glt `Bring the book, the pencil, and the notebook'
+        \end{xlist}
+\end{exe}
+
+SA in (\ref{brokensa}) should be possible in theory. The movement is only carried out for the conjunction of \textit{kitap, kalem-i} `the book, and the pencil' and the further {\Case} marked argument is conjoined just as the Figure \ref{fig:againstmovement} shows. 
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{forest}
+    [*\&P 
+        [\&P, s sep=40mm 
+            [\&' 
+                [DP 
+                    [\ldots]
+                    [D\\{\Acc}, name=dUp]]
+                [\&' 
+                    [\&]
+                    [DP 
+                        [\ldots]
+                        [D\\{\Acc}, name=dDown]]]]
+            [D, name=dMerge]]
+        [\&' 
+            [\&]
+            [DP]]]
+    \draw[rounded corners=1em, ->] (dUp.south) -- ++(south:5.5em) -| (dMerge.south);
+    \draw[rounded corners=1em, ->] (dDown.south) -- ++(south:1.5em) -| (dMerge.south);
+    \end{forest}
+    \caption{Movement analysis of one SA in multiple conjunctions}
+    \label{fig:againstmovement}
+\end{figure}
+
+As a result of all these observations, RNR analysis requires two crucial constraints. The first is forming of a complex head for the target of movement and the second is the consideration of all conjuncts and a specification for where the suspension begins.
+
+
+\subsection{Proposal for SA analysis} \label{SAanalysisproposal}
+
+I propose in line with \cite{guseva2017postsyntactic}, and \cite{erschler2018suspended} that SA is a deletion of phonological exponents. It takes place in conjunctions. In Turkish, the rightmost terminal nodes are sources for SA. On the underlying order within the conjunct, a leftward process of deleting matching morphemes takes place. The deletion is performed for the terminal nodes not the individual suffixes. In Figure \ref{fig:myanalysis}, I give my analysis for SA which progresses on terminal nodes for deleting morphemes with matching values. The deletion takes place before vocabulary insertion.
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{tikzpicture}
+    \node[](left){};
+    \node[right=0em of left](conj1){CONJ$_1-\gamma-$\cancel{-$\beta$}};
+    \node[right=0em of conj1](conj2){CONJ$_2-\delta-$\cancel{-$\beta$}};
+    \node[right=0em of conj2](dots){\ldots};
+    \node[right=0em of dots](conjn){CONJ$_n-\alpha$};
+    \node[right=0em of conjn](right){$-\beta$};
+    \node[below=1.55em of left](leftcorner){};
+    \draw[rounded corners=.5em, ->] (right.south) -- +(south:1.5em) -- node[below]{deletion}(leftcorner.east);
+    \end{tikzpicture}
+    \caption{Final analysis of SA}
+    \label{fig:myanalysis}
+\end{figure}
+
+This analysis is a variation of the ellipsis approach \citep{guseva2017postsyntactic,erschler2018suspended}. Turkish does not display mixed order of suffixes, which means that it does not require the specific machineries like D-lowering and K as case head that \cite{guseva2017postsyntactic} provides. The only change is the addition of using terminal nodes as target of deletion and not the actual morphemes themselves. In this deletion process, source matching terminal nodes can be deleted in the preceding rightmost nodes so long as they have the same feature values for the encoded suffixes. These terminal nodes do not need to be nodes of syntax, they can be individual points for exponent insertion. Deleting exponents for terminal nodes instead of morphemes captures both the inseparable SA of {\Pl-\Poss} and the lack of deletion for only person or number in {\Agr} markers on verbs. The suspendable agreement marker \textit{-Iz} is made up of first person and number plural morphemes. There is no separate deletion of person or number.
+
+
+An analysis of RNR with the two specified constraints or the ellipsis analysis are both capable of capturing SA of inflectional suffixes and the inseparable SA of {\Pl-\Poss}. RNR is a strictly syntactic. Movement is a frequently used operation to define if a process in language belongs to word derivation (morphology) or syntax. If SA of derivational suffixes are observed, the structural interpretation of SA can not stay solely in the domain of syntax. That is why instead of modifying RNR with constraints, an analysis of deletion should be adopted. Other than this difference, using an RNR analysis or a deletion one makes no clear cut differences for the structural interpretation of SA.
+
+An important constraint for both analyses is the morphological word status of what is left after SA. No movement or deletion of terminal nodes are felicitous if they are the last ones that constitute a morphological word. As illustrated in (\ref{morphologicalSA}), a suffix that forms a participle, thereby a morphological word from a verb, can not be suspended.
+
+\begin{exe}
+    \ex \label{morphologicalSA}
+    \begin{xlist}
+    \ex Non-morphological word, \textit{ve} `and'\\*
+    \gll *kitab-ı oku ve anla-malı-ydı-m. \\ 
+    book-{\Acc} read {\And} understand-{\Nec}-{\Pst}-{\Fsg} \\
+    \glt ${}$
+    
+    \ex Morphological word, \textit{ve} `and'\\*
+    \gll kitab-ı oku-malı ve anla-malı-ydı-m. \\
+    book-{\Acc} read-{\Nec} {\And} understand-{\Nec}-{\Pst}-{\Fsg} \\
+    \glt ${}$
+    \end{xlist}
+\end{exe}
+
+\subsection{Why \textit{veya} `or' lowers acceptability}
+
+The first experiment that mainly investigated the acceptability for the SA of derivational suffixes in the nominal domain showed an effect of the conjoiner \textit{veya} `or'. The conjoiner decreased the acceptability of {\Case} SA. On the other hand, the second experiment did not replicate similar effects in terms of reading times. If SA were to be affected by the conjoiner choice in the verbal domain, there should have been interaction effects. I address this issue by first making a difference between conjunction in the verbal domain and conjunction in the nominal domain. I later provide the differences that \textit{veya} `or' brings about and the ramifications of them for SA. 
+
+The main difference between conjunction of nouns and conjunction of verbs is the semantic denotations depending on affixation. SA in the verbal domain can only be performed up to a participle form. These participles form a semantic denotation that is equivalent to a sentence. This means that suspendable affixes on top of the participle do not change the semantic denotation. In SA of {\Case} however, the remnant word after suspension can have a semantic denotation that is different from the other conjunct. This is the main difference of conjunction related to SA.
+
+SA in the conjunctions formed with \textit{ve} `and' recover the semantic equivalence by making the {\Case} available for the unmarked conjuncts. The problem with \textit{veya} `or' is that it can have an exclusive reading which requires evaluation of the conjuncts separately. This evaluation process takes both conjuncts to be semantically equivalent before performing SA. Therefore there is a negative effect of \textit{veya} `or' for the acceptability of {\Case} SA but no interaction in SA of verbs. The difference of exclusive reading in \textit{veya} `or' stems from pragmatics. In logic, the operators $\wedge$ and $\vee$ correspond to the lexical items `and' and `or' respectively. In Table \ref{tab:operators} I give the truth conditions for both operators $\wedge$ `and' and $\vee$ `or'.
+
+\begin{table}[hbt!]
+    \centering
+    \begin{tabular}{|cc|c|cc|c|}
+    \hline
+        \multicolumn{3}{|c|}{And} & \multicolumn{3}{|c|}{Or} \\ \hline
+        p & q & p$\wedge$q & p & q & p$\vee$q \\ \hline
+        T & T & T & T & T & T \\
+        T & F & F & T & F & T \\
+        F & T & F & F & T & T \\
+        F & F & F & F & F & F \\
+    \hline    
+    \end{tabular}
+    \caption{Truth Value Calculations for Logic Operators $\wedge$ `and', $\vee$ `or'}
+    \label{tab:operators}
+\end{table}
+
+The operator $\vee$ `or' can have the truth condition for the operator $\wedge$ `and'. This is the reading where both arguments are True. This is an operation of logic. Languages use the logic calculations for conjunction but they are not only governed by them. According to Grice's maxims \citep{grice1989studies}, the pragmatics in a language affect the interpretation of expressions. The two maxims are of importance here: Maxim of quality and maxim of quantity. Maxim of quality suggests that the language user produces expressions that are the most informative and not false for a given situation. Maxim of quantity suggests that the language user produces just enough and not more than what is necessary. Using $\vee$ `or' in language might entail the following considerations:
+
+\begin{itemize}
+    \item Logical $\vee$ truth conditions: both expressions are true, or only one is true
+    \item If both expressions were to be true, $\wedge$ is enough and $\vee$ is unnecessary
+    \item If $\vee$ is used instead of $\wedge$ then the qualified condition is: one of them is true
+\end{itemize}
+
+This pragmatic operation is what renders {\Case} SA with the conjoiner \textit{veya} `or' in the nominal domain that reduces acceptability. There is however a way of canceling such a pragmatic operation. Such an operation is cancelled in negation, under some quantificational determiners, and in questions. The exact ways of how implicatures are cancelled have a semantic discussion that falls out of this study's scope. In the experiment, the sentences were plain declarative sentences without a negation or a quantificational determiner. This enabled the pragmatic operations to take place, and render {\Case} SA less acceptable. In fact, while sifting through some data, I have found an example from \cite[p.24]{johannessen1998coordination} that hosts a {\Case} SA with the conjoiner \textit{veya} `or', the catch is it is used in a question. I give the example in (\ref{veyacase}). In this example there is SA of {\Pl-\Case}.
+
+\begin{exe}
+    \ex \label{veyacase} 
+    \gll Elma veya armut-lar-ı ye-di-niz =mi? \\ 
+    apple {\Or} pear-{\Pl}-{\Acc} eat-{\Pst}-{\Spl} ={\Q} \\
+    \glt `Did you eat the apples or the pears?' \\*
+    \hfill Adapted from \cite{johannessen1998coordination}
+\end{exe}
+
+While this interaction between the pragmatic operations and {\Case} SA is observed in the first experiment, the environments where the pragmatic operations are cancelled are not tested. The importance of this observation is that the interactions that the environment has affect the feasibility of SA.
+
+
+\subsection{SA, pragmatics, and the information structure}
+
+An important point for the discussion of SA is not only where it happens but also where it does not. The first and the second experiments showed that the favored environment for SA is a conjunction formed by the conjoiner \textit{ve} `and'. It does not mean that SA is infelicitous with \textit{veya} `or', it may require canceling pragmatic implicatures. (\ref{veyacase}) illustrates this point. It is not always grammatical to suspend suffixes in questions. If the question is an alternative one formed by the clitic \textit{=mI} instead of a disjunctive formed by \textit{veya} `or', the question becomes ungrammatical (\ref{disjunctalter}).
+
+\begin{exe}
+    \ex \label{disjunctalter}
+    \gll *Elma =mı (veya/*ve) armut-lar-ı =mı ye-di-niz? \\ 
+    apple ={\Q} (\Or/\And) pear-{\Pl}-{\Acc} ={\Q} eat-{\Pst}-{\Spl}  \\
+    \glt Intended: `Did you eat the apples or the pears?' \\*
+\end{exe}
+
+The alternative question forces an exclusive reading, but does so with the clitics that change information structure. A different clitic \textit{=dA} with a similar function can be used in declarative sentences together with the conjoiner \textit{ve} `and'. It too renders SA ungrammatical (\ref{dAconjuncts}).
+
+\begin{exe}
+    \ex \label{dAconjuncts} 
+    \gll Ahmet ev-*(i) =de ve araba-yı =da al-dı. \\ A[{\Nom}] 
+    house-{\Acc} ={\Foc} {\And} car-{\Acc} ={\Foc} buy-{\Pst}[{\Tsg}] \\
+    \glt `Ahmet bought both the house and the car.'
+\end{exe}
+
+The observations of \textit{veya} `or' lowering acceptability and clitics like \textit{=mI} and \textit{=dA} rendering SA ungrammatical points to the close relation of SA and the information structure. If an exclusive reading is present or the conjuncts are focused, SA does not take place. Even though there are not apparent reading differences in sentences with SA, early observations of this phenomenon \citep{emre1945turk}, the ungrammaticality effects shown in the first experiment, in (\ref{disjunctalter}), and (\ref{dAconjuncts}) place SA among other ellipsis processes. Such processes like Backwards and Forwards Gapping/Ellipsis also can not be performed for focused arguments. If in those processes the desired effect is to shift focus to arguments and thereby verbs and parts of sentences are omitted, SA is a process of focusing the elements of a conjunction independent of their inflection or morphological make up.
+

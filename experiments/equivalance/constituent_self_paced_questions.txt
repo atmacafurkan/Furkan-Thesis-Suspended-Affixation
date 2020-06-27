@@ -1,0 +1,120 @@
+1\_subject correct\_Baron kralı dinleyecek. \\
+2\_subject correct\_Hemşire doktora ameliyatı hatırlatacak. \\
+3\_subject correct\_Muhabir bakanı uyaracak. \\
+4\_subject correct\_Antrenör sporcuyu yarışmaya kaydedecek. \\
+5\_subject correct\_Adam kadını ağırlayacak. \\
+6\_subject correct\_Akademisyen rektörü törene çağıracak. \\
+7\_subject correct\_Kuyumcu hırsızı ihbar ediyor. \\
+8\_subject correct\_Öğretmen müdürü görüyor. \\
+9\_subject correct\_Yazar şaire sesleniyor. \\
+10\_subject correct\_Adam çilingire kapıyı gösteriyor. \\
+11\_subject correct\_Hostes pilotu gözetliyor. \\
+12\_subject correct\_Hamal sütçüyü kandırıyor. \\
+13\_subject correct\_Yarışmacı seyirciyi salondan çıkardı. \\
+14\_subject correct\_Şehzade padişahı uğurladı. \\
+15\_subject correct\_Subay generale baktı. \\
+16\_subject correct\_Profesör dekanı vazgeçirdi. \\
+17\_subject correct\_Veznedar yatırımcıyı caydırdı. \\
+18\_subject correct\_Büyükelçi başbakanı görüşmeye davet etti. \\
+19\_subject correct\_Müzisyen aktöre duyuruyu okuyacak. \\
+20\_subject correct\_Oyuncu yönetmene sahneyi izletecek. \\
+21\_object correct\_Mühendis yatırımcıya baktı. \\
+22\_object correct\_Gözlükçü fotoğrafçıya bağırdı. \\
+23\_object correct\_Komutan askere kızdı. \\
+24\_object correct\_Pazarcı kasaba güvenmiş. \\
+25\_object correct\_Mimar marangoza takılmış. \\
+26\_object correct\_Turist çiçekçiye danıştı. \\
+27\_object correct\_Yayımcı matbaacıya gücenmiş. \\
+28\_object correct\_Şoför muavine karıştı. \\
+29\_object correct\_Tüccar madenciye ulaştı. \\
+30\_object correct\_Kaptan denizciye inanmış. \\
+31\_object correct\_Patron avukate güvendi. \\
+32\_object correct\_Terzi manavdan bahsetti. \\
+33\_object correct\_Şarkıcı piyanistten utandı. \\
+34\_object correct\_Köylü kadından çekiniyor. \\
+35\_object correct\_Aşçı hizmetliden korkuyor. \\
+36\_object correct\_Emlakçı kiracıdan bıkmış. \\
+37\_object correct\_Direktör futbolcudan usanmış. \\
+38\_object correct\_İmam çiftçiden kaçmış. \\
+39\_object correct\_Filozof papazdan uzaklaşmış. \\
+40\_object correct\_Tesisatçı hizmetçiden huylanmış. \\
+101\_correct\_Kadın kilitli eve gitti. \\
+102\_correct\_Adam sokakta yalnız kaldı. \\
+103\_correct\_Çocuk defteri unutmuş. \\
+104\_correct\_Adam vakit kaybediyor. \\
+105\_correct\_Öğretmen sabırsızmış. \\
+106\_correct\_Görevli temizliğe yardım etti. \\
+107\_correct\_Kapıcı binayı temizlemiş. \\
+108\_correct\_Hasta yeni ameliyat olmuş. \\
+109\_correct\_Öğrenci görüşmeye geç kalmış. \\
+110\_correct\_Yaralı olmaması insanları rahatlattı. \\
+111\_correct\_Öğretmen durumu anlamadı. \\
+112\_correct\_Adam işlerini bitirmiş. \\
+113\_correct\_Çocuk durmadan ağladı. \\
+114\_correct\_Benzin ücretleri artıyor. \\
+115\_correct\_Şişenin kapağında yazı var. \\
+116\_correct\_Kağıt parçası bulunamadı. \\
+117\_correct\_Aşçı yemekleri gösterdi. \\
+118\_correct\_Hayvanlar korkmuş. \\
+119\_correct\_Piyanist notaları karıştırmış. \\
+120\_correct\_Takım maçı kaybetmiş. \\
+121\_incorrect\_Uçak kaza yapmamış. \\
+122\_incorrect\_Sporcu çalışmalarını rahat sürdürüyor. \\
+123\_incorrect\_Ahmet çocukla dalga geçmiş. \\
+124\_incorrect\_Aşçı depodaki etleri pişirdi. \\
+125\_incorrect\_İşçiler mola verdi. \\
+126\_incorrect\_Gömlekler sağlammış. \\
+127\_incorrect\_Polisler öncelikle olay yerini inceledi. \\
+128\_incorrect\_Hiçbir şoför ışığı beklemedi. \\
+129\_incorrect\_Defteri kenara koydu. \\
+130\_incorrect\_Görevliler kabloları kesti. \\
+131\_incorrect\_Belediye önlem almalı. \\
+132\_incorrect\_Mürekkebi doldurmak için kartuş gerekli. \\
+133\_incorrect\_Yol üzerinde dinlenme tesisi var. \\
+134\_incorrect\_Hostes bazı yönergeleri anlattı. \\
+135\_incorrect\_Çiçekçi gül satıyormuş. \\
+136\_incorrect\_Balıkçılar yasağı protesto ediyor. \\
+137\_incorrect\_Şirket keşif çalışmalarına başladı. \\
+138\_incorrect\_Antrenör performanstan memnun. \\
+139\_incorrect\_Şirket doktorlara iş veriyor. \\
+140\_incorrect\_Ressam tabloları satmış. \\
+141\_correct\_Birisi yaz tatiline gitmiş. \\
+142\_correct\_Karpuzu püre halinde eklenmeli. \\
+143\_correct\_Bebeğin ateşi yükselmiş. \\
+144\_correct\_Bakandan açıklama bekleniyormuş. \\
+145\_correct\_Konuları takip etmelisin. \\
+146\_correct\_Proje konuları not edilmeli. \\
+147\_correct\_Mühendisler odası rapor hazırlamış. \\
+148\_correct\_Ürünlerde katkı maddesi varmış. \\
+149\_correct\_Sellerin verdiği zarar artıyor. \\
+150\_correct\_Kaptan demir attı. \\
+151\_correct\_Araba ve motosiklet çarpıştı. \\
+152\_correct\_Marangoz sandalye tamir ediyormuş. \\
+153\_correct\_Kelebeğin kanatlarında şekil varmış. \\
+154\_correct\_Dere temizliği yetersizmiş. \\
+155\_correct\_Yıkılan yerler varmış. \\
+156\_correct\_Oyuncu senariste yakınmış. \\
+157\_correct\_Kuyumcu bilezik getirmiş. \\
+158\_correct\_Fotoğrafçı fotoğrafları paylaşmış. \\
+159\_correct\_Oynadığı oyunları hatırlıyormuş. \\
+160\_correct\_Sekreter dosyaları kaybetmiş. \\
+161\_incorrect\_Kütüphaneci kitap dizmemiş. \\
+162\_incorrect\_Çantaların köşesi yeni. \\
+163\_incorrect\_Giysiler tezgahtarın önünde. \\
+164\_incorrect\_Çırak kabloyu doğru bağlamış. \\
+165\_incorrect\_Padişah vezirin sözünü dinledi. \\
+166\_incorrect\_Cerrah operasyona devam etti. \\
+167\_incorrect\_Öğrencilerin dersi bitmemiş. \\
+168\_incorrect\_Hizmetli misafir odasını temizleyecek. \\
+169\_incorrect\_Binanın elektrik hattında sorun yok. \\
+170\_incorrect\_Köylüler kahveyi kavurmuyor. \\
+171\_incorrect\_Polis rehberi yakalayamamış. \\
+172\_incorrect\_Öğrenciler yiyecek getirmemeli. \\
+173\_incorrect\_Sokaklarda çocuklar dolaşmıyor. \\
+174\_incorrect\_Sekreter ajandayı unutmamış. \\
+175\_incorrect\_Banka müdürü belgeleri uzattı. \\
+176\_incorrect\_Hırsız sakince yürüdü. \\
+177\_incorrect\_Çizer giysileri başkasına diktirecekmiş. \\
+178\_incorrect\_Kaptan geminin yükünü arttırdı. \\
+179\_incorrect\_Halk kursları kapatılıyor. \\
+180\_incorrect\_Mahalleye erzak gönderildi. \\

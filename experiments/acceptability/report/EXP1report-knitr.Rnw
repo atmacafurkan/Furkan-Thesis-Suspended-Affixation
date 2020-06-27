@@ -1,5 +1,4 @@
 <<load, echo=FALSE, include=FALSE>>==
-# Load R libraries
 # general libraries
 library(dplyr) # magic
 library(magrittr) # piped magic
@@ -8,7 +7,6 @@ library(ggplot2) # plots things
 theme_set(theme_bw()) # set ggplot theme
 library(readxl) # reads excel files
 library(gdata) # some functions here and there
-library(modelr)
 
 # specific libraries
 library(extrafont) # Times font for plot use
@@ -16,72 +14,40 @@ library(stringr) # good with regular expressions
 
 # statistics
 library(brms) # bayesian regression
-library(bayesplot) # brms object plotting
+library(bayesplot) # some useful functions for brms objects
 library(tidybayes) # fairy dust for bayes
 bayesplot_theme_set(new = theme_bw()) # set plot view
 library(MASS) # contr.sdif
 `%notin%` <- Negate(`%in%`)
 
-coloring <- function(df){ # function to color intervals 
-  with(df, ifelse(m > 0 & l > 0, 'blue',
-                  ifelse(m < 0 & h < 0,'red','black')))
-} 
+acceptance_ci <- readRDS("./acceptance_ci.rds")
 
-plot_ready <- function(df, namer){ # function to make pretty df for plotting
-  if(length(df$parameter) != length(namer)){
-    stop("Parameter and namer length mismatch")
-  }
-  df %<>% tibble::rowid_to_column("num")
-  levels(df$parameter) <- namer
-  df %<>% arrange(desc(num)) %>% mutate(parameter = factor(parameter,parameter))
-  df
-}
+init_responses <- readRDS("./init_judgments.rds")
+df <- readRDS("./df_judgments.rds")
 
-coef_interval_plot <- function(brms_object, namer){ # function to make pretty brms interval plotting with custom labels
-  df <- mcmc_intervals_data(brms_object, pars = vars(starts_with("b_")))
-  if(length(df$parameter) != length(namer)){
-    stop("Parameter and namer length mismatch")
-  }
-  df %<>% tibble::rowid_to_column("num")
-  levels(df$parameter) <- namer
-  df %<>% arrange(desc(num)) %>% mutate(parameter = factor(parameter,parameter))
-  df %>% ggplot(aes(m,parameter)) + geom_point(size = 4, color =  with(df, ifelse(m > 0 & l > 0, 'blue',
-                                                                                  ifelse(m < 0 & h < 0,'red','black')))) +
-    geom_errorbarh(aes(xmin = l, xmax = h), alpha = 1, height = 0, size = 1.5,color =  with(df, ifelse(m > 0 & l > 0, 'blue',
-                                                                                                       ifelse(m < 0 & h < 0,'red','black')))) + 
-    geom_errorbarh(aes(xmin = ll, xmax = hh, height = 0),color =  with(df, ifelse(m > 0 & l > 0, 'blue',
-                                                                                  ifelse(m < 0 & h < 0,'red','black')))) + vline_0() +
-    xlab("Estimate(log)") + ylab("coefficients")
-}
-
-init_responses <- readRDS("./init_judgments")
-df <- readRDS("./df_judgments")
-
-# prepare df for regression model
-df_model <- df %>% subset(condition !="0") %>% drop.levels()
-df_model$Cresponse %<>% as.integer()
-df_model$conjoiner %<>% as.factor()
-df_model$item %<>% as.integer()
-df_model$Cresponse <- ifelse(df_model$Cresponse == 1, 1, -1)
-df_model$conjoiner %<>% reorder.factor(new.order = c("veya","ve")) 
-contrasts(df_model$Suffix) <- contr.sum(9)
-contrasts(df_model$conjoiner) <- contr.sum(2)
-
+init_subject <- init_responses %>% summarise(x= length(unique(subject)))
+final_subject <- df %>% summarise(x= length(unique(subject)))
 
 # linear mixed effects model
-modelim <- brm(Cresponse ~ conjoiner*Suffix + (conjoiner | item) + (conjoiner*Suffix | subject),
-               data = df_model, family = bernoulli("logit"), cores = 4, chains = 4, file = "sa_acceptability")
-model_results <- fixef(modelim, summary = TRUE, robust = FALSE) %>% as.data.frame() %>% tibble::rownames_to_column("variables")
+modelim_df <- readRDS("./sa_acceptability.rds") %>%
+  mcmc_intervals_data(pars = vars(starts_with("b_")), prob_outer = 0.95) %>%
+  subset(!str_detect(parameter,":")) %>% subset(parameter !="b_Intercept")
 
-# labels for y axis
-plot_labels <- c("Intercept(VeACC)", "veya", "-(I)msI",
-                 "-(I)ncI", "-(ş)Ar", "-CAsInA",
-                 "-CI", "-lI", "-lIK",
-                 "-sIz", "veya:-(I)msI", "veya:-(I)ncI",
-                 "veya:-(ş)Ar", "veya:-CAsInA", "veya:-CI",
-                 "veya:-lI", "veya:-lIK", "veya:-sIz")
 
-df_corpus <- readRDS("suffixfrequency")
+modelim_df$parameter %<>% dplyr::recode(`b_conjoiner1` = "veya",
+                                        `b_Suffix1` = "-(I)msI",
+                                        `b_Suffix2` = "-(I)ncI",
+                                        `b_Suffix3` = "-(ş)Ar",
+                                        `b_Suffix4` = "-CAsInA",
+                                        `b_Suffix5` = "-CI",
+                                        `b_Suffix6` = "-lI",
+                                        `b_Suffix7` = "-lIK",
+                                        `b_Suffix8` = "-sIz")
+
+
+
+
+df_corpus <- readRDS("./suffixfrequency.rds")
 df_corpus$suffix %<>% as.factor()
 df_corpus$total <- sum(df_corpus$frequency)
 df_corpus %<>% group_by(suffix) %>% summarise(ratio = sum(frequency) / mean(total))
@@ -96,62 +62,50 @@ concordance=TRUE
 @
 
 
-\section{Acceptability study}
+\section{Experiment 1}
 
-In the literature of SA in Turkish it is claimed that SA is only operational for inflectional suffixes \citep{orgun1995flat,kornfilt1996some,broadwell2008turkish, kornfilt2012revisiting} with the exception of \cite{akkucs2016suspended}. Although isolated examples for SA of derivational suffixes can be found in corpora, the literature seems to be treating them as exceptions. One similarity of this exceptionalism can be argued for the instances of SA in German. The examples provided in German \citep{pounder2006broken} has a "-" character at word endings where the suspended affix should be recovered, and the examples are from written literature sources. This might indicate that SA in German is a script-wise use. A similar reasoning can be made for SA of derivational suffixes in Turkish: They are not a language phenomena, they are script-wise exceptions. One way or another, a quantitative exploration into at least some of the derivational suffixes can be made to see to what degree derivational suffixes are capable of SA. For this purpose I have designed a simple acceptability judgment study.
-I have taken a subset of the derivational suffixes that take nominal bases and produce nominals from a list in \cite{goksel2004turkish}. I give the derivation examples for the suffixes in (\ref{derivationalsuffixes}).
+In the literature of SA in Turkish, it is claimed that SA is only operational for inflectional suffixes \citep{orgun1995flat,kornfilt1996some,broadwell2008turkish, kornfilt2012revisiting} apart from \cite{akkucs2016suspended}. Isolated examples for SA of derivational suffixes can be found in corpora, but the literature treats them as exceptions. One similarity of this exceptionalism can be argued for the instances of SA in German. The examples provided in German \citep{pounder2006broken} have a dash "-" character at word endings where the suspended affix should be recovered, and the examples are from written literature sources dating back to 17$^{th}$ century. I designed a simple acceptability judgment study to see whether SA of derivational suffixes are acceptable, and how the conjoiner choice affects the acceptability. I took a subset of the derivational suffixes that take nominal bases and produce nominals from a list in \cite{goksel2004turkish}. I give the derivation examples for the suffixes in (\ref{derivationalsuffixes}).  
 
 
 \begin{exe}
   \begin{multicols}{2}
     \ex \label{derivationalsuffixes}
     \begin{xlist}
-        \ex 
-        \gll 
-        düş-er-cesine \\ fall-{\Aor}-{\Der} \\
+        \ex \gll düş-er-cesine \\ 
+        fall-{\Aor}-{\Der} \\
         \glt `as if falling'
         
-        \ex 
-        \gll 
-        yalan-cı \\ lie-{\Der} \\ 
+        \ex \gll yalan-cı \\ 
+        lie-{\Der} \\ 
         \glt `liar'
         
-        \ex 
-        \gll 
-        kahve-msi renk \\ coffee-{\Der} colour \\
-        \glt `like coffee colour'
+        \ex \gll kahve-msi renk \\ 
+        coffee-{\Der} colour \\
+        \glt `colour resembling coffee'
 
-        \ex 
-        \gll 
-        üç-üncü \\ three-{\Der} \\
+        \ex \gll üç-üncü \\ 
+        three-{\Der} \\
         \glt `third'
-        
-\columnbreak
 
-        \ex 
-        \gll 
-        sorun-lu adam \\ problem-{\Der} man \\
+        \ex \gll sorun-lu adam \\ 
+        problem-{\Der} man \\
         \glt `troubled man'
         
-        \ex 
-        \gll 
-        düşman-lık \\ enemy-{\Der} \\
+        \ex \gll düşman-lık \\ 
+        enemy-{\Der} \\
         \glt `enmity'
         
-        \ex 
-        \gll 
-        sınır-sız internet \\ limit-{\Der} internet \\
+        \ex \gll sınır-sız internet \\ 
+        limit-{\Der} internet \\
         \glt `limitless internet'
         
-        \ex 
-        \gll 
-        iki-şer \\ two-{\Der} \\
+        \ex \gll iki-şer \\ two-{\Der} \\
         \glt `two by two'
     \end{xlist}
     \end{multicols}
 \end{exe}
 
-The suffixes I have chosen do not have a particular property that could make them suitable candidates for SA. However, I have tried to use some of the observations of \cite{yoon2017lexical} where he suggests, in a phase-based morphological derivation, that some suffixes belong to a different morphological phase and retain their atomic properties even after VI. The morphemes that can retain atomicity and syntatic visibility, he claims, choose category assigned bases and can take part in SA. Among the suffixes I have selected, some show differences in what they take as a base and in their function. In (\ref{suffixesdiffer}) I provide a small description for the unique properties for some of them.
+The suffixes I chose do not have a particular property that makes them suitable candidates for SA. I used some of the observations of \cite{yoon2017lexical} where he suggests that some suffixes belong to a different morphological phase and retain their atomic properties even after vocabulary insertion. The morphemes that retain syntactic visibility choose category assigned bases and can take part in SA. Among the suffixes I selected, some show differences in what they take as a base. In (\ref{suffixesdiffer}), I provide a small description for the unique differences that some suffixes display.
 
 \begin{exe}
 \ex \label{suffixesdiffer}
@@ -160,7 +114,7 @@ The suffixes I have chosen do not have a particular property that could make the
 
 \item \textit{-CI} takes noun bases and it is an agent nominalizer
 
-\item \textit{-(I)msI} takes adjective bases and returns a degree adjective
+\item \textit{-(I)msI} takes properties (adjectives,nouns) and returns properties similar but not equal to its base
 
 \item \textit{-(I)ncI} takes numerals and returns an ordinal numeral
 
@@ -169,85 +123,145 @@ The suffixes I have chosen do not have a particular property that could make the
 \end{itemize}
 \end{exe}
 
-I have selected SA of {\Acc} as a comparison for the suspendability of the derivational suffixes. I have also included a different conjoiner \textit{veya} "or" for the SA environment since this was already an exploratory study. The additional conjoiner differs in its semantic properties as to what conjunction is finally formed. It can be thought as conjoiner \textit{ve} "and" plus additional calculations of truth conditions and/or contexts. My purpose in this experiment is to investigate how much the SA of the suffixes in (\ref{derivationalsuffixes}) are acceptable and how they compare to SA of {\Acc}. For this purpose I have designed an acceptability study where a simple yes or no answer is provided for an expression hosting an SA construction. In the following subsections I lay out the participants, materials, results, and analysis of the experiment.
+I designed an acceptability study where a yes or no answer is provided for an expression hosting an SA construction. My purpose in this experiment was to investigate how much the suspension of the suffixes in (\ref{derivationalsuffixes}) were acceptable and how they compared to {\Acc}. Additionally, I investigated the effect of a conjoiner choice between \textit{ve} `and' and \textit{veya} `or'. In the following subsections I lay out the participants, materials, procedure, results, and analysis of the experiment.
 
 \subsection{Participants}
 
-The participants are \Sexpr{length(unique(init_responses$subject))} students from Boğaziçi University who are native speakers of Turkish. In exchange for their participation they have received 1 point to their overall course score.
+The participants were \Sexpr{length(unique(init_responses$subject))} students from Boğaziçi University who are native speakers of Turkish. In exchange for their participation they received 1 point to their overall course score.
+
 
 \subsection{Materials}
 
-The experiment is comprised of 9 different suffixes (8 derivational and 1 inflectional {\Acc}) by 2 conjoiners per suffix. For each suffix there are 3 distinct items. This way there are 54 experimental items. Additionally there are 27 grammatical and 27 ungrammatical fillers. A latin square design by conjoiner type is applied, forming two lists of 27. This resulted in each participant seeing only 27 experimental items and 54 fillers. The order of trials is randomized for each participant. An example set of experimental items for {\Acc} and \textit{-CAsInA} is given in (\ref{acceptabilityexe}).
+The experiment comprised of two variables: Suffix with 9 different levels (8 derivational and 1 inflectional {\Acc} suffixes) and Conjoiner with 2 levels (\textit{ve}`and', \textit{veya} `or'). For each suffix there were 3 distinct items. This way there were 54 experimental items. Additionally there were 27 grammatical and 27 ungrammatical fillers. A latin square design by conjoiner type was applied, forming two lists of 27. This resulted in each participant seeing only 27 experimental items and 54 fillers. The order of trials was randomized for each participant. An example set of experimental items for {\Acc} and \textit{-CAsInA} is given in (\ref{acceptabilityexe}). I carried out the experiment using ibexfarm \citep{drummond2013ibex}. For the full list of items and fillers (1-27 and 100-154), see Appendix \ref{acceptabilityitems}.
 
 \begin{exe}
     \ex \label{acceptabilityexe}
     \begin{xlist}
-    \ex {\Der}\_{\And} \gll \textit{Ev-e} \textit{koş-ar} \textit{ve} \textit{zıpla-r-casına} \textit{gel-di-m.} \\ house-{\Dat} run-{\Aor} {\And} jump-{\Aor}-{\Der} come-{\Pst}.{\First}.{\Sg} \\
+    \ex {\Der}\_{\And} \\* 
+    \gll Ev-e koş-ar ve zıpla-r-casına gel-di-m. \\ 
+    house-{\Dat} run-{\Aor} {\And} jump-{\Aor}-{\Der} come-{\Pst}.{\Fsg} \\
+    \glt ${}$
     
-    \ex {\Der}\_{\Or} \gll \textit{Ev-e} \textit{koş-ar} \textit{veya} \textit{zıpla-r-casına} \textit{gel-di-m.} \\ house-{\Dat} run-{\Aor} {\Or} jump-{\Aor}-{\Der} come-{\Pst}.{\First}.{\Sg} \\
+    \ex {\Der}\_{\Or} \\*
+    \gll Ev-e koş-ar veya zıpla-r-casına gel-di-m. \\ 
+    house-{\Dat} run-{\Aor} {\Or} jump-{\Aor}-{\Der} come-{\Pst}.{\Fsg} \\
     \glt `I came home as if running and/or jumping.' 
  
-    \ex {\Infl}\_{\And} \gll \textit{Ev-e} \textit{defter} \textit{ve} \textit{kitab-ı} \textit{getir-di-m.} \\ house-{\Dat} notebook {\And} book-{\Acc} bring-{\Pst}.{\First}.{\Sg} \\
+    \ex {\Infl}\_{\And} \\*
+    \gll Ev-e defter ve kitab-ı getir-di-m. \\ 
+    house-{\Dat} notebook {\And} book-{\Acc} bring-{\Pst}.{\Fsg} \\
+    \glt ${}$
     
-    \ex {\Infl}\_{\Or} \gll \textit{Ev-e} \textit{defter} \textit{veya} \textit{kitab-ı} \textit{getir-di-m.} \\ house-{\Dat} notebook {\Or} book-{\Acc} bring-{\Pst}.{\First}.{\Sg} \\
+    \ex {\Infl}\_{\Or} \\*
+    \gll Ev-e defter veya kitab-ı getir-di-m. \\ 
+    house-{\Dat} notebook {\Or} book-{\Acc} bring-{\Pst}.{\Fsg} \\
     \glt `I brought home the book and/or the notebook.' 
     \end{xlist}
 \end{exe}
 
-Pre and post sentence fields are not kept constant since each suffix required a different type and place of modification or use, resulting in uneven number of words. The only measurement of the acceptability study is grammaticality judgements and response times. The experiment is formed using http://spellout.net/ibexfarm/ \citep{drummond2013ibex}, and carried out online. For the full list of items and fillers (1-27 and 100-154), see Appendix \ref{acceptabilityitems}.
 
 \subsection{Procedure}
-Participants are provided a link to the experiment prompting them with a consent page. Upon giving consent participants go through 5 practice items and then they are prompted again for the beginning of the experiment. Each item is presented as a full sentence and participants decide on whether or not the sentence they encounter is a natural/ok sentence in Turkish. They profess their decision by pushing "Q" key for "yes" and "P" key for "no" on the keyboard. The experiment only recorded choice and response time. After the experiment is done, participants are redirected to a separate page where they provided their student information to be relayed to the course's professor for the extra credit. This is kept separate of the experiment results, keeping participant information and experimental data anonymous.
+Participants were provided a link to the experiment prompting them with a consent page. Upon giving consent participants went through 5 practice items and they were prompted again for the beginning of the experiment. Each trial proceeded with a full sentence and participants decided on whether the sentence they read was a natural/ok sentence in Turkish. They professed their decision by pushing `Q' key for `yes' and `P' key for `no' on the keyboard. The experiment only recorded choice and response time. Participants were redirected to a separate page where they provided their student information to be relayed to the course's professor for the extra credit after the experiment was done. This information is kept separate from the experiment results, keeping participant information and experimental data anonymous.
 
 \subsection{Results}
 
-The results are recorded onto a csv file and imported to R \citep{team2013r}. They include subject, item number, response and response time for each trial. Categories for suffix and conjoiner type and category for experimental item or filler is added. This resulted in \Sexpr{length(init_responses$subject)} of data points. 1 item with a typo and 1 item with a possible ambiguity are excluded from the data. A further 3 filler items are excluded because they had particular configurations that lead to increased misparsing like garden path sentences and minor ungrammaticalities. After this exclusion, accuracies of the participants are calculated relying on their answers for filler items. Participants with accuracies lower than 70\% are excluded from the data. Trials that are not between 2 and 7 seconds of response time are considered outliers and also excluded from the data. This cleaning process resulted in the loss of \Sexpr{round(100*(1- (length(df$subject)/length(init_responses$subject))))}\% of the data. In Figure \ref{fig:suffixacceptability} I give the average acceptability of each suffix by conjoiner type\footnote{from here on out all vertical errorbars indicate standard errors.}.
+The results were recorded onto a csv file and imported to R \citep{team2013r} for data cleaning, aggregation, and analysis. The data consisted of \Sexpr{length(init_responses$subject)} data points before cleaning. 1 experimental item with a typo and 1 experimental item with a possible ambiguity are excluded from the data. A further 3 filler items are excluded because they had particular configurations that lead to increased misparsing like garden path sentences. After this exclusion, accuracies of the participants are calculated relying on their answers for filler items. \Sexpr{init_subject$x-final_subject$x} participants with accuracies lower than 70\% are excluded from the data. Trials that were not between 2-20 seconds of response time are considered outliers and also excluded from the data. This cleaning process resulted in the loss of \Sexpr{round(100*(1- (length(df$subject)/length(init_responses$subject))))}\% of the data. In Figure \ref{fig:suffixacceptability}, I give the average acceptability of each suffix by conjoiner type\footnote{from here on out all vertical errorbars indicate confidence intervals adjusted for within subject variation \citep{cousineau2017varieties}.}.
 
-<<suffixacceptability, echo=FALSE, out.width='\\linewidth', fig.width=5, fig.height=4, fig.align='center', fig.pos='hbt!', fig.cap='Average acceptability of suffixes by conjoiner', dev='cairo_pdf'>>=
-df %>% dplyr::select(Suffix, conjoiner, Cresponse) %>%
-  subset(conjoiner!="0") %>%
-  group_by(Suffix, conjoiner) %>%
-  summarise(average = mean(Cresponse), se = sd(Cresponse) / sqrt(length(Cresponse))) %>%
-  ggplot(aes(Suffix, average, fill = conjoiner)) +
+<<suffixacceptability, echo=FALSE, out.width='\\linewidth', fig.width=4.5, fig.height=2.5, fig.align='center', fig.pos='hbt!', fig.cap='First experiment, average acceptability for SA of suffixes by conjoiner', dev='cairo_pdf'>>=
+acceptance_ci %>% dplyr::select(suffix, conjoiner, average=M, ci=CI) %>% 
+  ggplot(aes(suffix, average, fill = conjoiner)) +
    theme(text=element_text(size=12),
         legend.position = "bottom") +
   geom_bar(stat = "identity", position = "dodge") +
-  geom_errorbar(aes(ymin = average -se, ymax = average + se),
-                width = .3, position = position_dodge(0.85), color = "black")
+  geom_errorbar(aes(ymin = average -ci, ymax = average + ci, color=conjoiner),
+                width = .3, position = position_dodge(0.85))
 @
 
-Following the mean acceptabilities of each suffix I have fitted a linear mixed model using brms package \citep{burkner2017brms},  conjoiner and suffix type as predictors. I have used sum contrasts for both of the predictors. I also controlled for random effects of item and subject. I give the results of the model in Figure \ref{fig:derivationalmodel}\footnote{points indicate median estimate, bold lines indicate 95\% credible interval and thin lines indicate the whole probability space}. 
+For more inference in the acceptabilities, I fit a linear mixed model to responses using Conjoiner and Suffix as predictors with random effects for subject and item. I give the results of the model in Figure \ref{fig:derivationalmodel}. The points indicate median estimates and the thick line represents \%50 dredible intervals and the thin line represents the \%95 credible intervals. The log-odd estimates above zero indicate increased odds of suspendability relative to the other derivational suffixes or conjoiner.
 
-<<derivationalmodel, echo=FALSE, out.width='\\linewidth', fig.width=5, fig.height=3, fig.align='center', fig.pos='hbt!', fig.cap='Results of the linear mixed model for derivational suffixes', dev='cairo_pdf'>>=
-coef_interval_plot(modelim, plot_labels)
+<<derivationalmodel, echo=FALSE, out.width='\\linewidth', fig.width=4, fig.height=3, fig.align='center', fig.pos='hbt!', fig.cap='First experiment, model results fit to grammaticality judgments with the predictors Suffix(8 derivational|1 inflectional) and Conjoiner(ve|veya)', dev='cairo_pdf'>>=
+modelim_df %>% ggplot(aes(m, y=factor(parameter, 
+                               levels = rev(levels(factor(parameter)))))) +
+  theme(text=element_text(size=10), strip.text.x = element_text(size=10),
+        axis.title.x = element_text(size=10), axis.title.y = element_text(size=10)) +
+  geom_point(size = 2) +
+  geom_errorbarh(aes(xmin = l, xmax = h), alpha = 1, height = 0, size = 1) +
+  geom_errorbarh(aes(xmin = ll, xmax = hh, height = 0)) + vline_0() +
+  xlab("Estimate (log-odds)") + ylab("coefficients") 
 @
 
 \subsection{Analysis}
 
-First of all Figure \ref{fig:derivationalmodel} shows that the probability space is much more wider for the derivational suffixes than it is for the intercept. One of the reasons for this is the low item count for each suffix. As expected the probability space for the SA of {\Acc} is packed closer than it is for the derivaitonal suffixes. The conjoiner choice of \textit{veya} "or" also decreases the acceptability for SA of {\Acc}. The estimates that are above 0 with credible intervals not going through 0 mean that they are relatively likely to be acceptable in SA. The estimates that are below 0 with credible intervals not going through 0 mean that they are relatively unlikely to be acceptable in SA. There are also interaction terms indicated with a double column ":" for the coefficients. These levels indicate whether there is a relational effect for the levels of "Suffix" and "conjoiner". These are posterior probabilities and the estimates do not indicate significance. They indicate the probability space for the estimates. It is clear in the results provided in Figure \ref{fig:derivationalmodel} that it is not very likely for the derivational suffixes to be suspended except for the suffixes \textit{-lI} and \textit{-lIK}. There is an interaction between the conjoiner being \textit{veya} "or" and the suffixes \textit{-(ş)Ar} and \textit{-CAsInA}, suggesting a suspendability. However the conjoiner \textit{veya} "or" decreases the acceptability for SA of {\Acc}. This indicates that the interaction terms look like suspendability but compared to SA of {\Acc} they are not suspendable.
 
+Figure \ref{fig:derivationalmodel} shows wide posterior probability distributions for the coefficients. One of the reasons for this is the low item count for each suffix. Another reason can be the varying degree of behaviour among the participants. The conjoiner choice of \textit{veya} "or" decreases the acceptability for SA in general. It also shows that suffixes do not behave uniformly in terms of acceptability. The suffixes \textit{-lI} and \textit{-lIK} seem to have the highest acceptabilities among all derivational suffixes, trailed by \textit{-(I)ncI} and \textit{-(I)msI}. There is no particular grouping of derivational suffixes in terms of acceptability. Positive estimates in this case don't indicate suspendability being grammatical or not, it is just a comparison made relative to a grand mean.
 
-The overall interpretation of the average acceptabilities and the model results indicate that SA of derivational suffixes in Turkish do not actually rely on an explanation of morphological phases. The reason for this is that the suffixes \textit{-(ş)Ar, -CAsInA}, and \textit{-(I)msI} take specific bases which are participle forms or belong to specific lexical categories. A possible explanation can be made for the frequencies of the suffixes. For this purpose I have extracted the frequencies of the four derivational suffixes \textit{-lI,-lIK,-sIz}, and \textit{-CI} from TS Corpus \citep{sezer2013ts}. I give the relative proportion of the suffixes in Figure \ref{fig:suffixcorpus}.
+The two suffixes \textit{-(I)ncI} and \textit{-(ş)Ar} take numerals as their base and they both derive a nominal. They differ in average acceptability and the model results indicate a very small overlap in credible intervals. The suffix \textit{-CAsInA} takes participle forms as its base\footnote{it can take simple nouns too, but all the examples in the experiments are participle forms.} and  participle forms can end sentences with {\Tsg} interpretation in Turkish. This indicates that such bases are already assigned a lexical category. 
 
+The varying degree of average acceptabilities among derivational suffixes and the similar results of the model show that SA of derivational suffixes in Turkish does not rely on a morphological phase analysis. If such an analysis were to hold true, the suffixes that take the same base should have behaved the same and the suffix taking participle base should have faired better. If a morphological phase analysis is not viable according to the experiment results, an approach that could capture the varying degree of acceptability is needed. The approach I take is the frequencies of the suffixes. For this purpose I extracted the frequencies of all four derivational suffixes (\textit{-lI,-lIK,-sIz}, and \textit{-CI} that TS Corpus \citep{sezer2013ts} had parsed). I give the relative proportion of the suffixes in Figure \ref{fig:suffixcorpus}. 
 
 <<suffixcorpus, echo=FALSE, dev ='cairo_pdf', out.width ='\\linewidth', fig.width=4, fig.height=2, fig.align='center', fig.pos='hbt!', fig.cap='Relative proportion of derivational suffixes in TS Corpus'>>=
-df_corpus %>% ggplot(aes(suffix, ratio, fill = suffix)) + geom_bar(stat = "identity")
+df_corpus %>% ggplot(aes(suffix, ratio, fill = suffix)) +
+  geom_bar(stat = "identity") +
+  scale_colour_brewer(palette = "Dark2")
 @
 
-It is clear that the suffixes that might be suspended are the ones that are the most frequent out of the four even though the proportions of the suffixes are not similarly reflected in the experiment results. Unfortunately not all derivational suffixes of Turkish are represented in corpus data. I have only taken the ones that were included in my expreriment and in the corpus. A further support for the script-wise nature of the SA of derivational suffixes can come from the corpus searches. For example there are plenty of hits for SA of \textit{-(I)ncI} in corpus data. In (\ref{tsinciquerry}) I provide two small CQP searches \citep{hardie2012cqpweb} for SA of \textit{-(I)ncI}, for the numbers ranging from one to five, and for \textit{-(I)msI} with adjective bases. 
+The suffixes with the highest acceptabilities were \textit{-lI} and \textit{-lIK}. These two are the first two most frequent suffixes among the four presented in Figure \ref{fig:suffixcorpus}. Unfortunately not all derivational suffixes are readily extractable from the corpus data. The relative frequency of the suffixes in the corpus is not equally reflected by the experiment results and the experiment results indicate \textit{-CI} being less likely to be suspended compared to \textit{-sIz} even though it is relatively more frequent in the corpus.
+
+The experiment results do not reflect the order of relative frequencies of these suffixes. The suffixes \textit{-lI} and \textit{-lIK} indeed have the highest acceptabilities in the experiment results, yet they aren't to the proportions of their relative frequencies. The suffix \textit{-CI} is relatively more frequent compared to \textit{-sIz} but fairs less acceptable in the experiment results. This means that raw frequency of a morpheme is not enough to explain the results. The two suffixes \textit{-(I)ncI} and \textit{-(I)msI} might hold an answer. These two suffixes receive similar acceptabilities with close estimates and overlapping credible intervals. 
+
+I made a search in TS Corpus \citep{sezer2013ts} for examples of SA of the two suffixes \textit{-(I)ncI} and \textit{-(I)msI}. I provide two small CQP search keys \citep{hardie2012cqpweb}\footnote{CQP notation lets the user combine multiple features for a word in a corpus. These features include things like lexical category and morphological composition, together with regular expressions to specify certain character strings. A hit means a positive result matching the provided search key, and not all hits mean examples of suspended affixation.} in (\ref{tsinciquerry}) for SA of \textit{-(I)ncI}, with the numbers ranging from one to ten, and for \textit{-(I)msI} with noun and adjective bases.
 
 \begin{exe}
 \ex \label{tsinciquerry}
 \begin{xlist}
-\ex \textit{-(I)ncI} TS corpus search key
-\sn {[word="(bir{\textbar}iki{\textbar}üç{\textbar}dört{\textbar}beş)"][word="ve"][word="(.+nc(ı{\textbar}i{\textbar}u{\textbar}ü))"]}
+\ex \label{inciquerry}\textit{-(I)ncI} TS corpus search key\\*
+{[word="(bir{\textbar}iki{\textbar}üç{\textbar}dört{\textbar}beş{\textbar}altı{\textbar}yedi{\textbar}sekiz{\textbar}dokuz{\textbar}on)"][word="ve"]}
+{[word="(.+nc(ı{\textbar}i{\textbar}u{\textbar}ü))"]}
 
-\ex \textit{-(I)msI} TS corpus search key
-\sn {[PosTag="Adj"][word="ve"][PosTag="Adj" \& word="(.+ms(ı{\textbar}i{\textbar}u{\textbar}ü))"]}
+\ex \textit{-(I)msI} TS corpus search key\\*
+{[PosTag="Noun{\textbar}Adj"][word="ve"][PosTag="Adj" \& word="(.+ms(ı{\textbar}i{\textbar}u{\textbar}ü))"]}
 \end{xlist}
 \end{exe}
 
-There are hundreds of hits for the SA of \textit{-(I)ncI} within the first $\sim$1000 hits yet the acceptance rate for the SA of it is around $\sim$50\% as the Figure \ref{fig:suffixacceptability} shows. The same can not be said for the SA of \textit{-(I)msI} which also has the same acceptance rate as \textit{-(I)ncI} but the corpus search does not result in an SA of \textit{-(I)msI} within the first $\sim$1000 hits. I take this contrast in corpus search and similar acceptance rates in the experiment as an indication for the script-wise nature of the SA of derivational suffixes. Examples regarding them can be found in corpus yet the isolated acceptance rates are lower than of {\Acc}. This indicates that the SA of derivational suffixes are tabloid or literacy choices made for script-wise reasons. However this suggests that in context provided examples or in normal language use where people are not subjected to grammaticality choice, the SA of derivational suffixes might become marginally acceptable. As a result this experiment showed that the acceptability for SA of the derivational suffixes does not particularly follow from a structural interpretation of the derivational suffixes. It might be based on frequency of the suffixes or the specific environments where SA is knowingly made.
+There are many examples for the SA of \textit{-(I)ncI} within $\sim$500 hits. The same can not be said for \textit{-(I)msI} which has the same acceptance rate as \textit{-(I)ncI} but the corpus search does not result in an SA of \textit{-(I)msI} within $\sim$500 hits. This discrepency between similar acceptabilities but different corpus results can be explained by the relative frequency of these suffixes according to the context they are used in. The examples for SA of \textit{-(I)ncI} mostly comprise of texts written by clerks or reporters that refer to the passage or paragrap numbers of a law. In (\ref{corpusquerry}), I give some partial examples from the corpus search results for (\ref{inciquerry}). 
+
+\begin{exe}
+\ex SA of \textit{-(I)ncI} in corpus\\*
+\label{corpusquerry}
+\begin{xlist}
+
+\ex \gll \ldots hüküm-ler bir ve iki-nci fıkra-lar-da yeniden düzenlendiğinden \ldots \\
+\ldots provision-{\Pl} one {\And} two-{\Der} paragraph-{\Pl}-{\Loc} again change.because \ldots \\
+\glt `\ldots because the provisions were adjusted again in the first and second paragraphs \ldots'
+
+\ex \gll \ldots kanun-un dört ve beş-inci madde-ler-i değiş-tir-il-miş \ldots \\
+\ldots law-{\Gen} four {\And} five-{\Der} article-{\Pl}-{\Poss}.{\Tsg} change-{\Caus}-{\Pass}-{\Prf}[{\Tsg}] \ldots \\
+\glt`{\ldots} the forth and the fifth articles of the law were changed {\ldots}'
+
+\end{xlist}
+\end{exe}
+
+There are examples in texts related to football, education, and others but texts related to law are more prominent. Unfortunately, text types are not tagged in TS Corpus. That's why it is hard to identify which text belongs to which context. I made a pseudo classification for the search results with the text categories of law, football, education, and others. I made the categorization depending on what the twenty words before and after the search hit contained. If those words contained an inflected or derived form of some words they are categorized according to the list of words they match. In (\ref{categorylist}), I provide what words defined a category of text. If twenty word periphery of the search hit contained an inflected or derived word outside the lists, it is categorized as `others'. This resulted in the classification of total 513 hits into 229 counts of law, 175 counts of others, 58 counts of education, and 51 counts of football in terms of what context the hit was in. This means that texts that are related to `law' are more numerous, thereby they are more likely to host examples for SA of \textit{-(I)ncI}.
+
+\begin{exe}
+\ex \label{categorylist}
+\begin{xlist}
+\ex Law: \textit{kanun, hüküm, fıkra, madde, paragraf, yönetmelik, nüsha}
+\glt `law, provision, paragraph(archaic), article, paragraph, regulations, copy(archaic)'
+
+\ex Football: \textit{gol, takım, lig, futbol, puan, oyun}
+\glt `goal, team, football, point, game'
+
+\ex Education: \textit{sınıf, ders, okul, eğitim, öğrenci}
+\glt `class, course, school, education, student'
+
+\end{xlist}
+\end{exe}
+
+
+\subsection{Conclusion}
+The results of the experiment, comparisons of some derivational suffixes, and the related corpus searches provide two main observations about the suspendability of derivational suffixes. First, purely theoretical explanations can't predict varying acceptabilities. Second, suffixes with similar acceptabilities do not result in similar number of examples in the corpus. Taking these observations into consideration, I propose the following: The acceptability for SA of a derivational suffix is related to the relative frequency of the suffix given the context it is used in. Additionally the conjoiner \textit{veya} `or' decreases acceptability for all suffixes.
+
 
 
 
