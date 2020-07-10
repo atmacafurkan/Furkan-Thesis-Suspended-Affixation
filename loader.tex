@@ -1,5 +1,4 @@
 % frontmatter
-
 \pagenumbering{gobble}
 \input{frontmatter/title-page.tex}
 
@@ -43,16 +42,16 @@
 
 \input{main-body/chapters/chapter6.tex}
 
-% endmatter
+% % endmatter
 \input{endmatter/appendicies/appendicies.tex}
 
 \newpage
 % for printing references
 \singlespacing
-\renewcommand\bibname{REFERENCES}
-\bibliographystyle{furkan}
-\bibliography{articles,finalreferences}
 \addcontentsline{toc}{chapter}{REFERENCES}
+\renewcommand\bibname{REFERENCES}
+\bibliographystyle{newapa}
+\bibliography{articles,finalreferences}
 % \wordcount
 
 

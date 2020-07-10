@@ -17,11 +17,6 @@
 \hyphenpenalty=10000
 \hbadness=10000
 
-% for spellcheck, disable for hyphenation.
-% \usepackage[english]{babel}
-
-
-
 
 % math symbols
 \usepackage{amsmath}
@@ -187,14 +182,17 @@
 
 %%% KEEP THESE PACKAGES AT THE VERY END OF YOUR STY FILE IF YOU WANT TO HAVE ADDITIONAL PACKAGES %%%
 % citation
+
 \usepackage{natbib}
 
-%% this piece fixes semicolon comma choices for cite and citep %%
+
+%% this piece fixes semicolon comma choices for cite, citet, and citep %%
 \makeatletter
 \newcommand\bibstyle@comma{\bibpunct(),a,,}
 \newcommand\bibstyle@semicolon{\bibpunct();a,,}
 \makeatother
 \pretocmd\cite{\citestyle{comma}}\relax\relax
+\pretocmd\citet{\citestyle{comma}}\relax\relax
 \pretocmd\citep{\citestyle{semicolon}}\relax\relax
 %%end fix%%
 

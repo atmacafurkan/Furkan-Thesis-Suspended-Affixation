@@ -355,8 +355,8 @@ FUNCTION {format.number.series}
     { number empty$
 	{ series field.or.null }
 	{ output.state mid.sentence =
-	    { "number" }
-	    { "Number" }
+	    { "num." }
+	    { "Num." }
 	  if$
 	  number tie.or.space.connect
 	  series empty$

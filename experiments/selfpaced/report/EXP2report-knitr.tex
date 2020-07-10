@@ -2,13 +2,6 @@
 
 
 
-
-
-
-
-
-
-
 \section{Experiment 2}
 
 The aim of this experiment is to see what the cost of SA in a local environment is and if it is additive by the number of suffixes using a self-paced reading study. A local environment means that the target conjunct and the source conjunct for the suspended affix(es) are in the adjacent periphery of the conjoiner. Target conjunct is where the affix is interpreted but phonologically covert and the source conjunct is where it is overt. In the case of Turkish, the source conjunct is the rightmost conjunct as illustrated in (\ref{templateforsuspension}).
@@ -31,7 +24,7 @@ The participants were 160 students from Boğaziçi University who are native spe
 \subsection{Materials}
 
 The experiment comprised of three variables. The first variable was the Amount of SA with the levels: No SA, One SA, and Full SA.
-In No SA, no suffix is suspended. In One SA, only one suffix is suspended. In Full SA, two suffixes are suspended. The second variable is the Conjoiner with the levels: \textit{ve} `and' and \textit{veya} `or'. The third variable is Contrast with the levels: Contrast and Parallel (No\_SA). In this last variable one of the suffixes in the first conjunct is altered to have a grammatical feature mismatch between the conjuncts. This contrast is only performed on the No SA conditions. This resulted in an experiment design with 4x2 conditions combining the amount of SA and conjoiner type, plus two conditions where there is a contrasting first conjunct for No SA condition. There were 24 distinct items together with 48 filler items. All experimental and filler items were grammatical. A latin square design by condition was applied, forming 8 lists of 24. This resulted in each participant seeing only 24 experimental items and 48 fillers. All the experimental items had a four-word pre and four-word post conjunction regions. (\ref{selfpacedtemplate}) shows a template for an experimental item. In (\ref{selfpacedexamples}), I give an example set of experimental items with all the conditions. All the experimental items and fillers had a comprehension question with half of them having "yes" and the other half having "no" as the correct answer. I carried out the experiment using ibexfarm \citep{drummond2013ibex}. For the full list of items and fillers (1-24 and 100-148) see Appendix \ref{selfpaceditems}.
+In No SA, no suffix is suspended. In One SA, only one suffix is suspended. In Full SA, two suffixes are suspended. The second variable is the Conjoiner with the levels: \textit{ve} `and' and \textit{veya} `or'. The third variable is Contrast with the levels: Contrast and Parallel (No SA). In this last variable one of the suffixes in the first conjunct is altered to have a grammatical feature mismatch between the conjuncts. This contrast is only performed on the No SA conditions. This resulted in an experiment design with 4x2 conditions combining the amount of SA and conjoiner type, plus two conditions where there is a contrasting first conjunct for No SA condition. There were 24 distinct items together with 48 filler items. All experimental and filler items were grammatical. A latin square design by condition was applied, forming 8 lists of 24. This resulted in each participant seeing only 24 experimental items and 48 fillers. All the experimental items had a four-word pre and four-word post conjunction regions. (\ref{selfpacedtemplate}) shows a template for an experimental item. In (\ref{selfpacedexamples}), I give an example set of experimental items with all the conditions. All the experimental items and fillers had a comprehension question with half of them having "yes" and the other half having "no" as the correct answer. I carried out the experiment using ibexfarm \citep{drummond2013ibex}. For the full list of items and fillers (1-24 and 100-148) see Appendix \ref{selfpaceditems}.
 
 \begin{exe}
 \ex \label{selfpacedtemplate}
@@ -67,7 +60,7 @@ Participants were provided with a link to the experiment prompting them with a c
 
 \subsection{Results}
 
-The results were recorded onto a csv file and imported to R \citep{team2013r} for data cleaning, aggregation, and analysis. Two items with a typo are excluded from the data (they do not count in initial data points). The data consisted of 38720 points before cleaning. . 4 participants whose accuracies were below 70\% are excluded from the data. After these exclusions, 15.48\% of the trials which had incorrect answers for the comprehension question are excluded from data analysis. The trials in which a word had a reading time that was outside 100-3000 milliseconds were considered outliers and those trials are also excluded. The whole cleaning resulted in the loss of 25.03\% of the data. In Figure \ref{fig:secondplot}, I give the average reading times per word with a representative sentence for the conditions of suspension amount.
+The results were recorded onto a csv file and imported to R \citep{team2013r} for data cleaning, aggregation, and analysis. Two items with a typo are excluded from the data (they do not count in initial data points). The data consisted of 38720 points before cleaning. 4 articipants whose accuracies were below 70\% are excluded from the data. After these exclusions, 15.48\% of the trials which had incorrect answers for the comprehension question is excluded from data analysis. The trials in which a word had a reading time that was outside 100-3000 milliseconds were considered outliers and those trials are also excluded. The whole cleaning resulted in the loss of 25.03\% of the data. In Figure \ref{fig:secondplot}, I give the average reading times per word with a representative sentence for the conditions of suspension amount.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[hbt!]
@@ -76,7 +69,7 @@ The results were recorded onto a csv file and imported to R \citep{team2013r} fo
 
 }
 
-\caption[Average reading times of a sentence for all categories(No SA|One SA|Full SA|Contrast) and conjoiners(ve|veya)]{Average reading times of a sentence for all categories(No SA|One SA|Full SA|Contrast) and conjoiners(ve|veya)}\label{fig:secondplot}
+\caption[Second experiment, average reading times of a sentence for all categories(No SA, One SA, Full SA, Contrast) and conjoiners(ve, veya)]{Second experiment, average reading times of a sentence for all categories(No SA, One SA, Full SA, Contrast) and conjoiners(ve, veya)}\label{fig:secondplot}
 \end{figure}
 
 
@@ -91,14 +84,13 @@ The critical region in all the sentences is the 7$^{th}$ word. In the case of Fi
 
 }
 
-\caption[Average reading times of critical and spillover regions for all categories(No SA|One SA|Full SA|Contrast) and conjoiners(ve|veya)]{Average reading times of critical and spillover regions for all categories(No SA|One SA|Full SA|Contrast) and conjoiners(ve|veya)}\label{fig:thirdplot}
+\caption[Second experiment, average reading times of critical and spillover regions for all categories(No SA, One SA, Full SA, Contrast) and conjoiners(ve, veya)]{Second experiment, average reading times of critical and spillover regions for all categories(No SA, One SA, Full SA, Contrast) and conjoiners(ve, veya)}\label{fig:thirdplot}
 \end{figure}
 
 
 \end{knitrout}
 
 There is an increase in critical and spillover regions with the conjoiner \textit{veya} `or'. The amount of suspension does not display a similar trend in all the regions. In the critical region and the first spillover word, there is a slight increase by the number suspended suffixes. Contrasting sentences have higher reading times compared to suspension of one and two suffixes. This indicates that feature mismatches between the conjuncts lead to different processes other than SA.
-
 
 For more inference on the effects of SA, I fit 3 linear mixed models for the reading times of the critical and spillover region words. I used SA amount and Conjoiner as predictors with random effects for subject and item. I used sliding differences contrasts for the SA amount, and sum contrast for the Conjoiner. Sliding differences mean that the comparisons are made between the levels of the differences. This follows from the expectation of varying effects depending on the SA amount, which is an incremental but not a categorical change. I give the models' results for SA amount in Figure \ref{fig:targetmodels}. The model results indicate an increase in spillover region for the suspension of one suffix, with no additive effects by suspending one more suffix. The conjoiner \textit{veya} `or' increased reading times consistently in all regions.
 
@@ -109,14 +101,13 @@ For more inference on the effects of SA, I fit 3 linear mixed models for the rea
 
 }
 
-\caption[Second experiment, model results for the SA amount conditions fit to reading times with the predictors SA amount(No SA|One SA|Full SA) and Conjoiner(ve|veya)]{Second experiment, model results for the SA amount conditions fit to reading times with the predictors SA amount(No SA|One SA|Full SA) and Conjoiner(ve|veya)}\label{fig:targetmodels}
+\caption[Second experiment, model results for the SA amount conditions fit to reading times with the predictors SA amount(No SA-One SA-Full SA) and Conjoiner(ve, veya)]{Second experiment, model results for the SA amount conditions fit to reading times with the predictors SA amount(No SA-One SA-Full SA) and Conjoiner(ve, veya)}\label{fig:targetmodels}
 \end{figure}
 
 
 \end{knitrout}
 
-
-In addition to the effects of SA, I fit another 3 models for the reading times of the critical and spillover region words using feature match between conjuncts and conjoiner as predictors with random affects for subject and item. I used sliding difference for feature match, comparing Contrast to No\_SA, and sum contrast for the conjoiner. The results indicate an increase in reading times in Contrast conditions in all regions, with an increase in reading times by the conjoiner \textit{veya} `or' only in the critical region and the second spillover region word.
+In addition to the effects of SA, I fit another 3 models for the reading times of the critical and spillover region words using feature match between conjuncts and conjoiner as predictors with random affects for subject and item. I used sliding difference for feature match, comparing Contrast to No SA, and sum contrast for the conjoiner. The results indicate an increase in reading times in Contrast conditions (Contrast, No SA) in all regions, with an increase in reading times by the conjoiner \textit{veya} `or' only in the critical region and the second spillover region word.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[hbt!]
@@ -125,13 +116,13 @@ In addition to the effects of SA, I fit another 3 models for the reading times o
 
 }
 
-\caption[Second experiment, model results for the feature mismatching conjuncts fit to reading times with the predictors Contrast(Contrast|No SA) and Conjoiner(ve|veya)]{Second experiment, model results for the feature mismatching conjuncts fit to reading times with the predictors Contrast(Contrast|No SA) and Conjoiner(ve|veya)}\label{fig:contrastmodels}
+\caption[Second experiment, model results for the feature mismatching conjuncts fit to reading times with the predictors Contrast(Contrast, No SA) and Conjoiner(ve, veya)]{Second experiment, model results for the feature mismatching conjuncts fit to reading times with the predictors Contrast(Contrast, No SA) and Conjoiner(ve, veya)}\label{fig:contrastmodels}
 \end{figure}
 
 
 \end{knitrout}
 
-Figures \ref{fig:targetmodels} and \ref{fig:contrastmodels} indicate that suspending an affix and feature mismatches between conjuncts increase reading times. I fit 3 other models to compare only One SA and Contrast conditions in all the regions with random effects for subject and item. This time I used sum contrasts across the board. If the two levels behave the same, the comparison should result in indifference between One SA and Contrast. I give the models' results in Figure \ref{fig:saVcontrast}. The results indicate increased reading times in Contrast conditions compared to One SA. This differentiates the operation of SA and feature mismatches between the conjuncts. 
+Figures \ref{fig:targetmodels} and \ref{fig:contrastmodels} indicate that suspending an affix and feature mismatches between conjuncts increase reading times. I fit 3 other models to compare only One SA and Contrast conditions in all the regions with random effects for subject and item. This time I used sum contrasts across the board. If the two levels behave the same, the comparison should result in indifference between One SA and Contrast. I give the models' results in Figure \ref{fig:saVcontrast}. The results indicate increased reading times in Contrast conditions compared to One SA. This differentiates the operation of SA and feature mismatches between the conjuncts.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[hbt!]
@@ -140,7 +131,7 @@ Figures \ref{fig:targetmodels} and \ref{fig:contrastmodels} indicate that suspen
 
 }
 
-\caption[Second experiment, model results for the comparison of suspending an affix and feature mismatching conjuncts fit to reading times with the predictors of Category(Contrast|One SA) and Conjoiner(ve|veya)]{Second experiment, model results for the comparison of suspending an affix and feature mismatching conjuncts fit to reading times with the predictors of Category(Contrast|One SA) and Conjoiner(ve|veya)}\label{fig:saVcontrast}
+\caption[Second experiment, model results for the comparison of suspending an affix (One SA) and feature mismatching conjuncts (Contrast) fit to reading times with the predictors of Category(Contrast-One SA) and Conjoiner(ve, veya)]{Second experiment, model results for the comparison of suspending an affix (One SA) and feature mismatching conjuncts (Contrast) fit to reading times with the predictors of Category(Contrast-One SA) and Conjoiner(ve, veya)}\label{fig:saVcontrast}
 \end{figure}
 
 
